@@ -1,52 +1,77 @@
 "use strict";
 //import jsonInteraction from "./interaction.json"
-function getInteraction() {
-    $('#adicionar').click;
-    document.getElementById;
-}
 var ad = document.getElementById('adicionar');
 ad.addEventListener("click", function () {
     var newInteraction = {
-        CreatedOn: document.getElementById('CreatedOn').textContent,
-        InteractionID: document.getElementById('InteractionID').textContent,
-        Campaign: document.getElementById('Campaign').textContent,
-        TrafficSource: document.getElementById('TrafficSource').textContent,
-        LandingPage: document.getElementById('LandingPage').textContent,
-        Rotation: document.getElementById('Rotation').textContent,
-        Affiliate: document.getElementById('Affiliate').textContent,
-        Rule: document.getElementById('Rule').textContent,
-        RuleFilter: document.getElementById('RuleFilter').textContent,
-        RuleShedule: document.getElementById('RuleShedule').textContent,
-        Tokens: document.getElementById('Tokens').textContent,
-        Offers: document.getElementById('Offers').textContent,
-        Revenue: document.getElementById('Revenue').textContent,
-        Converted: document.getElementById('Converted').textContent,
-        TrafficSourceClickID: document.getElementById('TrafficSourceClickID').textContent,
-        CPC: document.getElementById('CPC').textContent,
-        MediaBuyer: document.getElementById('MediaBuyer').textContent,
-        IpAddress: document.getElementById('IpAddress').textContent,
-        ServerBy: document.getElementById('ServerBy').textContent,
-        Country: document.getElementById('Country').textContent,
-        RegionName: document.getElementById('RegionName').textContent,
-        City: document.getElementById('City').textContent,
-        Coords: document.getElementById('Coords').textContent,
-        ISP: document.getElementById('ISP').textContent,
-        ConnectionType: document.getElementById('ConnectionType').textContent,
-        Organization: document.getElementById('Organization').textContent,
-        UserAgent: document.getElementById('UserAgent').textContent,
-        IncommingUrl: document.getElementById('IncommingUrl').textContent,
-        Browser: document.getElementById('Browser').textContent,
-        OS: document.getElementById('OS').textContent,
-        OSVersion: document.getElementById('OSVersion').textContent,
-        DeviceVendor: document.getElementById('DeviceVendor').textContent,
-        DeviceType: document.getElementById('DeviceType').textContent,
-        DeviceModel: document.getElementById('DeviceModel').textContent
+        CreatedOn: document.getElementById('CreatedOn').value,
+        InteractionID: document.getElementById('InteractionID').value,
+        Campaign: document.getElementById('Campaign').value,
+        TrafficSource: document.getElementById('TrafficSource').value,
+        LandingPage: document.getElementById('LandingPage').value,
+        Rotation: document.getElementById('Rotation').value,
+        Affiliate: document.getElementById('Affiliate').value,
+        Rule: document.getElementById('Rule').value,
+        RuleFilter: document.getElementById('RuleFilter').value,
+        RuleShedule: document.getElementById('RuleShedule').value,
+        Tokens: document.getElementById('Tokens').value,
+        Offers: document.getElementById('Offers').value,
+        Revenue: document.getElementById('Revenue').value,
+        Converted: document.getElementById('Converted').value,
+        TrafficSourceClickID: document.getElementById('TrafficSourceClickID').value,
+        CPC: document.getElementById('CPC').value,
+        MediaBuyer: document.getElementById('MediaBuyer').value,
+        IpAddress: document.getElementById('IpAddress').value,
+        ServerBy: document.getElementById('ServerBy').value,
+        Country: document.getElementById('Country').value,
+        RegionName: document.getElementById('RegionName').value,
+        City: document.getElementById('City').value,
+        Coords: document.getElementById('Coords').value,
+        ISP: document.getElementById('ISP').value,
+        ConnectionType: document.getElementById('ConnectionType').value,
+        Organization: document.getElementById('Organization').value,
+        UserAgent: document.getElementById('UserAgent').value,
+        IncommingUrl: document.getElementById('IncommingUrl').value,
+        Browser: document.getElementById('Browser').value,
+        OS: document.getElementById('OS').value,
+        OSVersion: document.getElementById('OSVersion').value,
+        DeviceVendor: document.getElementById('DeviceVendor').value,
+        DeviceType: document.getElementById('DeviceType').value,
+        DeviceModel: document.getElementById('DeviceModel').value
     };
-    var i = 1;
-    var fila = '<tr id="row' + i + '"><td>' + newInteraction.CreatedOn + '</td><td>' + newInteraction.InteractionID +
-        '</td><td>' + newInteraction.Campaign + '</td><td>' + newInteraction.TrafficSource + '</td><td>' + newInteraction.LandingPage +
-        '</td><td>' + newInteraction.Rotation + '</td><td>' + newInteraction.Affiliate + '</td><td>' + newInteraction.Rule +
-        '</td><td>' + newInteraction.RuleFilter + '</td><td>' + newInteraction.RuleShedule +
+    /* let Int = [newInteraction]
+     Int.forEach(function(i) {
+         let td = document.createElement("td");
+         td.innerHTML = newInteraction[i];
+         document.getElementById("myTable").appendChild(td)
+     })*/
+    var col = document.createElement("td");
+    col.innerHTML = newInteraction.CreatedOn;
+    document.getElementById("myTable").appendChild(col);
+    var col2 = document.createElement("td");
+    col2.innerHTML = newInteraction.InteractionID;
+    document.getElementById("myTable").appendChild(col2);
+    var col3 = document.createElement("td");
+    col3.innerHTML = newInteraction.InteractionID;
+    document.getElementById("myTable").appendChild(col3);
+    var col4 = document.createElement("td");
+    col4.innerHTML = newInteraction.Campaign;
+    document.getElementById("myTable").appendChild(col4);
+    var col5 = document.createElement("td");
+    col4.innerHTML = newInteraction.TrafficSource;
+    document.getElementById("myTable").appendChild(col5);
+    var col6 = document.createElement("td");
+    col6.innerHTML = newInteraction.LandingPage;
+    document.getElementById("myTable").appendChild(col6);
+    var col7 = document.createElement("td");
+    col6.innerHTML = newInteraction.Rotation;
+    document.getElementById("myTable").appendChild(col7);
+    var col8 = document.createElement("td");
+    col8.innerHTML = newInteraction.Offers.Affiliate;
+    document.getElementById("myTable").appendChild(col8);
+    var col9 = document.createElement("td");
+    col8.innerHTML = newInteraction.Rule;
+    document.getElementById("myTable").appendChild(col9);
+    '</td><td>' + newInteraction.RuleFilter + '</td><td>' + newInteraction.RuleShedule +
         '</td><td>' + newInteraction.Tokens + '</td><td>' + newInteraction.Offers + '</td><td>' + newInteraction.Revenue +
         '</td><td>' + newInteraction.Converted + '</td><td>' + newInteraction.TrafficSourceClickID +
         '</td><td>' + newInteraction.CPC + '</td><td>' + newInteraction.MediaBuyer + '</td><td>' + newInteraction.IpAddress +
@@ -55,9 +80,9 @@ ad.addEventListener("click", function () {
         '</td><td>' + newInteraction.ConnectionType + '</td><td>' + newInteraction.Organization +
         '</td><td>' + newInteraction.UserAgent + '</td><td>' + newInteraction.IncommingUrl + '</td><td>' + newInteraction.Browser +
         '</td><td>' + newInteraction.OS + '</td><td>' + newInteraction.OSVersion + '</td><td>' + newInteraction.DeviceVendor +
-        '</td><td>' + newInteraction.DeviceType + '</td><td>' + newInteraction.DeviceModel + '</td><td><button type="button" name="remove" id="' + i +
-        '" class="btn btn-danger btn_remove">Quitar</button></td></tr>';
-    i++;
-    var table = document.getElementById("myTable");
-    table.after(fila);
+        '</td><td>' + newInteraction.DeviceType + '</td><td>' + newInteraction.DeviceModel + '</td><td><button type="button" name="remove" id="';
+    '" class="btn btn-danger btn_remove">Quitar</button></td></tr>';
+    //i++;
+    //let table = document.getElementById("myTable");    
+    //table.after(fila);
 });

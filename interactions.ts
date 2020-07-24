@@ -7,16 +7,17 @@ interface Interactions {
     TrafficSource:string;
     LandingPage:string;
     Rotation:string;
-    Affiliate:string;
+    Offers: {
+        Affiliate:string;
+    };  
     Rule:string;
     RuleFilter:string;
-    RuleShedule:string;
-    Tokens:string;
-    Offers:string;
-    Revenue:string;
-    Converted:string;
+    RuleShedule:boolean;
+    Tokens:number;    
+    Revenue:number;
+    Converted:boolean;
     TrafficSourceClickID:string;
-    CPC:string;
+    CPC:number;
     MediaBuyer:string;
     IpAddress:string;
     ServerBy:string;
@@ -38,55 +39,69 @@ interface Interactions {
     
 }
 
-function getInteraction(){
-    $('#adicionar').click
-    document.getElementById
-}
-
-
-
 let ad = document.getElementById('adicionar');
 ad.addEventListener("click",function(){
     let newInteraction:Interactions = {
-        CreatedOn: document.getElementById('CreatedOn').textContent,
-        InteractionID: document.getElementById('InteractionID').textContent,
-        Campaign: document.getElementById('Campaign').textContent,
-        TrafficSource: document.getElementById('TrafficSource').textContent,
-        LandingPage: document.getElementById('LandingPage').textContent,
-        Rotation: document.getElementById('Rotation').textContent,
-        Affiliate: document.getElementById('Affiliate').textContent,
-        Rule: document.getElementById('Rule').textContent,
-        RuleFilter: document.getElementById('RuleFilter').textContent,
-        RuleShedule: document.getElementById('RuleShedule').textContent,
-        Tokens: document.getElementById('Tokens').textContent,
-        Offers: document.getElementById('Offers').textContent,
-        Revenue: document.getElementById('Revenue').textContent,
-        Converted: document.getElementById('Converted').textContent,
-        TrafficSourceClickID: document.getElementById('TrafficSourceClickID').textContent,
-        CPC: document.getElementById('CPC').textContent,
-        MediaBuyer: document.getElementById('MediaBuyer').textContent,
-        IpAddress: document.getElementById('IpAddress').textContent,
-        ServerBy: document.getElementById('ServerBy').textContent,
-        Country: document.getElementById('Country').textContent,
-        RegionName: document.getElementById('RegionName').textContent,
-        City: document.getElementById('City').textContent,
-        Coords: document.getElementById('Coords').textContent,
-        ISP: document.getElementById('ISP').textContent,
-        ConnectionType: document.getElementById('ConnectionType').textContent,
-        Organization: document.getElementById('Organization').textContent,
-        UserAgent: document.getElementById('UserAgent').textContent,
-        IncommingUrl: document.getElementById('IncommingUrl').textContent,
-        Browser: document.getElementById('Browser').textContent,
-        OS: document.getElementById('OS').textContent,
-        OSVersion: document.getElementById('OSVersion').textContent,
-        DeviceVendor: document.getElementById('DeviceVendor').textContent,
-        DeviceType: document.getElementById('DeviceType').textContent,
-        DeviceModel: document.getElementById('DeviceModel').textContent   
+        CreatedOn: (document.getElementById('CreatedOn') as HTMLInputElement).value,
+        InteractionID: (document.getElementById('InteractionID') as HTMLInputElement).value,
+        Campaign: (document.getElementById('Campaign') as HTMLInputElement).value,
+        TrafficSource: (document.getElementById('TrafficSource') as HTMLInputElement).value,
+        LandingPage: (document.getElementById('LandingPage') as HTMLInputElement).value,
+        Rotation: (document.getElementById('Rotation') as HTMLInputElement).value,
+        Affiliate: (document.getElementById('Affiliate') as HTMLInputElement).value,
+        Rule: (document.getElementById('Rule') as HTMLInputElement).value,
+        RuleFilter: (document.getElementById('RuleFilter') as HTMLInputElement).value,
+        RuleShedule: (document.getElementById('RuleShedule') as HTMLInputElement).value,
+        Tokens: (document.getElementById('Tokens') as HTMLInputElement).value,
+        Offers: (document.getElementById('Offers') as HTMLInputElement).value,
+        Revenue: (document.getElementById('Revenue') as HTMLInputElement).value,
+        Converted: (document.getElementById('Converted') as HTMLInputElement).value,
+        TrafficSourceClickID: (document.getElementById('TrafficSourceClickID') as HTMLInputElement).value,
+        CPC: (document.getElementById('CPC') as HTMLInputElement).value,
+        MediaBuyer: (document.getElementById('MediaBuyer') as HTMLInputElement).value,
+        IpAddress: (document.getElementById('IpAddress') as HTMLInputElement).value,
+        ServerBy: (document.getElementById('ServerBy') as HTMLInputElement).value,
+        Country: (document.getElementById('Country') as HTMLInputElement).value,
+        RegionName: (document.getElementById('RegionName') as HTMLInputElement).value,
+        City: (document.getElementById('City') as HTMLInputElement).value,
+        Coords: (document.getElementById('Coords') as HTMLInputElement).value,
+        ISP: (document.getElementById('ISP') as HTMLInputElement).value,
+        ConnectionType: (document.getElementById('ConnectionType') as HTMLInputElement).value,
+        Organization: (document.getElementById('Organization') as HTMLInputElement).value,
+        UserAgent: (document.getElementById('UserAgent') as HTMLInputElement).value,
+        IncommingUrl: (document.getElementById('IncommingUrl') as HTMLInputElement).value,
+        Browser: (document.getElementById('Browser') as HTMLInputElement).value,
+        OS: (document.getElementById('OS') as HTMLInputElement).value,
+        OSVersion: (document.getElementById('OSVersion') as HTMLInputElement).value,
+        DeviceVendor: (document.getElementById('DeviceVendor') as HTMLInputElement).value,
+        DeviceType: (document.getElementById('DeviceType') as HTMLInputElement).value,
+        DeviceModel: (document.getElementById('DeviceModel') as HTMLInputElement).value   
     }
-    let i = 1;
-    let fila = '<tr id="row' + i + '"><td>' + newInteraction.CreatedOn + '</td><td>' + newInteraction.InteractionID + 
-    '</td><td>' + newInteraction.Campaign + '</td><td>' + newInteraction.TrafficSource + '</td><td>' + newInteraction.LandingPage + 
-    '</td><td>' + newInteraction.Rotation + '</td><td>' + newInteraction.Affiliate + '</td><td>' + newInteraction.Rule    + 
+    
+   /* let Int = [newInteraction]
+    Int.forEach(function(i) {        
+        let td = document.createElement("td");       
+        td.innerHTML = newInteraction[i];        
+        document.getElementById("myTable").appendChild(td)
+    })*/
+    let col = document.createElement("td");  
+    col.innerHTML = newInteraction.CreatedOn; document.getElementById("myTable").appendChild(col);   
+    let col2 = document.createElement("td");   
+    col2.innerHTML = newInteraction.InteractionID; document.getElementById("myTable").appendChild(col2);
+    let col3 = document.createElement("td"); 
+    col3.innerHTML = newInteraction.InteractionID; document.getElementById("myTable").appendChild(col3);   
+    let col4 = document.createElement("td"); 
+    col4.innerHTML = newInteraction.Campaign; document.getElementById("myTable").appendChild(col4);  
+    let col5 = document.createElement("td"); 
+    col4.innerHTML = newInteraction.TrafficSource; document.getElementById("myTable").appendChild(col5); 
+    let col6 = document.createElement("td"); 
+    col6.innerHTML = newInteraction.LandingPage; document.getElementById("myTable").appendChild(col6); 
+    let col7 = document.createElement("td"); 
+    col6.innerHTML = newInteraction.Rotation; document.getElementById("myTable").appendChild(col7); 
+    let col8 = document.createElement("td"); 
+    col8.innerHTML = newInteraction.Offers.Affiliate; document.getElementById("myTable").appendChild(col8); 
+    let col9 = document.createElement("td"); 
+    col8.innerHTML = newInteraction.Rule; document.getElementById("myTable").appendChild(col9);   
     '</td><td>' + newInteraction.RuleFilter + '</td><td>' + newInteraction.RuleShedule + 
     '</td><td>' + newInteraction.Tokens + '</td><td>' + newInteraction.Offers + '</td><td>' + newInteraction.Revenue + 
     '</td><td>' + newInteraction.Converted + '</td><td>' + newInteraction.TrafficSourceClickID + 
@@ -96,12 +111,12 @@ ad.addEventListener("click",function(){
     '</td><td>' + newInteraction.ConnectionType + '</td><td>' + newInteraction.Organization + 
     '</td><td>' + newInteraction.UserAgent + '</td><td>' + newInteraction.IncommingUrl + '</td><td>' + newInteraction.Browser + 
     '</td><td>' + newInteraction.OS + '</td><td>' + newInteraction.OSVersion + '</td><td>' + newInteraction.DeviceVendor +
-    '</td><td>' + newInteraction.DeviceType + '</td><td>' + newInteraction.DeviceModel + '</td><td><button type="button" name="remove" id="' + i + 
+    '</td><td>' + newInteraction.DeviceType + '</td><td>' + newInteraction.DeviceModel + '</td><td><button type="button" name="remove" id="'  
     '" class="btn btn-danger btn_remove">Quitar</button></td></tr>';
-    i++;
+    //i++;
 
-    let table = document.getElementById("myTable");    
-    table.after(fila);
+    //let table = document.getElementById("myTable");    
+    //table.after(fila);
     
 })
 
