@@ -1,42 +1,74 @@
 //import jsonInteraction from "./interaction.json"
 
+
 interface Interactions {
     CreatedOn:string;
     InteractionID:string;
-    Campaign:string;
-    TrafficSource:string;
-    LandingPage:string;
-    Rotation:string;
+    Campaign: {
+        name: string,
+        CPC: number,
+        MediaBuyer: {
+            firstName: string,
+            lastName: string
+        }
+    };
+    TrafficSource: {
+        name: string
+    };
+    LandingPage: {
+        name: string
+    };
+    Rotation: {
+        name: string
+    };
     Offers: {
-        Affiliate:string;
+        name: string,
+        affiliate: {
+            name: string
+        },
+        conversion: {
+            amount: number
+        }           
     };  
-    Rule:string;
-    RuleFilter:string;
-    RuleShedule:boolean;
-    Tokens:number;    
-    Revenue:number;
-    Converted:boolean;
-    TrafficSourceClickID:string;
-    CPC:number;
-    MediaBuyer:string;
-    IpAddress:string;
-    ServerBy:string;
-    Country:string;
-    RegionName:string;
-    City:string;
-    Coords:string;
-    ISP:string;
-    ConnectionType:string;
-    Organization:string;
-    UserAgent:string;
-    IncommingUrl:string;
-    Browser:string;
-    OS:string;
-    OSVersion:string;
-    DeviceVendor:string;
-    DeviceType:string;
-    DeviceModel:string;
-    
+    Rule: {
+        name: string,
+        shedule_type: string        
+    };
+    RuleFilter: {
+        name: string
+    };
+    Visitor: {
+        Token: [],
+        ip_address: string,
+        geo_location: {
+            country_name: string,
+            region_name: string,
+            city_name: string,
+            coords: {
+                time_zone: string
+            },
+            isp: string,
+            organization: string,
+            connection_type: string
+        },
+        device: {
+            userAgent: string,
+            browser: string,
+            OS: {
+                family: string,
+                version: string,
+                vendor: string
+            },
+            type: string,
+            hardware: {
+                model: string
+            }
+        },
+        incomming_url: string
+    };    
+    hasConversion: boolean;    
+    TrafficSourceClickID:string;  
+    server_region:string       
 }
 
 let ad = document.getElementById('adicionar');
@@ -48,7 +80,7 @@ ad.addEventListener("click",function(){
         TrafficSource: (document.getElementById('TrafficSource') as HTMLInputElement).value,
         LandingPage: (document.getElementById('LandingPage') as HTMLInputElement).value,
         Rotation: (document.getElementById('Rotation') as HTMLInputElement).value,
-        Affiliate: (document.getElementById('Affiliate') as HTMLInputElement).value,
+        affiliate: (document.getElementById('Affiliate') as HTMLInputElement).value,
         Rule: (document.getElementById('Rule') as HTMLInputElement).value,
         RuleFilter: (document.getElementById('RuleFilter') as HTMLInputElement).value,
         RuleShedule: (document.getElementById('RuleShedule') as HTMLInputElement).value,
@@ -78,12 +110,49 @@ ad.addEventListener("click",function(){
         DeviceModel: (document.getElementById('DeviceModel') as HTMLInputElement).value   
     }
     
-   /* let Int = [newInteraction]
-    Int.forEach(function(i) {        
-        let td = document.createElement("td");       
-        td.innerHTML = newInteraction[i];        
-        document.getElementById("myTable").appendChild(td)
-    })*/
+    let Int = [
+        newInteraction.CreatedOn,
+        newInteraction.InteractionID,
+        newInteraction.Campaign.name,
+        newInteraction.TrafficSource.name,
+        newInteraction.LandingPage.name,
+        newInteraction.Rotation.name,
+        newInteraction.Offers.affiliate.name,
+        newInteraction.Rule.name,
+        newInteraction.RuleFilter.name,
+        newInteraction.Rule.shedule_type,
+        newInteraction.Visitor.Token.length,
+        newInteraction.Offers.name,
+        newInteraction.Offers.conversion.amount,
+        newInteraction.hasConversion,
+        newInteraction.TrafficSourceClickID,
+        newInteraction.Campaign.CPC,
+        newInteraction.Campaign.MediaBuyer,
+        newInteraction.Visitor.ip_address,
+        newInteraction.server_region,
+        newInteraction.Visitor.geo_location.country_name,
+        newInteraction.Visitor.geo_location.region_name,
+        newInteraction.Visitor.geo_location.city_name,
+        newInteraction.Visitor.geo_location.coords,
+        newInteraction.Visitor.geo_location.isp,
+        newInteraction.Visitor.geo_location.connection_type,
+        newInteraction.Visitor.geo_location.organization,
+        newInteraction.Visitor.device.userAgent,
+        newInteraction.Visitor.incomming_url,
+        newInteraction.Visitor.device.browser,
+        newInteraction.Visitor.device.OS.family,
+        newInteraction.Visitor.device.OS.version,
+        newInteraction.Visitor.device.OS.vendor,
+        newInteraction.Visitor.device.type,
+        newInteraction.Visitor.device.hardware.model
+    ]
+    let i = 0
+    for (i=0; i<Int.length; i++) {
+        let td = document.createElement("td"); 
+        td.innerHTML = (Int[i]) 
+        document.getElementById("myTable").appendChild(td);
+    }
+   /*
     let col = document.createElement("td");  
     col.innerHTML = newInteraction.CreatedOn; document.getElementById("myTable").appendChild(col);   
     let col2 = document.createElement("td");   
@@ -101,22 +170,8 @@ ad.addEventListener("click",function(){
     let col8 = document.createElement("td"); 
     col8.innerHTML = newInteraction.Offers.Affiliate; document.getElementById("myTable").appendChild(col8); 
     let col9 = document.createElement("td"); 
-    col8.innerHTML = newInteraction.Rule; document.getElementById("myTable").appendChild(col9);   
-    '</td><td>' + newInteraction.RuleFilter + '</td><td>' + newInteraction.RuleShedule + 
-    '</td><td>' + newInteraction.Tokens + '</td><td>' + newInteraction.Offers + '</td><td>' + newInteraction.Revenue + 
-    '</td><td>' + newInteraction.Converted + '</td><td>' + newInteraction.TrafficSourceClickID + 
-    '</td><td>' + newInteraction.CPC + '</td><td>' + newInteraction.MediaBuyer + '</td><td>' + newInteraction.IpAddress +
-    '</td><td>' + newInteraction.ServerBy + '</td><td>' + newInteraction.Country + '</td><td>' + newInteraction.RegionName + 
-    '</td><td>' + newInteraction.City + '</td><td>' + newInteraction.Coords + '</td><td>' + newInteraction.ISP +
-    '</td><td>' + newInteraction.ConnectionType + '</td><td>' + newInteraction.Organization + 
-    '</td><td>' + newInteraction.UserAgent + '</td><td>' + newInteraction.IncommingUrl + '</td><td>' + newInteraction.Browser + 
-    '</td><td>' + newInteraction.OS + '</td><td>' + newInteraction.OSVersion + '</td><td>' + newInteraction.DeviceVendor +
-    '</td><td>' + newInteraction.DeviceType + '</td><td>' + newInteraction.DeviceModel + '</td><td><button type="button" name="remove" id="'  
-    '" class="btn btn-danger btn_remove">Quitar</button></td></tr>';
-    //i++;
-
-    //let table = document.getElementById("myTable");    
-    //table.after(fila);
+    col8.innerHTML = newInteraction.Rule; document.getElementById("myTable").appendChild(col9);   */
+  
     
 })
 
