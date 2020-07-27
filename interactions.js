@@ -43,7 +43,7 @@ ad.addEventListener("click", function () {
                 name: document.getElementById('TokenName').value,
                 paramater: document.getElementById('TokenParameter').value,
                 value: document.getElementById('TokenValue').value,
-                _id: document.getElementById('TokenName').value
+                _id: document.getElementById('TokenId').value
             },
             ip_address: document.getElementById('IpAddress').value,
             geo_location: {
@@ -123,4 +123,69 @@ ad.addEventListener("click", function () {
         tr.appendChild(td);
         document.getElementById("myTable").appendChild(tr);
     }
+    if (i == Int.length) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.innerText = "Modificar";
+        btn.id = "btnEdit";
+        btn.onclick = function () {
+            var row = btn.parentNode.parentNode;
+            document.getElementById('CreatedOn').value = row.children[0].innerHTML;
+            document.getElementById('InteractionID').value = row.children[1].innerHTML;
+            document.getElementById('Campaign').value = row.children[2].innerHTML;
+            document.getElementById('CPC').value = row.children[18].innerHTML;
+            document.getElementById('MediaBuyerFirst').value = row.children[19].innerHTML;
+            document.getElementById('MediaBuyerLast').value = row.children[20].innerHTML;
+            document.getElementById('TrafficSource').value = row.children[3].innerHTML;
+            document.getElementById('LandingPage').value = row.children[4].innerHTML;
+            document.getElementById('Rotation').value = row.children[5].innerHTML;
+            document.getElementById('Offers').value = row.children[14].innerHTML;
+            document.getElementById('Affiliate').value = row.children[6].innerHTML;
+            document.getElementById('Revenue').value = row.children[15].innerHTML;
+            document.getElementById('Rule').value = row.children[7].innerHTML;
+            document.getElementById('RuleShedule').value = row.children[9].innerHTML;
+            document.getElementById('RuleFilter').value = row.children[8].innerHTML;
+            document.getElementById('TokenName').value = row.children[10].innerHTML;
+            document.getElementById('TokenParameter').value = row.children[11].innerHTML;
+            document.getElementById('TokenValue').value = row.children[12].innerHTML;
+            document.getElementById('TokenId').value = row.children[13].innerHTML;
+            document.getElementById('IpAddress').value = row.children[21].innerHTML;
+            document.getElementById('Country').value = row.children[23].innerHTML;
+            document.getElementById('RegionName').value = row.children[24].innerHTML;
+            document.getElementById('City').value = row.children[25].innerHTML;
+            document.getElementById('Coords').value = row.children[26].innerHTML;
+            document.getElementById('ISP').value = row.children[27].innerHTML;
+            document.getElementById('Organization').value = row.children[29].innerHTML;
+            document.getElementById('ConnectionType').value = row.children[28].innerHTML;
+            document.getElementById('UserAgent').value = row.children[30].innerHTML;
+            document.getElementById('Browser').value = row.children[32].innerHTML;
+            document.getElementById('OS').value = row.children[33].innerHTML;
+            document.getElementById('OSVersion').value = row.children[34].innerHTML;
+            document.getElementById('DeviceVendor').value = row.children[35].innerHTML;
+            document.getElementById('DeviceType').value = row.children[36].innerHTML;
+            document.getElementById('DeviceModel').value = row.children[37].innerHTML;
+            document.getElementById('IncommingUrl').value = row.children[31].innerHTML;
+            document.getElementById('Converted').value = row.children[16].innerHTML;
+            document.getElementById('TrafficSourceClickID').value = row.children[17].innerHTML;
+            document.getElementById('ServerBy').value = row.children[22].innerHTML;
+            row.parentNode.removeChild(row);
+        };
+        var td3 = document.createElement("td");
+        td3.appendChild(btn);
+        tr.appendChild(td3);
+        document.getElementById("myTable").appendChild(tr);
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.innerText = "Eliminar";
+        btn.id = "btnDel";
+        btn.onclick = function () {
+            var row = btn.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        };
+        var td2 = document.createElement("td");
+        td2.appendChild(btn);
+        tr.appendChild(td2);
+        document.getElementById("myTable").appendChild(tr);
+    }
+    document.getElementById('myForm').reset();
 });
