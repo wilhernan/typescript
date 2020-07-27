@@ -31,7 +31,7 @@ interface Interactions {
         }           
     };  
     Rule: {
-        name: any,
+        name: string,
         shedule_type: string        
     };
     RuleFilter: {
@@ -78,6 +78,11 @@ interface Interactions {
 
 let ad = document.getElementById('adicionar');
 ad.addEventListener("click",function(){
+    var Revenue = (document.getElementById('Revenue') as HTMLInputElement).value;
+    var Converted = false
+    if ( Revenue > 0 ) {
+        Converted = true
+    };
     let newInteraction:Interactions = {
         CreatedOn: (document.getElementById('CreatedOn') as HTMLInputElement).value,
         InteractionID: (document.getElementById('InteractionID') as HTMLInputElement).value,
@@ -148,7 +153,7 @@ ad.addEventListener("click",function(){
             },
             incomming_url: (document.getElementById('IncommingUrl') as HTMLInputElement).value          
         },               
-        hasConversion: (document.getElementById('Converted') as HTMLInputElement).value,
+        hasConversion: Converted,
         TrafficSourceClickID: (document.getElementById('TrafficSourceClickID') as HTMLInputElement).value,  
         server_region: (document.getElementById('ServerBy') as HTMLInputElement).value  
     }
@@ -202,18 +207,20 @@ ad.addEventListener("click",function(){
         document.getElementById("myTable").appendChild(tr);        
     } 
         if (i == Int.length) {             
-            var btn= document.createElement("button");
-            btn.type= "button";
-            btn.innerText= "Modificar";
-            btn.id = "btnEdit"; 
-            btn.onclick = function(){                
+            var btnE= document.createElement("button");
+            btnE.type= "button";
+            btnE.innerText= "Modificar";
+            btnE.id = "btnEdit"; 
+            btnE.onclick = function(){                
                 var row = btn.parentNode.parentNode;
+                var MediaBuyer = (row.children[19].innerHTML).split(" ");
+                console.log(MediaBuyer[0], MediaBuyer[1]);
                 (document.getElementById('CreatedOn') as HTMLInputElement).value = row.children[0].innerHTML;
                 (document.getElementById('InteractionID') as HTMLInputElement).value = row.children[1].innerHTML;
                 (document.getElementById('Campaign') as HTMLInputElement).value = row.children[2].innerHTML;
                 (document.getElementById('CPC') as HTMLInputElement).value = row.children[18].innerHTML;
-                (document.getElementById('MediaBuyerFirst') as HTMLInputElement).value = row.children[19].innerHTML;
-                (document.getElementById('MediaBuyerLast') as HTMLInputElement).value = row.children[20].innerHTML;
+                (document.getElementById('MediaBuyerFirst') as HTMLInputElement).value = MediaBuyer[0];
+                (document.getElementById('MediaBuyerLast') as HTMLInputElement).value = MediaBuyer[1];
                 (document.getElementById('TrafficSource') as HTMLInputElement).value = row.children[3].innerHTML;
                 (document.getElementById('LandingPage') as HTMLInputElement).value = row.children[4].innerHTML;
                 (document.getElementById('Rotation') as HTMLInputElement).value = row.children[5].innerHTML;
@@ -227,29 +234,29 @@ ad.addEventListener("click",function(){
                 (document.getElementById('TokenParameter') as HTMLInputElement).value = row.children[11].innerHTML;
                 (document.getElementById('TokenValue') as HTMLInputElement).value = row.children[12].innerHTML;
                 (document.getElementById('TokenId') as HTMLInputElement).value = row.children[13].innerHTML;
-                (document.getElementById('IpAddress') as HTMLInputElement).value = row.children[21].innerHTML;
-                (document.getElementById('Country') as HTMLInputElement).value = row.children[23].innerHTML;
-                (document.getElementById('RegionName') as HTMLInputElement).value = row.children[24].innerHTML;
-                (document.getElementById('City') as HTMLInputElement).value = row.children[25].innerHTML;
-                (document.getElementById('Coords') as HTMLInputElement).value = row.children[26].innerHTML;
-                (document.getElementById('ISP') as HTMLInputElement).value = row.children[27].innerHTML;
-                (document.getElementById('Organization') as HTMLInputElement).value = row.children[29].innerHTML;
-                (document.getElementById('ConnectionType') as HTMLInputElement).value = row.children[28].innerHTML;
-                (document.getElementById('UserAgent') as HTMLInputElement).value = row.children[30].innerHTML;
-                (document.getElementById('Browser') as HTMLInputElement).value = row.children[32].innerHTML;
-                (document.getElementById('OS') as HTMLInputElement).value = row.children[33].innerHTML;
-                (document.getElementById('OSVersion') as HTMLInputElement).value = row.children[34].innerHTML;
-                (document.getElementById('DeviceVendor') as HTMLInputElement).value = row.children[35].innerHTML;
-                (document.getElementById('DeviceType') as HTMLInputElement).value = row.children[36].innerHTML;
-                (document.getElementById('DeviceModel') as HTMLInputElement).value = row.children[37].innerHTML;
-                (document.getElementById('IncommingUrl') as HTMLInputElement).value = row.children[31].innerHTML;
+                (document.getElementById('IpAddress') as HTMLInputElement).value = row.children[20].innerHTML;
+                (document.getElementById('Country') as HTMLInputElement).value = row.children[22].innerHTML;
+                (document.getElementById('RegionName') as HTMLInputElement).value = row.children[23].innerHTML;
+                (document.getElementById('City') as HTMLInputElement).value = row.children[24].innerHTML;
+                (document.getElementById('Coords') as HTMLInputElement).value = row.children[25].innerHTML;
+                (document.getElementById('ISP') as HTMLInputElement).value = row.children[26].innerHTML;
+                (document.getElementById('Organization') as HTMLInputElement).value = row.children[28].innerHTML;
+                (document.getElementById('ConnectionType') as HTMLInputElement).value = row.children[27].innerHTML;
+                (document.getElementById('UserAgent') as HTMLInputElement).value = row.children[29].innerHTML;
+                (document.getElementById('Browser') as HTMLInputElement).value = row.children[31].innerHTML;
+                (document.getElementById('OS') as HTMLInputElement).value = row.children[32].innerHTML;
+                (document.getElementById('OSVersion') as HTMLInputElement).value = row.children[33].innerHTML;
+                (document.getElementById('DeviceVendor') as HTMLInputElement).value = row.children[34].innerHTML;
+                (document.getElementById('DeviceType') as HTMLInputElement).value = row.children[35].innerHTML;
+                (document.getElementById('DeviceModel') as HTMLInputElement).value = row.children[36].innerHTML;
+                (document.getElementById('IncommingUrl') as HTMLInputElement).value = row.children[30].innerHTML;
                 (document.getElementById('Converted') as HTMLInputElement).value = row.children[16].innerHTML;
                 (document.getElementById('TrafficSourceClickID') as HTMLInputElement).value = row.children[17].innerHTML;
-                (document.getElementById('ServerBy') as HTMLInputElement).value = row.children[22].innerHTML;              
+                (document.getElementById('ServerBy') as HTMLInputElement).value = row.children[21].innerHTML;              
                 row.parentNode.removeChild(row);
             }           
             var td3 = document.createElement("td");
-            td3.appendChild(btn);  
+            td3.appendChild(btnE);  
             tr.appendChild(td3);                  
             document.getElementById("myTable").appendChild(tr);
 

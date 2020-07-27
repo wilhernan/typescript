@@ -13,11 +13,14 @@
         <div class="form-row">
             <div class="form-group col-md-2">   
                 <label for="CreatedOn">Created On</label>                        
-                <input id="CreatedOn"  type="date" class="form-control">
+                <input id="CreatedOn"  type="date" class="form-control" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
             </div>   
             <div class="form-group col-md-2"> 
                 <label for="InteractionID">Interaction ID</label> 
-                <input id="InteractionID" type="text" class="form-control"> 
+                <input id="InteractionID" type="text" class="form-control" required> 
             </div> 
             <div class="form-group col-md-2"> 
                 <label for="Campaign">Campaign</label> 
@@ -49,12 +52,10 @@
                 <label for="RuleFilter">Rule Filter</label> 
                 <input id="RuleFilter" type="text" class="form-control"> 
             </div> 
-            <div class="form-group col-md-2">                
-                <input class="form-check-input" id="RuleShedule" type="checkbox" class="form-control">
-                <label class="form-check-label" for="RuleShedule">
-                    Rule Shedule
-                </label> 
-            </div>
+            <div class="form-group col-md-2"> 
+                <label for="RuleShedule">Rule Shedule</label> 
+                <input id="RuleShedule" type="text" class="form-control"> 
+            </div> 
             <div class="form-group col-md-2"> 
                 <label for="TokenName">Token Name</label> 
                 <input id="TokenName" type="text" class="form-control"> 
@@ -70,7 +71,7 @@
                 <input id="TokenValue" type="text" class="form-control"> 
             </div>  
             <div class="form-group col-md-2"> 
-                <label for="TokenId">Token Value</label> 
+                <label for="TokenId">Token Id</label> 
                 <input id="TokenId" type="text" class="form-control"> 
             </div>    
             <div class="form-group col-md-2"> 
@@ -79,10 +80,10 @@
             </div>   
             <div class="form-group col-md-2"> 
                 <label for="Revenue">Revenue</label> 
-                <input id="Revenue" type="text" class="form-control"> 
+                <input id="Revenue" type="number" class="form-control"> 
             </div> 
-            <div class="form-group col-md-2"> 
-                <input class="form-check-input" id="Converted" type="checkbox" class="form-control">
+            <div class="form-check col-md-2"> 
+                <input class="form-check-input" id="Converted" type="checkbox" class="form-control" disabled>
                 <label class="form-check-label" for="Converted">
                     Converted
                 </label> 
@@ -95,14 +96,14 @@
         <div class="form-row">  
             <div class="form-group col-md-2"> 
                 <label for="CPC">CPC</label> 
-                <input id="CPC" type="text" class="form-control"> 
+                <input id="CPC" type="number" class="form-control"> 
             </div>  
             <div class="form-group col-md-2"> 
-                <label for="MediaBuyerFirst">Media Buyer First</label> 
+                <label for="MediaBuyerFirst">MediaBuyer First Name</label> 
                 <input id="MediaBuyerFirst" type="text" class="form-control"> 
             </div>
             <div class="form-group col-md-2"> 
-                <label for="MediaBuyerLast">Media Buyer Last</label> 
+                <label for="MediaBuyerLast">MediaBuyer Last Name</label> 
                 <input id="MediaBuyerLast" type="text" class="form-control"> 
             </div>    
             <div class="form-group col-md-2"> 
