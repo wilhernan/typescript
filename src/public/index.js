@@ -81,7 +81,7 @@ add.addEventListener("click", function () {
         TrafficSourceClickID: document.getElementById('TrafficSourceClickID').value,
         server_region: document.getElementById('ServerBy').value
     };
-    console.log(newInteraction);
+    //console.log(newInteraction);
     let Interaction = [
         newInteraction.CreatedOn,
         newInteraction.InteractionID,

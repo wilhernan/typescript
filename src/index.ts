@@ -7,6 +7,7 @@ import cors from "cors";
 import IndexRoutes from './routes';
 
 const app = express();
+import './database';
 
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
