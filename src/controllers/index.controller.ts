@@ -14,7 +14,9 @@ class IndexControler {
         res.render('index', {title: 'Reporte Interactions'});
     }
 
-    public async saveInteraction(req: Request, res: Response){
+
+    public async saveInteraction(req: Request, res: Response){      
+        console.log(req.body);
         const {
             CreatedOn,
             InteractionID,

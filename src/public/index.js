@@ -1,8 +1,9 @@
 "use strict";
 let add = document.getElementById('adicionar');
-add.addEventListener("click", function () {
+add.addEventListener("click", async function () {
     var Revenue = document.getElementById('Revenue').value;
-    var Converted = false;
+    var Converted = false;        
+
     if (Revenue > 0) {
         Converted = true;
     }
@@ -81,6 +82,32 @@ add.addEventListener("click", function () {
         TrafficSourceClickID: document.getElementById('TrafficSourceClickID').value,
         server_region: document.getElementById('ServerBy').value
     };
+
+    const data = newInteraction;
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    };
+    const response =  await fetch('/', options)
+    const interaction = await response.body;
+    console.log(newInteraction);
+    console.log(interaction);   
+    /* .then(function(response) {
+        if(response.ok) {
+            return response.json();
+        } else {
+            throw "Error en la llamada Ajax";
+        }     
+     })
+     .then(function(texto) {
+        console.log(texto);
+     })
+     .catch(function(err) {
+        console.log(err);
+     });  */
     //console.log(newInteraction);
     let Interaction = [
         newInteraction.CreatedOn,

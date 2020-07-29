@@ -3,11 +3,11 @@ import exphbs from "express-handlebars";
 import path from 'path';
 import morgan from "morgan";
 import cors from "cors";
-
+import './database';
 import IndexRoutes from './routes';
 
 const app = express();
-import './database';
+
 
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
@@ -27,6 +27,7 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
 app.use('/', IndexRoutes);
+
 
 
 app.use(express.static(path.join(__dirname, 'public')));
