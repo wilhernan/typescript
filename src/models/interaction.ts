@@ -148,6 +148,6 @@ const InteractionSchema = new Schema({
     hasConversion: Boolean,    
     TrafficSourceClickID: String,  
     server_region: String
-})
+}, { typeKey: '$type' })
 
 export default model<Interaction>('Interaction', InteractionSchema);

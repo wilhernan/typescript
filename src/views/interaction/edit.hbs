@@ -1,6 +1,6 @@
 <div class="container">
     <h3>Edit Interaction</h3>
-    <form id="myFormEdit" action="/edit/{{interactionEdit._id}}?_method=PUT" method="POST">
+    <form action="/edit/{{interactionEdit._id}}?_method=PUT" method="POST">
     <input type="hidden" name="_method" value="PUT">
         <div class="form-row">
             <div class="form-group col-md-2">   
@@ -83,15 +83,15 @@
         <div class="form-row">  
             <div class="form-group col-md-2"> 
                 <label for="CPC">CPC</label> 
-                <input id="CPC" type="number" class="form-control" value="{{interactionEdit.Campaign.CPC}} "> 
+                <input id="CPC" type="number" class="form-control" value= {{interactionEdit.Campaign.CPC}} > 
             </div>  
             <div class="form-group col-md-2"> 
                 <label for="MediaBuyerFirst">MediaBuyer First Name</label> 
-                <input id="MediaBuyerFirst" type="text" class="form-control" value="{{interactionEdit.interactionEdit.Campaign.MediaBuyer.firstName}}"> 
+                <input id="MediaBuyerFirst" type="text" class="form-control" value="{{interactionEdit.Campaign.MediaBuyer.firstName}}"> 
             </div>
             <div class="form-group col-md-2"> 
                 <label for="MediaBuyerLast">MediaBuyer Last Name</label> 
-                <input id="MediaBuyerLast" type="text" class="form-control" value="{{interactionEdit.interactionEdit.Campaign.MediaBuyer.lastName}}"> 
+                <input id="MediaBuyerLast" type="text" class="form-control" value="{{interactionEdit.Campaign.MediaBuyer.lastName}}"> 
             </div>    
             <div class="form-group col-md-2"> 
                 <label for="IpAddress">Ip Address</label> 
