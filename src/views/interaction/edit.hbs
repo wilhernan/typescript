@@ -1,0 +1,176 @@
+<div class="container">
+    <h3>Edit Interaction</h3>
+    <form id="myFormEdit" action="/edit/{{interactionEdit._id}}?_method=PUT" method="POST">
+    <input type="hidden" name="_method" value="PUT">
+        <div class="form-row">
+            <div class="form-group col-md-2">   
+                <label for="CreatedOn">Created On</label>                        
+                <input id="CreatedOn"  type="date" class="form-control" value="{{interactionEdit.CreatedOn}}">                
+            </div>   
+            <div class="form-group col-md-2"> 
+                <label for="InteractionID">Interaction ID</label> 
+                <input id="InteractionID" type="text" class="form-control"  value="{{interactionEdit.InteractionID}}"> 
+            </div> 
+            <div class="form-group col-md-2"> 
+                <label for="Campaign">Campaign</label> 
+                <input id="Campaign" type="text" class="form-control" value="{{interactionEdit.Campaign.name}}"> 
+            </div> 
+            <div class="form-group col-md-2"> 
+                <label for="TrafficSource">TrafficSource</label> 
+                <input id="TrafficSource" type="text" class="form-control" value="{{interactionEdit.TrafficSource.name}}" > 
+            </div> 
+            <div class="form-group col-md-2"> 
+                <label for="LandingPage">LandingPage</label> 
+                <input id="LandingPage" type="text" class="form-control" value="{{interactionEdit.LandingPage.name}}"> 
+            </div> 
+            <div class="form-group col-md-2"> 
+                <label for="Rotation">Rotation</label> 
+                <input id="Rotation" type="text" class="form-control" value="{{interactionEdit.Rotation.name}}"> 
+            </div> 
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-2"> 
+                <label for="Affiliate">Affiliate</label> 
+                <input id="Affiliate" type="text" class="form-control" value="{{interactionEdit.Offers.affiliate.name}}"> 
+            </div> 
+            <div class="form-group col-md-2"> 
+                <label for="Rule">Rule</label> 
+                <input id="Rule" type="text" class="form-control" value="{{interactionEdit.Rule.name}}"> 
+            </div> 
+            <div class="form-group col-md-2"> 
+                <label for="RuleFilter">Rule Filter</label> 
+                <input id="RuleFilter" type="text" class="form-control" value="{{interactionEdit.RuleFilter.name}}"> 
+            </div> 
+            <div class="form-group col-md-2"> 
+                <label for="RuleShedule">Rule Shedule</label> 
+                <input id="RuleShedule" type="text" class="form-control" value="{{interactionEdit.Rule.shedule_type}} "> 
+            </div> 
+            <div class="form-group col-md-2"> 
+                <label for="TokenName">Token Name</label> 
+                <input id="TokenName" type="text" class="form-control" value="{{interactionEdit.Visitor.Tokens.name}}"> 
+            </div>
+            <div class="form-group col-md-2"> 
+                <label for="TokenParameter">Token Parameter</label> 
+                <input id="TokenParameter" type="text" class="form-control" value="{{interactionEdit.Visitor.Tokens.parameter}}"> 
+            </div>  
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-2"> 
+                <label for="TokenValue">Token Value</label> 
+                <input id="TokenValue" type="text" class="form-control" value="{{interactionEdit.Visitor.Tokens.value}}"> 
+            </div>  
+            <div class="form-group col-md-2"> 
+                <label for="TokenId">Token Id</label> 
+                <input id="TokenId" type="text" class="form-control" value="{{interactionEdit.Visitor.Tokens._id}}"> 
+            </div>    
+            <div class="form-group col-md-2"> 
+                <label for="Offers">Offers</label> 
+                <input id="Offers" type="text" class="form-control" value="{{interactionEdit.Offers.name}}"> 
+            </div>   
+            <div class="form-group col-md-2"> 
+                <label for="Revenue">Revenue</label> 
+                <input id="Revenue" type="number" class="form-control" value="{{interactionEdit.Offers.conversion.amount}}"> 
+            </div> 
+            <div class="form-check col-md-2"> 
+                <input id="Converted" type="text" class="form-control" value="{{interactionEdit.hasConversion}}">
+                <label for="Converted"> Converted </label> 
+            </div> 
+            <div class="form-group col-md-2"> 
+                <label for="TrafficSourceClickID">Traffic Source ClickID</label> 
+                <input id="TrafficSourceClickID" type="text" class="form-control" value="{{interactionEdit.TrafficSourceClickID}}"> 
+            </div> 
+        </div>        
+        <div class="form-row">  
+            <div class="form-group col-md-2"> 
+                <label for="CPC">CPC</label> 
+                <input id="CPC" type="number" class="form-control" value="{{interactionEdit.Campaign.CPC}} "> 
+            </div>  
+            <div class="form-group col-md-2"> 
+                <label for="MediaBuyerFirst">MediaBuyer First Name</label> 
+                <input id="MediaBuyerFirst" type="text" class="form-control" value="{{interactionEdit.interactionEdit.Campaign.MediaBuyer.firstName}}"> 
+            </div>
+            <div class="form-group col-md-2"> 
+                <label for="MediaBuyerLast">MediaBuyer Last Name</label> 
+                <input id="MediaBuyerLast" type="text" class="form-control" value="{{interactionEdit.interactionEdit.Campaign.MediaBuyer.lastName}}"> 
+            </div>    
+            <div class="form-group col-md-2"> 
+                <label for="IpAddress">Ip Address</label> 
+                <input id="IpAddress" type="text" class="form-control" value="{{interactionEdit.Visitor.ip_address}}"> 
+            </div> 
+            <div class="form-group col-md-2"> 
+                <label for="ServerBy">Server By</label> 
+                <input id="ServerBy" type="text" class="form-control" value="{{interactionEdit.server_region}} "> 
+            </div>  
+            <div class="form-group col-md-2"> 
+                <label for="Country">Country</label> 
+                <input id="Country" type="text" class="form-control" value="{{interactionEdit.Visitor.geo_location.country_name}}">   
+            </div>           
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-2"> 
+                <label for="RegionName">Region Name</label> 
+                <input id="RegionName" type="text" class="form-control" value="{{interactionEdit.Visitor.geo_location.region_name}}"> 
+            </div> 
+            <div class="form-group col-md-2"> 
+                <label for="City">City</label> 
+                <input id="City" type="text" class="form-control" value="{{interactionEdit.Visitor.geo_location.city_name}}"> 
+            </div>           
+            <div class="form-group col-md-2"> 
+                <label for="Coords">Coords</label> 
+                <input id="Coords" type="text" class="form-control" value="{{interactionEdit.Visitor.geo_location.coords.time_zone}}"> 
+            </div> 
+            <div class="form-group col-md-2"> 
+                <label for="ISP">ISP</label> 
+                <input id="ISP" type="text" class="form-control" value="{{interactionEdit.Visitor.geo_location.isp}}"> 
+            </div> 
+            <div class="form-group col-md-2"> 
+                <label for="ConnectionType">ConnectionType</label> 
+                <input id="ConnectionType" type="text" class="form-control" value="{{interactionEdit.Visitor.geo_location.connection_type}}"> 
+            </div> 
+            <div class="form-group col-md-2"> 
+                <label for="Organization">Organization</label> 
+                <input id="Organization" type="text" class="form-control" value="{{interactionEdit.Visitor.geo_location.organization}}"> 
+            </div> 
+        </div> 
+        <div class="form-row">
+            <div class="form-group col-md-2"> 
+                <label for="UserAgent">User Agent</label> 
+                <input id="UserAgent" type="text" class="form-control" value="{{interactionEdit.Visitor.device.userAgent}}"> 
+            </div> 
+            <div class="form-group col-md-2"> 
+                <label for="IncommingUrl">Incomming Url</label> 
+                <input id="IncommingUrl" type="text" class="form-control" value="{{interactionEdit.Visitor.incomming_url}}"> 
+            </div>  
+            <div class="form-group col-md-2"> 
+                <label for="Browser">Browser</label> 
+                <input id="Browser" type="text" class="form-control" value="{{interactionEdit.Visitor.device.browser}}"> 
+            </div>  
+            <div class="form-group col-md-2"> 
+                <label for="OS">OS</label> 
+                <input id="OS" type="text" class="form-control" value="{{interactionEdit.Visitor.device.OS.family}}"> 
+            </div>          
+            <div class="form-group col-md-2"> 
+                <label for="OSVersion">OS Version</label> 
+                <input id="OSVersion" type="text" class="form-control" value="{{interactionEdit.Visitor.device.OS.version}} "> 
+            </div>   
+            <div class="form-group col-md-2"> 
+                <label for="DeviceVendor">Device Vendor</label> 
+                <input id="DeviceVendor" type="text" class="form-control" value="{{interactionEdit.Visitor.device.OS.vendor}}"> 
+            </div>      
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-2"> 
+                <label for="DeviceType">Device Type</label> 
+                <input id="DeviceType" type="text" class="form-control" value="{{interactionEdit.Visitor.device.type}}"> 
+            </div>
+            <div class="form-group col-md-2"> 
+                <label for="DeviceModel">Device Model</label> 
+                <input id="DeviceModel" type="text" class="form-control" value="{{interactionEdit.Visitor.device.hardware.model}}"> 
+            </div>
+        </div>
+           <div class="form-group">
+                <button class="btn btn-primary btn-block" type="submit">
+                    Save
+                </button>
+            </div>   
+    </form>

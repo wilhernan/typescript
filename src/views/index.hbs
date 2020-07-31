@@ -177,51 +177,96 @@
     <div class="table-responsive">
         <table id="myTable" class="table table-bordered table-hover">                  
             <thead class="thead-dark">
-            <tr>
-                <th>CreatedOn</th>
-                <th>InteractionID</th>
-                <th>Campaign</th>
-                <th>TrafficSource</th>
-                <th>LandingPage</th>
-                <th>Rotation</th>
-                <th>Afiliate</th>
-                <th>Rule</th>
-                <th>RuleFilter</th>
-                <th>RuleShedule</th>
-                <th>Token Name</th>
-                <th>Token Parameter</th>
-                <th>Token Value</th>
-                <th>Token ID</th>
-                <th>Offers</th>
-                <th>Revenue</th>
-                <th>Converted</th>
-                <th>TrafficSourceClickID</th>
-                <th>CPC</th>
-                <th>MediaBuyer</th>
-                <th>IpAddress</th>
-                <th>ServerBy</th>
-                <th>Country</th>
-                <th>RegionName</th>
-                <th>City</th>
-                <th>Coords</th>
-                <th>ISP</th>
-                <th>ConnectionType</th>
-                <th>Organization</th>
-                <th>UserAgent</th>
-                <th>IncommingUrl</th>
-                <th>Browser</th>
-                <th>OS</th>
-                <th>OSVersion</th>
-                <th>DeviceVendor</th>
-                <th>DeviceType</th>
-                <th>DeviceModel</th>
-                <th></th>
-                <th></th>
+            <tr>                
+                <th scope="col">CreatedOn</th>
+                <th scope="col">InteractionID</th>
+                <th scope="col">Campaign</th>
+                <th scope="col">TrafficSource</th>
+                <th scope="col">LandingPage</th>
+                <th scope="col">Rotation</th>
+                <th scope="col">Afiliate</th>
+                <th scope="col">Rule</th>
+                <th scope="col">RuleFilter</th>
+                <th scope="col">RuleShedule</th>
+                <th scope="col">Token Name</th>
+                <th scope="col">Token Parameter</th>
+                <th scope="col">Token Value</th>
+                <th scope="col">Token ID</th>
+                <th scope="col">Offers</th>
+                <th scope="col">Revenue</th>
+                <th scope="col">Converted</th>
+                <th scope="col">TrafficSourceClickID</th>
+                <th scope="col">CPC</th>
+                <th scope="col">MediaBuyer</th>
+                <th scope="col">IpAddress</th>
+                <th scope="col">ServerBy</th>
+                <th scope="col">Country</th>
+                <th scope="col">RegionName</th>
+                <th scope="col">City</th>
+                <th scope="col">Coords</th>
+                <th scope="col">ISP</th>
+                <th scope="col">ConnectionType</th>
+                <th scope="col">Organization</th>
+                <th scope="col">UserAgent</th>
+                <th scope="col">IncommingUrl</th>
+                <th scope="col">Browser</th>
+                <th scope="col">OS</th>
+                <th scope="col">OSVersion</th>
+                <th scope="col">DeviceVendor</th>
+                <th scope="col">DeviceType</th>
+                <th scope="col">DeviceModel</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
             </tr>        
-            </thead>
-            <tbody id="tBody">
-                
-            </tbody>
+            </thead>        
+            {{#each interaction}}
+            <tbody id="tBody"> 
+                <tr>                    
+                    <td>{{CreatedOn}} </td>
+                    <td>{{InteractionID}} </td>
+                    <td>{{Campaign.name}} </td>
+                    <td>{{TrafficSource.name}} </td>
+                    <td>{{LandingPage.name}} </td>
+                    <td>{{Rotation.name}} </td>
+                    <td>{{Offers.affiliate.name}} </td>
+                    <td>{{Rule.name}} </td>
+                    <td>{{RuleFilter.name}} </td>
+                    <td>{{Rule.shedule_type}} </td>
+                    <td>{{Visitor.Tokens.name}} </td>
+                    <td>{{Visitor.Tokens.parameter}} </td>
+                    <td>{{Visitor.Tokens.value}} </td>
+                    <td>{{Visitor.Tokens._id}} </td>
+                    <td>{{Offers.name}} </td>
+                    <td>{{Offers.conversion.amount}} </td>
+                    <td>{{hasConversion}} </td>
+                    <td>{{TrafficSourceClickID}} </td>
+                    <td>{{Campaign.CPC}} </td>
+                    <td>{{Campaign.MediaBuyer.firstName}} &nbsp {{Campaign.MediaBuyer.lastName}} </td>
+                    <td>{{Visitor.ip_address}} </td>
+                    <td>{{server_region}} </td>
+                    <td>{{Visitor.geo_location.country_name}} </td>
+                    <td>{{Visitor.geo_location.region_name}} </td>
+                    <td>{{Visitor.geo_location.city_name}} </td>
+                    <td>{{Visitor.geo_location.coords.time_zone}} </td>
+                    <td>{{Visitor.geo_location.isp}} </td>
+                    <td>{{Visitor.geo_location.connection_type}} </td>
+                    <td>{{Visitor.geo_location.organization}} </td>
+                    <td>{{Visitor.device.userAgent}} </td>
+                    <td>{{Visitor.incomming_url}} </td>
+                    <td>{{Visitor.device.browser}} </td>
+                    <td>{{Visitor.device.OS.family}} </td>
+                    <td>{{Visitor.device.OS.version}} </td>
+                    <td>{{Visitor.device.OS.vendor}} </td>
+                    <td>{{Visitor.device.type}} </td>
+                    <td>{{Visitor.device.hardware.model}} </td>
+                    <td><a href="/edit/{{_id}}"> Edit <span class="glyphicon glyphicon-pencil"></span> </a> </td>
+                    <td><form action="/{{_id}}?_method=DELETE" method="POST">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" class="btn btn-danger btn-sm"> Delete</button>
+                    </form></td>
+                </tr>
+            </tbody>  
+            {{/each}}
         </table>
     </div>
-</div>
+    

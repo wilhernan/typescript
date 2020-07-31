@@ -1,9 +1,8 @@
 "use strict";
 let add = document.getElementById('adicionar');
-add.addEventListener("click", async function () {
+add.addEventListener("click", function add() {
     var Revenue = document.getElementById('Revenue').value;
-    var Converted = false;        
-
+    var Converted = false;
     if (Revenue > 0) {
         Converted = true;
     }
@@ -47,7 +46,7 @@ add.addEventListener("click", async function () {
         Visitor: {
             Tokens: {
                 name: document.getElementById('TokenName').value,
-                paramater: document.getElementById('TokenParameter').value,
+                parameter: document.getElementById('TokenParameter').value,
                 value: document.getElementById('TokenValue').value,
                 _id: document.getElementById('TokenId').value
             },
@@ -82,7 +81,6 @@ add.addEventListener("click", async function () {
         TrafficSourceClickID: document.getElementById('TrafficSourceClickID').value,
         server_region: document.getElementById('ServerBy').value
     };
-
     const data = newInteraction;
     const options = {
         method: 'POST',
@@ -91,23 +89,10 @@ add.addEventListener("click", async function () {
         },
         body: JSON.stringify(data)
     };
-    const response =  await fetch('/', options)
-    const interaction = await response.body;
-    console.log(newInteraction);
-    console.log(interaction);   
-    /* .then(function(response) {
-        if(response.ok) {
-            return response.json();
-        } else {
-            throw "Error en la llamada Ajax";
-        }     
-     })
-     .then(function(texto) {
-        console.log(texto);
-     })
-     .catch(function(err) {
-        console.log(err);
-     });  */
+    fetch('/', options).then(response => {
+        var data = JSON.parse(response.json());
+        console.log(data);
+    });
     //console.log(newInteraction);
     let Interaction = [
         newInteraction.CreatedOn,
@@ -121,7 +106,7 @@ add.addEventListener("click", async function () {
         newInteraction.RuleFilter.name,
         newInteraction.Rule.shedule_type,
         newInteraction.Visitor.Tokens.name,
-        newInteraction.Visitor.Tokens.paramater,
+        newInteraction.Visitor.Tokens.parameter,
         newInteraction.Visitor.Tokens.value,
         newInteraction.Visitor.Tokens._id,
         newInteraction.Offers.name,
@@ -223,4 +208,5 @@ add.addEventListener("click", async function () {
         document.getElementById("tBody").appendChild(tr);
     }
     document.getElementById('myForm').reset();
+    setTimeout("document.location=document.location", 2000);
 });

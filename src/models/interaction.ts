@@ -39,7 +39,7 @@ export interface Interaction extends mongoose.Document {
     Visitor:  {
         Tokens: {
             name: string,
-            paramater: string,
+            parameter: string,
             value: string,
             _id: string
         },
@@ -114,7 +114,7 @@ const InteractionSchema = new Schema({
     Visitor:  {
         Tokens: {
             name: String,
-            paramater: String,
+            parameter: String,
             value: String,
             _id: String
         },
