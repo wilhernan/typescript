@@ -1,20 +1,20 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction} from 'express';
 import InteractionModel, { Interaction } from '../models/interaction';
-
 
 class InteractionController {
     
     public async renderFormInteraction(req: Request, res: Response): Promise<void>{
         const interaction: Interaction[] = await InteractionModel.find().lean()
+        console.log(interaction);  
         res.render('index', {
             interaction             
         });
     }
 
-    public async saveInteraction(req: Request, res: Response){         
-        console.log(req.body);            
-        const {
-            CreatedOn,
+    public async saveInteraction(req: Request, res: Response){ 
+        console.log(req.body);  
+        const { 
+             CreatedOn,
             InteractionID,
             Campaign,
             TrafficSource,
@@ -25,7 +25,7 @@ class InteractionController {
             RuleFilter,
             RuleShedule,
             Visitor: {Tokens:{
-                name, parameter, value, _id
+                name, parameter, value, id
                 },
                 ip_address, 
                 geo_location:{
@@ -43,7 +43,7 @@ class InteractionController {
             CPC,
             MediaBuyerFirstName,
             MediaBuyerLlastName,            
-            server_region, 
+            server_region,  
         } = req.body;
         const interaction: Interaction = new InteractionModel({
             CreatedOn,
@@ -57,7 +57,7 @@ class InteractionController {
             RuleFilter,
             RuleShedule,
             Visitor: {Tokens:{
-                name, parameter, value, _id
+                name, parameter, value, id
                 },
                 ip_address, 
                 geo_location:{
@@ -77,123 +77,31 @@ class InteractionController {
             MediaBuyerLlastName,            
             server_region, 
         });
-        console.log(interaction);
+        console.log(interaction);       
         await interaction.save();        
     }
 
-    public async renderFormEdit(req: Request, res: Response)  {
-        const interactionEdit = await InteractionModel.findById(req.params.id).lean()
-        console.log(interactionEdit);
+    public async renderFormEdit(req: Request, res: Response, next: NextFunction)  {
+        const interactionEdit = await InteractionModel.findById(req.params.id).lean()  
+        console.log(interactionEdit);     
         res.render('interaction/edit', {
             title: 'Edit Interaction',
             interactionEdit
         });
     }
 
-    public async updateInteraction (req: Request, res: Response){
-        res.send('Updating...');
+    public async updateInteraction (req: Request, res: Response, next: NextFunction){       
         console.log(req.body);
-        /* const {
-            CreatedOn,
-            InteractionID,
-            Campaign,
-            TrafficSource,
-            LandingPage,
-            Rotation,
-            affiliate,
-            Rule,
-            RuleFilter,
-            RuleShedule,            
-            Tokens,
-            TokensName,
-            TokensParamater,
-            TokensValue ,
-            TokensId,
-            Offers,
-            Revenue,
-            Converted,
-            TrafficSourceClickID,
-            CPC,
-            MediaBuyerFirstName,
-            MediaBuyerLlastName,
-            ip_address,
-            geo_location,            
-            country_name,
-            region_name,
-            city_name,
-            coords,
-            isp,
-            connection_type,
-            organization,
-            device,
-            userAgent,
-            incomming_Url,
-            browser,
-            OS,
-            family,
-            version,
-            vendor,
-            type,
-            hardware,
-            model
-        } = req.body;
-        await InteractionModel.findByIdAndUpdate(req.params.id, {
-            CreatedOn,
-            InteractionID,
-            Campaign,
-            TrafficSource,
-            LandingPage,
-            Rotation,
-            affiliate,
-            Rule,
-            RuleFilter,
-            RuleShedule,            
-            Tokens,
-            TokensName,
-            TokensParamater,
-            TokensValue,
-            TokensId,
-            Offers,
-            Revenue,
-            Converted,
-            TrafficSourceClickID,
-            CPC,
-            MediaBuyerFirstName,
-            MediaBuyerLlastName,
-            ip_address,
-            geo_location,            
-            country_name,
-            region_name,
-            city_name,
-            coords,
-            isp,
-            connection_type,
-            organization,
-            device,
-            userAgent,
-            incomming_Url,
-            browser,
-            OS,
-            family,
-            version,
-            vendor,
-            type,
-            hardware,
-            model
-        });
-        res.redirect('/'); */
+        const { id } = req.params;
+        await InteractionModel.update({_id : id}, req.body); 
+        res.redirect('/');    
     };
 
-    public  async deleteInteraction (req: Request, res: Response){
-         await InteractionModel.findByIdAndDelete(req.params.id);
-         res.redirect('/'); 
-    }
-
-    
-
+    public async deleteInteraction (req: Request, res: Response, next: NextFunction){
+        let { id } = req.params;
+        await InteractionModel.remove({_id : id});           
+    };
 
 }
-
-
 
 export const interactionController = new InteractionController(); 

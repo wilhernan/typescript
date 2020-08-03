@@ -41,7 +41,7 @@ export interface Interaction extends mongoose.Document {
             name: string,
             parameter: string,
             value: string,
-            _id: string
+            id: string
         },
         ip_address: string,
         geo_location: {
@@ -116,7 +116,7 @@ const InteractionSchema = new Schema({
             name: String,
             parameter: String,
             value: String,
-            _id: String
+            id: String
         },
         ip_address: String,
         geo_location: {

@@ -176,7 +176,7 @@
     <br>    
     <div class="table-responsive">
         <table id="myTable" class="table table-bordered table-hover">                  
-            <thead class="thead-dark">
+            <thead class="thead-dark">             
             <tr>                
                 <th scope="col">CreatedOn</th>
                 <th scope="col">InteractionID</th>
@@ -218,8 +218,8 @@
                 <th scope="col"></th>
                 <th scope="col"></th>
             </tr>        
-            </thead>        
-            {{#each interaction}}
+            </thead> 
+            {{#each interaction}} 
             <tbody id="tBody"> 
                 <tr>                    
                     <td>{{CreatedOn}} </td>
@@ -235,7 +235,7 @@
                     <td>{{Visitor.Tokens.name}} </td>
                     <td>{{Visitor.Tokens.parameter}} </td>
                     <td>{{Visitor.Tokens.value}} </td>
-                    <td>{{Visitor.Tokens._id}} </td>
+                    <td>{{Visitor.Tokens.id}} </td>
                     <td>{{Offers.name}} </td>
                     <td>{{Offers.conversion.amount}} </td>
                     <td>{{hasConversion}} </td>
@@ -266,7 +266,11 @@
                     </form></td>
                 </tr>
             </tbody>  
-            {{/each}}
+            {{/each}}            
         </table>
     </div>
-    <script src="index.js "></script>
+    <script src="index.js "></script> 
+
+
+{{!--   <script src="index.js "></script> 
+    --}}

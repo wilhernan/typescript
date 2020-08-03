@@ -1,81 +1,9 @@
-interface Interaction {
-    CreatedOn:string;
-    InteractionID:string;
-    Campaign: {
-        name: string,
-        CPC: number,
-        MediaBuyer: {
-            firstName: string,
-            lastName: string
-        }
-    };
-    TrafficSource: {
-        name: string
-    };
-    LandingPage: {
-        name: string
-    };
-    Rotation: {
-        name: string
-    };
-    Offers: {
-        name: string,
-        affiliate: {
-            name: string
-        },
-        conversion: {
-            amount: number
-        }           
-    };  
-    Rule: {
-        name: string,
-        shedule_type: string        
-    };
-    RuleFilter: {
-        name: string
-    };
-    Visitor:  {
-        Tokens: {
-            name: string,
-            parameter: string,
-            value: string,
-            _id: string
-        },
-        ip_address: string,
-        geo_location: {
-            country_name: string,
-            region_name: string,
-            city_name: string,
-            coords: {
-                time_zone: string
-            },
-            isp: string,
-            organization: string,
-            connection_type: string
-        },
-        device: {
-            userAgent: string,
-            browser: string,
-            OS: {
-                family: string,
-                version: string,
-                vendor: string
-            },
-            type: string,
-            hardware: {
-                model: string
-            }
-        },
-        incomming_url: string
-    };    
-    hasConversion: boolean;    
-    TrafficSourceClickID:string;  
-    server_region:string       
-}
-
+import {Interaction} from '../models/interaction'
 
 let add = document.getElementById('adicionar');
+
 add.addEventListener("click",function add(){
+    console.log('Llegé aqui');
     var Revenue = (document.getElementById('Revenue') as HTMLInputElement).value;
     var Converted = false    
     if ( Revenue > 0 ) {
@@ -122,7 +50,7 @@ add.addEventListener("click",function add(){
                 name: (document.getElementById('TokenName') as HTMLInputElement).value,
                 parameter: (document.getElementById('TokenParameter') as HTMLInputElement).value,
                 value: (document.getElementById('TokenValue') as HTMLInputElement).value,
-                _id: (document.getElementById('TokenId') as HTMLInputElement).value
+                id: (document.getElementById('TokenId') as HTMLInputElement).value
             },
             ip_address: (document.getElementById('IpAddress') as HTMLInputElement).value,
             geo_location: {
@@ -156,7 +84,6 @@ add.addEventListener("click",function add(){
         server_region: (document.getElementById('ServerBy') as HTMLInputElement).value  
     }
     
-  
         const data = newInteraction;
         const options = {
             method: 'POST',
@@ -168,10 +95,10 @@ add.addEventListener("click",function add(){
         fetch('/', options).then(response => {
             var data = JSON.parse(response.json());
             console.log(data);
-        });
-          
-    
-    //console.log(newInteraction);
+        }).catch(error =>
+            console.error('Error', error))
+        .then(response => console.log('Success:', response));
+   
     let Interaction = [
         newInteraction.CreatedOn,
         newInteraction.InteractionID,
@@ -186,7 +113,7 @@ add.addEventListener("click",function add(){
         newInteraction.Visitor.Tokens.name,
         newInteraction.Visitor.Tokens.parameter,
         newInteraction.Visitor.Tokens.value,
-        newInteraction.Visitor.Tokens._id,
+        newInteraction.Visitor.Tokens.id,
         newInteraction.Offers.name,
         newInteraction.Offers.conversion.amount,
         newInteraction.hasConversion,
@@ -224,4 +151,4 @@ add.addEventListener("click",function add(){
         setTimeout("document.location=document.location", 2000);
 })
 
-    
+     

@@ -1,21 +1,22 @@
 import { Router } from 'express';
 import { interactionController } from '../controllers/interaction.controller';
 
+const router: Router = Router();
 
-class InteractionRoutes {
-    public router: Router = Router();
+    router.route('/')
+        .get(interactionController.renderFormInteraction)
+        .post(interactionController.saveInteraction); 
+    router.route('/edit/string/:id')
+        .get(interactionController.renderFormEdit)
+        .put(interactionController.updateInteraction);
+    router.delete('/string/:id', interactionController.deleteInteraction);
 
-    constructor(){
-        this.config();
-    }
+        /* try {
+             throw new Error("There was an error getting the users");
+             
+         } catch (err) {
+             console.log(err);
+             res.status(500).send('An Internal server ocurred');
+         }    */   
 
-    config(): void {
-        this.router.get('/', interactionController.renderFormInteraction);
-        this.router.post('/', interactionController.saveInteraction);        
-        this.router.get('/edit/:id', interactionController.renderFormEdit);
-        this.router.put('/edit/:id', interactionController.updateInteraction);
-        this.router.delete('/:id', interactionController.deleteInteraction);
-    }
-}
-const interactionRoutes = new InteractionRoutes();
-export default interactionRoutes.router;
+export default router;
