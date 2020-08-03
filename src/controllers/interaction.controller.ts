@@ -14,7 +14,7 @@ class InteractionController {
     public async saveInteraction(req: Request, res: Response){ 
         console.log(req.body);  
         const { 
-             CreatedOn,
+            CreatedOn,
             InteractionID,
             Campaign,
             TrafficSource,
@@ -84,7 +84,7 @@ class InteractionController {
     public async renderFormEdit(req: Request, res: Response, next: NextFunction)  {
         const interactionEdit = await InteractionModel.findById(req.params.id).lean()  
         console.log(interactionEdit);     
-        res.render('interaction/edit', {
+        res.render('edit', {
             title: 'Edit Interaction',
             interactionEdit
         });
