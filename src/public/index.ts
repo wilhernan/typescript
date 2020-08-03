@@ -99,7 +99,7 @@ add.addEventListener("click",function add(){
             console.error('Error', error))
         .then(response => console.log('Success:', response));
    
-    let Interaction = [
+    let interaction = [
         newInteraction.CreatedOn,
         newInteraction.InteractionID,
         newInteraction.Campaign.name,
@@ -140,9 +140,9 @@ add.addEventListener("click",function add(){
     ]
     var i = 0;    
     var tr = document.createElement("tr");
-    for (i = 0; i < Interaction.length; i++) {
+    for (i = 0; i < interaction.length; i++) {
         var td = document.createElement("td");
-        td.innerHTML = (Interaction[i]);        
+        td.innerHTML = (interaction[i]);        
         tr.appendChild(td);
         document.getElementById("tBody").appendChild(tr);        
     } 
