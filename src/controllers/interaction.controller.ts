@@ -20,8 +20,8 @@ class InteractionController {
             
     }
 
-    public async saveInteraction(req: Request, res: Response){         
-            console.log(req.body);  
+    public async saveInteraction(req: Request, res: Response, next: NextFunction){         
+        try {
             const { 
                 CreatedOn,
                 InteractionID,
@@ -86,23 +86,31 @@ class InteractionController {
                 MediaBuyerLlastName,            
                 server_region, 
             });                  
-            await interaction.save();       
+            await interaction.save();
+        } catch (error) {
+            next(error);
+        }                    
                 
     }
 
-    public async renderFormEdit(req: Request, res: Response, next: NextFunction)  {      
+    public async renderFormEdit(req: Request, res: Response, next: NextFunction)  {  
+        try {
             const interactionEdit = await InteractionModel.findById(req.params.id).lean()  
             console.log(interactionEdit);     
             res.render('edit', {
                 title: 'Edit Interaction',
                 interactionEdit
-            });       
+            });    
+        } catch (error) {
+            next(error);
+        }                          
+               
     }
 
     public async updateInteraction (req: Request, res: Response, next: NextFunction){     
-        
-        const { _id } = req.params;
-        const { CreatedOn,
+        try {
+            const { _id } = req.params;
+            const { CreatedOn,
             InteractionID,
             Campaign,
             TrafficSource,
@@ -132,7 +140,7 @@ class InteractionController {
             MediaBuyerFirstName,
             MediaBuyerLlastName,            
             server_region } = req.body;
-            const interactionEdit = await interaction.findByIdAndUpdate(_id, {
+            const interactionEdit = await interaction.findByIdAndUpdate( _id, {
                 CreatedOn,
                 InteractionID,
                 Campaign,
@@ -164,12 +172,21 @@ class InteractionController {
                 MediaBuyerLlastName,            
                 server_region
         });
-            console.log(req.body);             
+            console.log(req.body);
+        } catch (error) {
+            next(error);
+        }
+                     
     };
 
-    public async deleteInteraction (req: Request, res: Response, next: NextFunction){        
+    public async deleteInteraction (req: Request, res: Response, next: NextFunction){  
+        try {
             let { id } = req.params;
             await InteractionModel.remove({_id : id}); 
+        } catch (error) {
+            next(error);
+        }      
+            
     };
 
 }

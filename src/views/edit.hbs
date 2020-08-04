@@ -2,7 +2,7 @@
 
 <div class="container">
     <h3>Edit Interaction</h3>
-    <form id="formEdit" action="/edit/string/{{interactionEdit._id}}?_method=PUT" method="POST">   
+    <form id="formEdit" action="/edit/{{interactionEdit._id}}?_method=PUT" method="POST">   
     <input type="hidden" name="_method" value="PUT"> 
         <div class="form-row">
             <div class="form-group col-md-2">   
@@ -63,7 +63,7 @@
             </div>  
             <div class="form-group col-md-2"> 
                 <label for="TokenId">Token Id</label> 
-                <input id="TokenId" type="text" class="form-control" value="{{interactionEdit.Visitor.Tokens._id}}"> 
+                <input id="TokenId" type="text" class="form-control" value="{{interactionEdit.Visitor.Tokens.id}}"> 
             </div>    
             <div class="form-group col-md-2"> 
                 <label for="Offers">Offers</label> 

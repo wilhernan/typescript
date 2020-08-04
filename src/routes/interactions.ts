@@ -6,7 +6,7 @@ const router: Router = Router();
     router.route('/')
         .get(interactionController.renderFormInteraction)
         .post(interactionController.saveInteraction); 
-    router.route('/edit/string/:id')
+    router.route('/edit/:id')
         .get(interactionController.renderFormEdit)
         .put(interactionController.updateInteraction);
     router.delete('/string/:id', interactionController.deleteInteraction);
