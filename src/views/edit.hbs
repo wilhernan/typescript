@@ -2,7 +2,7 @@
 
 <div class="container">
     <h3>Edit Interaction</h3>
-    <form id="formEdit" action="/edit/string/{{interactionEdit_id}}?_method=PUT" method="POST">   
+    <form id="formEdit" action="/edit/string/{{interactionEdit._id}}?_method=PUT" method="POST">   
     <input type="hidden" name="_method" value="PUT"> 
         <div class="form-row">
             <div class="form-group col-md-2">   
@@ -74,7 +74,7 @@
                 <input id="Revenue" type="number" class="form-control" value="{{interactionEdit.Offers.conversion.amount}}"> 
             </div> 
             <div class="form-check col-md-2"> 
-                <input id="Converted" type="text" class="form-control" value="{{interactionEdit.hasConversion}}">
+                <input id="Converted" type="text" class="form-control" value="{{interactionEdit.hasConversion}}" disabled>
                 <label for="Converted"> Converted </label> 
             </div> 
             <div class="form-group col-md-2"> 
@@ -176,5 +176,5 @@
                 </button>
             </div>   
     </form>
-
+    
                                                                                                                                    

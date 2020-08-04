@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.interactionController = void 0;
 const interaction_1 = __importDefault(require("../models/interaction"));
+const interaction_2 = __importDefault(require("../models/interaction"));
 class InteractionController {
     renderFormInteraction(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -22,19 +23,19 @@ class InteractionController {
             res.render('index', {
                 interaction
             });
-            try {
-                throw new Error("There was an error getting the Interactions");
-            }
-            catch (err) {
-                console.log(err);
-                res.status(500).send('An Internal server ocurred');
-            }
+            /* try {
+              throw new Error("There was an error getting the Interactions");
+                 
+             } catch (err) {
+                 console.log(err);
+                 res.status(500).send('An Internal server ocurred');
+             }  */
         });
     }
     saveInteraction(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(req.body);
-            const { CreatedOn, InteractionID, Campaign, TrafficSource, LandingPage, Rotation, affiliate, Rule, RuleFilter, RuleShedule, Visitor: { Tokens: { name, parameter, value, id }, ip_address, geo_location: { country_name, region_name, city_name, coords, isp, organization, connection_type }, device: { userAgent, browser, OS: { family, version, vendor }, type, hardware: { model } }, incomming_Url }, Offers, Revenue, hasConversion, TrafficSourceClickID, CPC, MediaBuyerFirstName, MediaBuyerLlastName, server_region, } = req.body;
+            const { CreatedOn, InteractionID, Campaign, TrafficSource, LandingPage, Rotation, affiliate, Rule, RuleFilter, RuleShedule, Visitor: { Tokens: { name, parameter, value, id }, ip_address, geo_location: { country_name, region_name, city_name, coords, isp, organization, connection_type }, device: { userAgent, browser, OS: { family, version, vendor }, type, hardware: { model } }, incomming_url }, Offers, Revenue, hasConversion, TrafficSourceClickID, CPC, MediaBuyerFirstName, MediaBuyerLlastName, server_region, } = req.body;
             const interaction = new interaction_1.default({
                 CreatedOn,
                 InteractionID,
@@ -56,7 +57,7 @@ class InteractionController {
                     device: {
                         userAgent, browser, OS: { family, version, vendor }, type, hardware: { model }
                     },
-                    incomming_Url
+                    incomming_url
                 },
                 Offers,
                 Revenue,
@@ -67,7 +68,6 @@ class InteractionController {
                 MediaBuyerLlastName,
                 server_region,
             });
-            console.log(interaction);
             yield interaction.save();
         });
     }
@@ -83,9 +83,41 @@ class InteractionController {
     }
     updateInteraction(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
+            const { _id } = req.params;
+            const { CreatedOn, InteractionID, Campaign, TrafficSource, LandingPage, Rotation, affiliate, Rule, RuleFilter, RuleShedule, Visitor: { Tokens: { name, parameter, value, id }, ip_address, geo_location: { country_name, region_name, city_name, coords, isp, organization, connection_type }, device: { userAgent, browser, OS: { family, version, vendor }, type, hardware: { model } }, incomming_url }, Offers, Revenue, hasConversion, TrafficSourceClickID, CPC, MediaBuyerFirstName, MediaBuyerLlastName, server_region } = req.body;
+            const interactionEdit = yield interaction_2.default.findByIdAndUpdate(_id, {
+                CreatedOn,
+                InteractionID,
+                Campaign,
+                TrafficSource,
+                LandingPage,
+                Rotation,
+                affiliate,
+                Rule,
+                RuleFilter,
+                RuleShedule,
+                Visitor: { Tokens: {
+                        name, parameter, value, id
+                    },
+                    ip_address,
+                    geo_location: {
+                        country_name, region_name, city_name, coords, isp, organization, connection_type
+                    },
+                    device: {
+                        userAgent, browser, OS: { family, version, vendor }, type, hardware: { model }
+                    },
+                    incomming_url
+                },
+                Offers,
+                Revenue,
+                hasConversion,
+                TrafficSourceClickID,
+                CPC,
+                MediaBuyerFirstName,
+                MediaBuyerLlastName,
+                server_region
+            });
             console.log(req.body);
-            const { id } = req.params;
-            yield interaction_1.default.update({ _id: id }, req.body);
         });
     }
     ;

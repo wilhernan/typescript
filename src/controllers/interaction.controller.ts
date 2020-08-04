@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction} from 'express';
 import InteractionModel, { Interaction } from '../models/interaction';
+import interaction from '../models/interaction';
 
 class InteractionController {
     
@@ -9,13 +10,13 @@ class InteractionController {
             res.render('index', {
                 interaction             
             });
-           try {
+           /* try {
              throw new Error("There was an error getting the Interactions");
                 
             } catch (err) {
                 console.log(err);
                 res.status(500).send('An Internal server ocurred');
-            } 
+            }  */
             
     }
 
@@ -42,7 +43,7 @@ class InteractionController {
                     device:{
                         userAgent, browser, OS:{ family, version, vendor}, type, hardware:{ model }
                     },
-                    incomming_Url 
+                    incomming_url 
                 },               
                 Offers,
                 Revenue,
@@ -74,7 +75,7 @@ class InteractionController {
                     device:{
                         userAgent, browser, OS:{ family, version, vendor}, type, hardware:{ model }
                     },
-                    incomming_Url 
+                    incomming_url 
                 },               
                 Offers,
                 Revenue,
@@ -84,8 +85,7 @@ class InteractionController {
                 MediaBuyerFirstName,
                 MediaBuyerLlastName,            
                 server_region, 
-            });
-            console.log(interaction);       
+            });                  
             await interaction.save();       
                 
     }
@@ -99,10 +99,72 @@ class InteractionController {
             });       
     }
 
-    public async updateInteraction (req: Request, res: Response, next: NextFunction){         
-            console.log(req.body);
-            const { id } = req.params;
-            await InteractionModel.update({_id : id}, req.body);   
+    public async updateInteraction (req: Request, res: Response, next: NextFunction){     
+        
+        const { _id } = req.params;
+        const { CreatedOn,
+            InteractionID,
+            Campaign,
+            TrafficSource,
+            LandingPage,
+            Rotation,
+            affiliate,
+            Rule,
+            RuleFilter,
+            RuleShedule,
+            Visitor: {Tokens:{
+                name, parameter, value, id
+                },
+                ip_address, 
+                geo_location:{
+                    country_name, region_name, city_name, coords, isp, organization,  connection_type 
+                },
+                device:{
+                    userAgent, browser, OS:{ family, version, vendor}, type, hardware:{ model }
+                },
+                incomming_url 
+            },               
+            Offers,
+            Revenue,
+            hasConversion,
+            TrafficSourceClickID,
+            CPC,
+            MediaBuyerFirstName,
+            MediaBuyerLlastName,            
+            server_region } = req.body;
+            const interactionEdit = await interaction.findByIdAndUpdate(_id, {
+                CreatedOn,
+                InteractionID,
+                Campaign,
+                TrafficSource,
+                LandingPage,
+                Rotation,
+                affiliate,
+                Rule,
+                RuleFilter,
+                RuleShedule,
+                Visitor: {Tokens:{
+                    name, parameter, value, id
+                    },
+                    ip_address, 
+                    geo_location:{
+                        country_name, region_name, city_name, coords, isp, organization,  connection_type 
+                    },
+                    device:{
+                        userAgent, browser, OS:{ family, version, vendor}, type, hardware:{ model }
+                    },
+                    incomming_url 
+                },               
+                Offers,
+                Revenue,
+                hasConversion,
+                TrafficSourceClickID,
+                CPC,
+                MediaBuyerFirstName,
+                MediaBuyerLlastName,            
+                server_region
+        });
+            console.log(req.body);             
     };
 
     public async deleteInteraction (req: Request, res: Response, next: NextFunction){        
