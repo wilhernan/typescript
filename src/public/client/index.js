@@ -3,7 +3,7 @@ exports.__esModule = true;
 var add = document.getElementById('adicionar');
 var update = document.getElementById('editar');
 var Revenue = document.getElementById('Revenue').value;
-var tBody = document.getElementById('tBody').value;
+var tbody = (document.querySelector('#tBody'));
 var Converted = false;
 if (Revenue > 0) {
     Converted = true;
@@ -88,16 +88,16 @@ fetch('/interactions')
     return response.json();
 })
     .then(function (interactions) {
-    var allInteractions = interactions;
-    var i = 0;
-    var tr = document.createElement("tr");
-    for (i = 0; i < allInteractions.length; i++) {
-        var td = document.createElement("td");
-        td.innerHTML = (allInteractions[i]);
-        tr.appendChild(td);
-        tBody.appendChild(tr);
-    }
+    console.log(interactions);
+    table(interactions);
 });
+function table(interactions) {
+    tbody.innerHTML = '';
+    for (var _i = 0, interactions_1 = interactions; _i < interactions_1.length; _i++) {
+        var i = interactions_1[_i];
+        tbody.innerHTML += "\n        <tr>                    \n            <td>" + interactions.CreatedOn + "</td>\n            <td>" + interactions.InteractionID + " </td>\n            <td>" + interactions.Campaign.name + " </td>\n            <td>" + interactions.TrafficSource.name + " </td>\n            <td>" + interactions.LandingPage.name + " </td>\n            <td>" + interactions.Rotation.name + " </td>\n            <td>" + interactions.Offers.affiliate.name + " </td>\n            <td>" + interactions.Rule.name + " </td>\n            <td>" + interactions.RuleFilter.name + " </td>\n            <td>" + interactions.Rule.shedule_type + " </td>\n            <td>" + interactions.Visitor.Tokens.name + " </td>\n            <td>" + interactions.Visitor.Tokens.parameter + " </td>\n            <td>" + interactions.Visitor.Tokens.value + " </td>\n            <td>" + interactions.Visitor.Tokens.id + " </td>\n            <td>" + interactions.Offers.name + " </td>\n            <td>" + interactions.Offers.conversion.amount + " </td>\n            <td>" + interactions.hasConversion + " </td>\n            <td>" + interactions.TrafficSourceClickID + " </td>\n            <td>" + interactions.Campaign.CPC + " </td>\n            <td>" + interactions.Campaign.MediaBuyer.firstName + " &nbsp " + interactions.Campaign.MediaBuyer.lastName + " </td>\n            <td>" + interactions.Visitor.ip_address + " </td>\n            <td>" + interactions.server_region + " </td>\n            <td>" + interactions.Visitor.geo_location.country_name + " </td>\n            <td>" + interactions.Visitor.geo_location.region_name + " </td>\n            <td>" + interactions.Visitor.geo_location.city_name + " </td>\n            <td>" + interactions.Visitor.geo_location.coords.time_zone + " </td>\n            <td>" + interactions.Visitor.geo_location.isp + " </td>\n            <td>" + interactions.Visitor.geo_location.connection_type + " </td>\n            <td>" + interactions.Visitor.geo_location.organization + " </td>\n            <td>" + interactions.Visitor.device.userAgent + " </td>\n            <td>" + interactions.Visitor.incomming_url + " </td>\n            <td>" + interactions.Visitor.device.browser + " </td>\n            <td>" + interactions.Visitor.device.OS.family + " </td>\n            <td>" + interactions.Visitor.device.OS.version + " </td>\n            <td>" + interactions.Visitor.device.OS.vendor + " </td>\n            <td>" + interactions.Visitor.device.type + " </td>\n            <td>" + interactions.Visitor.device.hardware.model + " </td>\n            <td><a href=\"/interactions/" + interactions._id + "\"> Edit <span class=\"glyphicon glyphicon-pencil\"></span> </a> </td>\n            <td><form action=\"/interactions/" + interactions._id + "?_method=DELETE\" method=\"POST\">\n                    <input type=\"hidden\" name=\"_method\" value=\"DELETE\">\n                    <button type=\"submit\" class=\"btn btn-danger btn-sm\"> Delete</button>\n                </form>\n            </td>\n        </tr>        \n        ";
+    }
+}
 add.addEventListener("click", function add() {
     var data = newInteraction;
     var options = {

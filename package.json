@@ -24,8 +24,9 @@
   },
   "scripts": {
     "build-server": "tsc -w",
-    "dev": "concurrently --kill-others \"tsc -w\" \"nodemon dist/server.js\"",
-    "build-client": "tsc src/client/index.ts --outDir ./dist/public"
+    "compile": "tsc && node server.js",
+    "dev": "concurrently --kill-others \"tsc -w\" \"nodemon dist/server.js\"",    
+    "build-client": "tsc src/client/index.ts --outDir ./src/public"
   },
   "repository": {
     "type": "git",
