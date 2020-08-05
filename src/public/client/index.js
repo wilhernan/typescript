@@ -1,9 +1,9 @@
 "use strict";
 exports.__esModule = true;
 var add = document.getElementById('adicionar');
-/* let update = document.getElementById('editar'); */
+var update = document.getElementById('editar');
 var Revenue = document.getElementById('Revenue').value;
-//let tBody = (document.getElementById('tBody') as HTMLInputElement).value;
+var tBody = document.getElementById('tBody').value;
 var Converted = false;
 if (Revenue > 0) {
     Converted = true;
@@ -95,7 +95,7 @@ fetch('/interactions')
         var td = document.createElement("td");
         td.innerHTML = (allInteractions[i]);
         tr.appendChild(td);
-        /* tBody.appendChild(tr); */
+        tBody.appendChild(tr);
     }
 });
 add.addEventListener("click", function add() {

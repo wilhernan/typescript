@@ -6,9 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.interactionController = void 0;
 const interaction_1 = __importDefault(require("../models/interaction"));
 class InteractionController {
-    uploadFormInteraction(req, res) {
-        res.render('index', { title: 'Reporte Interactions' });
-    }
     findAllInteractions(req, res) {
         interaction_1.default.find(function (err, interactions) {
             if (err)

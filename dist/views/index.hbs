@@ -1,0 +1,232 @@
+<div class="container">
+    <form id="myForm" action="/interactions" method="POST">
+        <div class="form-row">
+            <div class="form-group col-md-2">   
+                <label for="CreatedOn">Created On</label>                        
+                <input id="CreatedOn"  type="date" class="form-control" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>   
+            <div class="form-group col-md-2"> 
+                <label for="InteractionID">Interaction ID</label> 
+                <input id="InteractionID" type="text" class="form-control" required> 
+            </div> 
+            <div class="form-group col-md-2"> 
+                <label for="Campaign">Campaign</label> 
+                <input id="Campaign" type="text" class="form-control"> 
+            </div> 
+            <div class="form-group col-md-2"> 
+                <label for="TrafficSource">TrafficSource</label> 
+                <input id="TrafficSource" type="text" class="form-control"> 
+            </div> 
+            <div class="form-group col-md-2"> 
+                <label for="LandingPage">LandingPage</label> 
+                <input id="LandingPage" type="text" class="form-control"> 
+            </div> 
+            <div class="form-group col-md-2"> 
+                <label for="Rotation">Rotation</label> 
+                <input id="Rotation" type="text" class="form-control"> 
+            </div> 
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-2"> 
+                <label for="Affiliate">Affiliate</label> 
+                <input id="Affiliate" type="text" class="form-control"> 
+            </div> 
+            <div class="form-group col-md-2"> 
+                <label for="Rule">Rule</label> 
+                <input id="Rule" type="text" class="form-control"> 
+            </div> 
+            <div class="form-group col-md-2"> 
+                <label for="RuleFilter">Rule Filter</label> 
+                <input id="RuleFilter" type="text" class="form-control"> 
+            </div> 
+            <div class="form-group col-md-2"> 
+                <label for="RuleShedule">Rule Shedule</label> 
+                <input id="RuleShedule" type="text" class="form-control"> 
+            </div> 
+            <div class="form-group col-md-2"> 
+                <label for="TokenName">Token Name</label> 
+                <input id="TokenName" type="text" class="form-control"> 
+            </div>
+            <div class="form-group col-md-2"> 
+                <label for="TokenParameter">Token Parameter</label> 
+                <input id="TokenParameter" type="text" class="form-control"> 
+            </div>  
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-2"> 
+                <label for="TokenValue">Token Value</label> 
+                <input id="TokenValue" type="text" class="form-control"> 
+            </div>  
+            <div class="form-group col-md-2"> 
+                <label for="TokenId">Token Id</label> 
+                <input id="TokenId" type="text" class="form-control"> 
+            </div>    
+            <div class="form-group col-md-2"> 
+                <label for="Offers">Offers</label> 
+                <input id="Offers" type="text" class="form-control"> 
+            </div>   
+            <div class="form-group col-md-2"> 
+                <label for="Revenue">Revenue</label> 
+                <input id="Revenue" type="number" class="form-control"> 
+            </div> 
+            <div class="form-check col-md-2"> 
+                <input class="form-check-input" id="Converted" type="checkbox" class="form-control" disabled>
+                <label class="form-check-label" for="Converted">
+                    Converted
+                </label> 
+            </div> 
+            <div class="form-group col-md-2"> 
+                <label for="TrafficSourceClickID">Traffic Source ClickID</label> 
+                <input id="TrafficSourceClickID" type="text" class="form-control"> 
+            </div> 
+        </div>        
+        <div class="form-row">  
+            <div class="form-group col-md-2"> 
+                <label for="CPC">CPC</label> 
+                <input id="CPC" type="number" class="form-control"> 
+            </div>  
+            <div class="form-group col-md-2"> 
+                <label for="MediaBuyerFirst">MediaBuyer First Name</label> 
+                <input id="MediaBuyerFirst" type="text" class="form-control"> 
+            </div>
+            <div class="form-group col-md-2"> 
+                <label for="MediaBuyerLast">MediaBuyer Last Name</label> 
+                <input id="MediaBuyerLast" type="text" class="form-control"> 
+            </div>    
+            <div class="form-group col-md-2"> 
+                <label for="IpAddress">Ip Address</label> 
+                <input id="IpAddress" type="text" class="form-control"> 
+            </div> 
+            <div class="form-group col-md-2"> 
+                <label for="ServerBy">Server By</label> 
+                <input id="ServerBy" type="text" class="form-control"> 
+            </div>  
+            <div class="form-group col-md-2"> 
+                <label for="Country">Country</label> 
+                <input id="Country" type="text" class="form-control"> 
+            </div>           
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-2"> 
+                <label for="RegionName">Region Name</label> 
+                <input id="RegionName" type="text" class="form-control"> 
+            </div> 
+            <div class="form-group col-md-2"> 
+                <label for="City">City</label> 
+                <input id="City" type="text" class="form-control"> 
+            </div>           
+            <div class="form-group col-md-2"> 
+                <label for="Coords">Coords</label> 
+                <input id="Coords" type="text" class="form-control"> 
+            </div> 
+            <div class="form-group col-md-2"> 
+                <label for="ISP">ISP</label> 
+                <input id="ISP" type="text" class="form-control"> 
+            </div> 
+            <div class="form-group col-md-2"> 
+                <label for="ConnectionType">ConnectionType</label> 
+                <input id="ConnectionType" type="text" class="form-control"> 
+            </div> 
+            <div class="form-group col-md-2"> 
+                <label for="Organization">Organization</label> 
+                <input id="Organization" type="text" class="form-control"> 
+            </div> 
+        </div> 
+        <div class="form-row">
+            <div class="form-group col-md-2"> 
+                <label for="UserAgent">User Agent</label> 
+                <input id="UserAgent" type="text" class="form-control"> 
+            </div> 
+            <div class="form-group col-md-2"> 
+                <label for="IncommingUrl">Incomming Url</label> 
+                <input id="IncommingUrl" type="text" class="form-control"> 
+            </div>  
+            <div class="form-group col-md-2"> 
+                <label for="Browser">Browser</label> 
+                <input id="Browser" type="text" class="form-control"> 
+            </div>  
+            <div class="form-group col-md-2"> 
+                <label for="OS">OS</label> 
+                <input id="OS" type="text" class="form-control"> 
+            </div>          
+            <div class="form-group col-md-2"> 
+                <label for="OSVersion">OS Version</label> 
+                <input id="OSVersion" type="text" class="form-control"> 
+            </div>   
+            <div class="form-group col-md-2"> 
+                <label for="DeviceVendor">Device Vendor</label> 
+                <input id="DeviceVendor" type="text" class="form-control"> 
+            </div>      
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-2"> 
+                <label for="DeviceType">Device Type</label> 
+                <input id="DeviceType" type="text" class="form-control"> 
+            </div>
+            <div class="form-group col-md-2"> 
+                <label for="DeviceModel">Device Model</label> 
+                <input id="DeviceModel" type="text" class="form-control"> 
+            </div>
+        </div>
+           <button id="adicionar" type="button" class="btn btn-primary">Adicionar a la tabla</button>        
+    </form>
+    <br>    
+    <div class="table-responsive">
+        <table id="myTable" class="table table-bordered table-hover">                  
+            <thead class="thead-dark">             
+            <tr>                
+                <th scope="col">CreatedOn</th>
+                <th scope="col">InteractionID</th>
+                <th scope="col">Campaign</th>
+                <th scope="col">TrafficSource</th>
+                <th scope="col">LandingPage</th>
+                <th scope="col">Rotation</th>
+                <th scope="col">Afiliate</th>
+                <th scope="col">Rule</th>
+                <th scope="col">RuleFilter</th>
+                <th scope="col">RuleShedule</th>
+                <th scope="col">Token Name</th>
+                <th scope="col">Token Parameter</th>
+                <th scope="col">Token Value</th>
+                <th scope="col">Token ID</th>
+                <th scope="col">Offers</th>
+                <th scope="col">Revenue</th>
+                <th scope="col">Converted</th>
+                <th scope="col">TrafficSourceClickID</th>
+                <th scope="col">CPC</th>
+                <th scope="col">MediaBuyer</th>
+                <th scope="col">IpAddress</th>
+                <th scope="col">ServerBy</th>
+                <th scope="col">Country</th>
+                <th scope="col">RegionName</th>
+                <th scope="col">City</th>
+                <th scope="col">Coords</th>
+                <th scope="col">ISP</th>
+                <th scope="col">ConnectionType</th>
+                <th scope="col">Organization</th>
+                <th scope="col">UserAgent</th>
+                <th scope="col">IncommingUrl</th>
+                <th scope="col">Browser</th>
+                <th scope="col">OS</th>
+                <th scope="col">OSVersion</th>
+                <th scope="col">DeviceVendor</th>
+                <th scope="col">DeviceType</th>
+                <th scope="col">DeviceModel</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>        
+            </thead> 
+            {{!-- {{#each interaction}}  --}}
+            <tbody id="tBody"> 
+                
+            </tbody>  
+            {{!-- {{/each}}  --}}           
+        </table>
+    </div>    
+</div>
+
+{{!--   <script src="index.js "></script> 
+    --}}

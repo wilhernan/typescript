@@ -3,14 +3,13 @@ import { interactionController } from '../controllers/interaction.controller';
 
 const router: Router = Router();
 
-    router.route('/')
-        .get(interactionController.uploadFormInteraction)
-    router.route('/interactions')
-        .get(interactionController.findAllInteractions)
-        .post(interactionController.addInteraction); 
-    router.route('/interactions/:id')
-        .get(interactionController.findById)        
-        .put(interactionController.updateInteraction)
-        .delete(interactionController.deleteInteraction);
+router.get('/', (req, res) => {
+    res.render('index', {title: 'Reporte Interactions'});
+}) 
+router.get('/interactions', (interactionController.findAllInteractions))    
+router.post('/interactions', interactionController.addInteraction); 
+router.get('/interactions/:id', (interactionController.findById));
+router.put('/interactions/:id',interactionController.updateInteraction);
+router.delete('/interactions/:id',interactionController.deleteInteraction);
 
-export default router;
+module.exports = router;

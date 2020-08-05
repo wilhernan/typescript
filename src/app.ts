@@ -4,7 +4,7 @@ import path from 'path';
 import morgan from "morgan";
 import methodOverride from "method-override"; 
 
-import InteractionRoutes from './routes/interactions';
+
 
 class Aplication {
 
@@ -34,16 +34,17 @@ class Aplication {
         this.app.use(methodOverride('_method'));
         this.app.use(express.urlencoded({extended: false}));
         this.app.use(express.json()); 
-        /* this.app.use(function errorHandler (err, req, res, next) {
-            res.status(500)
-            res.render('error', { error: err })
-        })  */
+        this.app.use(function errorHandler(err, req, res, next) {
+            console.log(err)
+            res.status(500).send('Something Broke!!!');            
+        })       
     }
 
     routes(){
-        this.app.use('/', InteractionRoutes);       
+        this.app.use('/', require('./routes/interactions'));       
         this.app.use(express.static(path.join(__dirname, 'public')));
     }
+
 
     start(): void {
         this.app.listen(this.app.get('port'), (error: Error) => {

@@ -1,8 +1,8 @@
 import {Interaction} from '../models/interaction'
 let add = document.getElementById('adicionar');
-/* let update = document.getElementById('editar'); */
+let update = document.getElementById('editar');
 let Revenue = (document.getElementById('Revenue') as HTMLInputElement).value;
-let tBody = (document.getElementById('tBody') as HTMLInputElement).value;
+let tbody = (document.querySelector('#tBody'));
 let Converted = false    
     if ( Revenue > 0) {
         Converted = true
@@ -81,22 +81,69 @@ let newInteraction:Interaction = {
         TrafficSourceClickID: (document.getElementById('TrafficSourceClickID') as HTMLInputElement).value,  
         server_region: (document.getElementById('ServerBy') as HTMLInputElement).value  
 }
-   
+
 fetch('/interactions')
     .then(function(response){
         return response.json();
     })
-    .then(function(interactions){
-        var allInteractions = interactions;
-        var i = 0;    
-        var tr = document.createElement("tr");
-        for (i = 0; i < allInteractions.length; i++) {
-            var td = document.createElement("td");
-            td.innerHTML = (allInteractions[i]);        
-            tr.appendChild(td);
-            tBody.appendChild(tr);      
-        } 
+    .then( interactions => {
+        console.log(interactions);
+        table(interactions);
+        
     });
+
+function table(interactions){
+    tbody.innerHTML = ''
+    for(let i of interactions){
+        tbody.innerHTML += `
+        <tr>                    
+            <td>${interactions.CreatedOn}</td>
+            <td>${interactions.InteractionID} </td>
+            <td>${interactions.Campaign.name} </td>
+            <td>${interactions.TrafficSource.name} </td>
+            <td>${interactions.LandingPage.name} </td>
+            <td>${interactions.Rotation.name} </td>
+            <td>${interactions.Offers.affiliate.name} </td>
+            <td>${interactions.Rule.name} </td>
+            <td>${interactions.RuleFilter.name} </td>
+            <td>${interactions.Rule.shedule_type} </td>
+            <td>${interactions.Visitor.Tokens.name} </td>
+            <td>${interactions.Visitor.Tokens.parameter} </td>
+            <td>${interactions.Visitor.Tokens.value} </td>
+            <td>${interactions.Visitor.Tokens.id} </td>
+            <td>${interactions.Offers.name} </td>
+            <td>${interactions.Offers.conversion.amount} </td>
+            <td>${interactions.hasConversion} </td>
+            <td>${interactions.TrafficSourceClickID} </td>
+            <td>${interactions.Campaign.CPC} </td>
+            <td>${interactions.Campaign.MediaBuyer.firstName} &nbsp ${interactions.Campaign.MediaBuyer.lastName} </td>
+            <td>${interactions.Visitor.ip_address} </td>
+            <td>${interactions.server_region} </td>
+            <td>${interactions.Visitor.geo_location.country_name} </td>
+            <td>${interactions.Visitor.geo_location.region_name} </td>
+            <td>${interactions.Visitor.geo_location.city_name} </td>
+            <td>${interactions.Visitor.geo_location.coords.time_zone} </td>
+            <td>${interactions.Visitor.geo_location.isp} </td>
+            <td>${interactions.Visitor.geo_location.connection_type} </td>
+            <td>${interactions.Visitor.geo_location.organization} </td>
+            <td>${interactions.Visitor.device.userAgent} </td>
+            <td>${interactions.Visitor.incomming_url} </td>
+            <td>${interactions.Visitor.device.browser} </td>
+            <td>${interactions.Visitor.device.OS.family} </td>
+            <td>${interactions.Visitor.device.OS.version} </td>
+            <td>${interactions.Visitor.device.OS.vendor} </td>
+            <td>${interactions.Visitor.device.type} </td>
+            <td>${interactions.Visitor.device.hardware.model} </td>
+            <td><a href="/interactions/${interactions._id}"> Edit <span class="glyphicon glyphicon-pencil"></span> </a> </td>
+            <td><form action="/interactions/${interactions._id}?_method=DELETE" method="POST">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="btn btn-danger btn-sm"> Delete</button>
+                </form>
+            </td>
+        </tr>        
+        `
+    }
+}
 
 add.addEventListener("click",function add(){
             

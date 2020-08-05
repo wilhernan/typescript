@@ -8,7 +8,6 @@ const express_handlebars_1 = __importDefault(require("express-handlebars"));
 const path_1 = __importDefault(require("path"));
 const morgan_1 = __importDefault(require("morgan"));
 const method_override_1 = __importDefault(require("method-override"));
-const interactions_1 = __importDefault(require("./routes/interactions"));
 class Aplication {
     constructor() {
         this.app = express_1.default();
@@ -32,13 +31,13 @@ class Aplication {
         this.app.use(method_override_1.default('_method'));
         this.app.use(express_1.default.urlencoded({ extended: false }));
         this.app.use(express_1.default.json());
-        /* this.app.use(function errorHandler (err, req, res, next) {
-            res.status(500)
-            res.render('error', { error: err })
-        })  */
+        this.app.use(function errorHandler(err, req, res, next) {
+            console.log(err);
+            res.status(500).send('Something Broke!!!');
+        });
     }
     routes() {
-        this.app.use('/', interactions_1.default);
+        this.app.use('/', require('./routes/interactions'));
         this.app.use(express_1.default.static(path_1.default.join(__dirname, 'public')));
     }
     start() {

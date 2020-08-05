@@ -3,10 +3,7 @@ import InteractionModel, { Interaction } from '../models/interaction';
 
 
 class InteractionController {
-    public uploadFormInteraction(req: Request, res:Response){
-        res.render('index', {title: 'Reporte Interactions'});
-    }
-
+    
     public  findAllInteractions(req: Request, res: Response){        
             InteractionModel.find(function(err, interactions){
                 if(err) res.status(500).send(err.message);  
