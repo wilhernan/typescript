@@ -32,13 +32,19 @@ class Aplication {
         this.app.use(method_override_1.default('_method'));
         this.app.use(express_1.default.urlencoded({ extended: false }));
         this.app.use(express_1.default.json());
+        /* this.app.use(function errorHandler (err, req, res, next) {
+            res.status(500)
+            res.render('error', { error: err })
+        })  */
     }
     routes() {
         this.app.use('/', interactions_1.default);
         this.app.use(express_1.default.static(path_1.default.join(__dirname, 'public')));
     }
     start() {
-        this.app.listen(this.app.get('port'), () => {
+        this.app.listen(this.app.get('port'), (error) => {
+            if (error)
+                return console.log(`Error: ${error}`);
             console.log(`Server on port`, this.app.get('port'));
         });
     }

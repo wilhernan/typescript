@@ -33,7 +33,11 @@ class Aplication {
         this.app.use(morgan('dev')); 
         this.app.use(methodOverride('_method'));
         this.app.use(express.urlencoded({extended: false}));
-        this.app.use(express.json());        
+        this.app.use(express.json()); 
+        /* this.app.use(function errorHandler (err, req, res, next) {
+            res.status(500)
+            res.render('error', { error: err })
+        })  */
     }
 
     routes(){
@@ -42,7 +46,8 @@ class Aplication {
     }
 
     start(): void {
-        this.app.listen(this.app.get('port'), () => {
+        this.app.listen(this.app.get('port'), (error: Error) => {
+            if (error) return console.log(`Error: ${error}`);
             console.log(`Server on port`, this.app.get('port'));
     });
     }

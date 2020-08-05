@@ -1,10 +1,10 @@
 import {Interaction} from '../models/interaction'
-
 let add = document.getElementById('adicionar');
-let update = document.getElementById('editar');
+/* let update = document.getElementById('editar'); */
 let Revenue = (document.getElementById('Revenue') as HTMLInputElement).value;
+let tBody = (document.getElementById('tBody') as HTMLInputElement).value;
 let Converted = false    
-    if ( Revenue > 0 ) {
+    if ( Revenue > 0) {
         Converted = true
     };
 let newInteraction:Interaction = {
@@ -82,6 +82,22 @@ let newInteraction:Interaction = {
         server_region: (document.getElementById('ServerBy') as HTMLInputElement).value  
 }
    
+fetch('/interactions')
+    .then(function(response){
+        return response.json();
+    })
+    .then(function(interactions){
+        var allInteractions = interactions;
+        var i = 0;    
+        var tr = document.createElement("tr");
+        for (i = 0; i < allInteractions.length; i++) {
+            var td = document.createElement("td");
+            td.innerHTML = (allInteractions[i]);        
+            tr.appendChild(td);
+            tBody.appendChild(tr);      
+        } 
+    });
+
 add.addEventListener("click",function add(){
             
         const data = newInteraction;
@@ -103,7 +119,8 @@ add.addEventListener("click",function add(){
         setTimeout("document.location=document.location", 2000);
 })
 
-update.addEventListener("click",function update(){
+
+/* update.addEventListener("click",function update(){
     
     const data = newInteraction;
     const options = {
@@ -120,4 +137,4 @@ update.addEventListener("click",function update(){
         console.error('Error', error))
     .then(response => console.log('Success:', response));
 })    
-
+ */
