@@ -24,7 +24,7 @@ class InteractionController {
         
             InteractionModel.findById(req.params.id, function(err, interaction) {
             if(err) return res.status(500).send(err.message);
-                console.log('GET /interactions/' + req.params.id);
+                console.log('GET /' + req.params.id);
                 res.status(200).jsonp(interaction);
             });
     }

@@ -41,7 +41,7 @@ class Aplication {
     }
 
     routes(){
-        this.app.use('/', require('./routes/interactions'));       
+        this.app.use('/', require('./routes/interactions'));            
         this.app.use(express.static(path.join(__dirname, 'public')));
     }
 
