@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
 }) 
 router.get('/interactions', (interactionController.findAllInteractions))    
 router.post('/interactions', interactionController.addInteraction); 
-router.get('/:id', (interactionController.findById));
+router.get('/interactions/:id', (interactionController.findById));
 router.put('/interactions/:id',interactionController.updateInteraction);
 router.delete('/interactions/:id',interactionController.deleteInteraction);
 
