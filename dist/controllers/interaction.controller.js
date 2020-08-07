@@ -71,16 +71,6 @@ class InteractionController {
             res.status(200).jsonp(interactions);
         });
     }
-    /*  public async renderFormEdit(req: Request, res: Response, next: NextFunction)  {
-         
-             const interactionEdit = await InteractionModel.findById(req.params.id).lean()
-             console.log(interactionEdit);
-             res.render('edit', {
-                 title: 'Edit Interaction',
-                 interactionEdit
-             });
-         
-     } */
     updateInteraction(req, res) {
         interaction_1.default.findById(req.params.id, { function(err, interactions) {
                 interactions.CreatedOn = req.body.CreatedOn;

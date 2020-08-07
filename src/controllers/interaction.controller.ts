@@ -73,17 +73,6 @@ class InteractionController {
          
     }
 
-   /*  public async renderFormEdit(req: Request, res: Response, next: NextFunction)  {  
-        
-            const interactionEdit = await InteractionModel.findById(req.params.id).lean()  
-            console.log(interactionEdit);     
-            res.render('edit', {
-                title: 'Edit Interaction',
-                interactionEdit
-            });    
-        
-    } */
-
     public updateInteraction(req: Request, res: Response){     
         InteractionModel.findById(req.params.id, {function(err: Error, interactions:Interaction){
                 interactions.CreatedOn = req.body.CreatedOn;

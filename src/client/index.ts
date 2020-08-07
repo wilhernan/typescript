@@ -1,4 +1,5 @@
 import {Interaction} from '../models/interaction'
+
 let add = document.getElementById('adicionar');
 let Revenue = (document.getElementById('Revenue') as HTMLInputElement).value;
 let edit = document.getElementById('update');
@@ -66,7 +67,7 @@ function table(interactions){
             </td>
             <td><form action="/interactions/${interactions[i]._id}?_method=DELETE" method="POST">
                     <input type="hidden" name="_method" value="DELETE">
-                    <button type="submit" class="btn btn-danger btn-sm"> Delete</button>
+                    <button type="submit" class="deleteButton btn btn-danger btn-sm"> Delete</button>
                 </form>
             </td>
         </tr>        
@@ -77,15 +78,24 @@ function table(interactions){
 document.addEventListener('click', function(e){    
     let target = e.target as HTMLButtonElement; 
     if(target && target.className === "editButton btn btn-primary btn-sm"){   
-        let _id = target.parentNode.action;                   
-        fetch(_id)
-        .then(function(response){
+        let interactionID = target.closest('tr').attributes.item(0).name;                   
+        fetch('/interactions/'+interactionID)
+        .then(function(response){            
             return  response.json();
         })
         .then(interaction => {  
             console.log(interaction);              
             update(interaction);        
         });
+    }else{
+        if(target && target.className === "deleteButton btn btn-danger btn-sm"){
+            let interactionID = target.closest('tr').attributes.item(0).name;
+            fetch('/interaction/'+interactionID, { method: 'DELETE'})
+            .then(response => {
+                response.json();
+            })
+            .then(interaction => console.log(interaction));
+        }
     }
 })   
 
@@ -129,8 +139,49 @@ function update(interaction) {
     
 
 add.addEventListener("click",function add(){
+                
+    const data = upload();
+    const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        };
+        fetch('/interactions', options)
+            .then(response => {
+            var data = response.json();
+            console.log(data);
+        }).catch(error =>
+            console.error('Error', error))
+        .then(response => console.log('Success:', response));
+   
+        (document.getElementById('myForm') as HTMLFormElement).reset();
+        setTimeout("document.location=document.location", 2000);
+})
 
-    let newInteraction:Interaction = {
+
+ edit.addEventListener("click",function update(){
+    
+    const data = upload();
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    };
+    fetch('/interactions/', options).then(response => {
+        var data = JSON.parse(response.json());
+        console.log(data);
+    }).catch(error =>
+        console.error('Error', error))
+    .then(response => console.log('Success:', response));
+})   
+
+function upload(){
+    let newInteraction:Interaction;
+    newInteraction = {
         CreatedOn: (document.getElementById('CreatedOn') as HTMLInputElement).value,
         InteractionID: (document.getElementById('InteractionID') as HTMLInputElement).value,
         Campaign: {
@@ -204,42 +255,5 @@ add.addEventListener("click",function add(){
         TrafficSourceClickID: (document.getElementById('TrafficSourceClickID') as HTMLInputElement).value,  
         server_region: (document.getElementById('ServerBy') as HTMLInputElement).value  
     }
-            
-    const data = newInteraction;
-    const options = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        };
-        fetch('/interactions', options)
-            .then(response => {
-            var data = response.json();
-            console.log(data);
-        }).catch(error =>
-            console.error('Error', error))
-        .then(response => console.log('Success:', response));
-   
-        (document.getElementById('myForm') as HTMLFormElement).reset();
-        setTimeout("document.location=document.location", 2000);
-})
-
-
- /* edit.addEventListener("click",function update(){
-    
-    const data = newInteraction;
-    const options = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    };
-    fetch('/edit/', options).then(response => {
-        var data = JSON.parse(response.json());
-        console.log(data);
-    }).catch(error =>
-        console.error('Error', error))
-    .then(response => console.log('Success:', response));
-})   */  
+    return newInteraction;
+}

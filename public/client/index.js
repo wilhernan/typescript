@@ -26,9 +26,10 @@ function table(interactions) {
 document.addEventListener('click', function (e) {
     var target = e.target;
     if (target && target.className === "editButton btn btn-primary btn-sm") {
-        var _id = target.parentNode.action;
-        fetch(_id)
+        var interactionID = target.closest('tr').attributes.item(0).name;
+        fetch('/interactions/' + interactionID)
             .then(function (response) {
+            console.log(response);
             return response.json();
         })
             .then(function (interaction) {
