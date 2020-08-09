@@ -11,9 +11,9 @@ let Converted = false
 
 fetch('/interactions')
     .then(function(response){
-        return  response.json();
+        return response.json();
     })
-    .then( interactions => {                
+    .then(interactions => {                
         table(interactions);        
     });
 
@@ -60,15 +60,11 @@ function table(interactions){
             <td>${interactions[i].Visitor.device.OS.vendor} </td>
             <td>${interactions[i].Visitor.device.type} </td>
             <td>${interactions[i].Visitor.device.hardware.model} </td>
-            <td>
-                <form action="/interactions/${interactions[i]._id}" method="GET">                    
-                    <button type="submit" class="editButton btn btn-primary btn-sm"> Update</button>
-                </form>               
+            <td>                               
+                <button type="submit" class="editButton btn btn-primary btn-sm"> Update</button>                           
             </td>
-            <td><form action="/interactions/${interactions[i]._id}?_method=DELETE" method="POST">
-                    <input type="hidden" name="_method" value="DELETE">
-                    <button type="submit" class="deleteButton btn btn-danger btn-sm"> Delete</button>
-                </form>
+            <td>
+                <button type="submit" class="deleteButton btn btn-danger btn-sm"> Delete</button>                
             </td>
         </tr>        
         `
@@ -76,6 +72,7 @@ function table(interactions){
 }
 
 document.addEventListener('click', function(e){    
+    e.preventDefault();
     let target = e.target as HTMLButtonElement; 
     if(target && target.className === "editButton btn btn-primary btn-sm"){   
         let interactionID = target.closest('tr').attributes.item(0).name;                   
@@ -90,51 +87,55 @@ document.addEventListener('click', function(e){
     }else{
         if(target && target.className === "deleteButton btn btn-danger btn-sm"){
             let interactionID = target.closest('tr').attributes.item(0).name;
-            fetch('/interaction/'+interactionID, { method: 'DELETE'})
+            fetch('/interactions/'+interactionID, { method: 'DELETE'})
             .then(response => {
                 response.json();
             })
             .then(interaction => console.log(interaction));
+            setTimeout("document.location=document.location", 2000);
         }
     }
 })   
 
-function update(interaction) {
-    document.getElementById("CreatedOn").innerHTML = interaction.CreatedOn;
-    document.getElementById("InteractionID").innerHTML = interaction.InteractionID;
-    document.getElementById("Campaign").innerHTML = interaction.Campaign.name;
-    document.getElementById("CPC").innerHTML = interaction.Campaign.CPC;
-    document.getElementById("MediaBuyerFirst").innerHTML = interaction.Campaign.MediaBuyer.firstName;
-    document.getElementById("MediaBuyerLast").innerHTML = interaction.Campaign.MediaBuyer.lastName;
-    document.getElementById("TrafficSource").innerHTML = interaction.TrafficSource.name;
-    document.getElementById("LandingPage").innerHTML = interaction.LandingPage.name;
-    document.getElementById("Rotation").innerHTML = interaction.Rotation.name; 
-    document.getElementById("Offers").innerHTML = interaction.Offers.name; 
-    document.getElementById("Affiliate").innerHTML = interaction.Offers.conversion.amount; 
-    document.getElementById("Rule").innerHTML = interaction.Rule.name; 
-    document.getElementById("RuleShedule").innerHTML = interaction.Rule.shedule_type; 
-    document.getElementById("RuleFilter").innerHTML = interaction.RuleFilter.name; 
-    document.getElementById("TokenName").innerHTML = interaction.Visitor.Tokens.name; 
-    document.getElementById("TokenName").innerHTML = interaction.Visitor.Tokens.name; 
-    document.getElementById("TokenId").innerHTML = interaction.Visitor.Tokens.id; 
-    document.getElementById("IpAddress").innerHTML = interaction.Visitor.ip_address;
-    document.getElementById("Country").innerHTML = interaction.Visitor.geo_location.country_name;
-    document.getElementById("RegionName").innerHTML = interaction.Visitor.geo_location.region_name;
-    document.getElementById("City").innerHTML = interaction.Visitor.geo_location.city_name;
-    document.getElementById("Coords").innerHTML = interaction.Visitor.geo_location.coords.time_zone;
-    document.getElementById("ISP").innerHTML = interaction.Visitor.geo_location.isp;
-    document.getElementById("Organization").innerHTML = interaction.Visitor.geo_location.organization;
-    document.getElementById("ConnectionType").innerHTML = interaction.Visitor.geo_location.connection_type;
-    document.getElementById("UserAgent").innerHTML = interaction.Visitor.device.userAgent;
-    document.getElementById("Browser").innerHTML = interaction.Visitor.device.browser;
-    document.getElementById("OS").innerHTML = interaction.Visitor.device.OS.family;
-    document.getElementById("OSVersion").innerHTML = interaction.Visitor.device.OS.version;
-    document.getElementById("DeviceVendor").innerHTML = interaction.Visitor.device.OS.vendor;
-    document.getElementById("DeviceType").innerHTML = interaction.Visitor.device.type;
-    document.getElementById("DeviceModel").innerHTML = interaction.Visitor.device.hardware.model;
-    document.getElementById("IncommingUrl").innerHTML = interaction.Visitor.incomming_url;
-    document.getElementById("TrafficSourceClickID").innerHTML = interaction.TrafficSourceClickID;
-    document.getElementById("ServerBy").innerHTML = interaction.server_region;
+function update(interaction) {  
+    (document.getElementById("update") as HTMLButtonElement).attributes.item = interaction._id;  
+    (document.getElementById("CreatedOn") as HTMLInputElement).value = interaction.CreatedOn;
+    (document.getElementById("InteractionID")as HTMLInputElement).value  = interaction.InteractionID;
+    (document.getElementById("Campaign")as HTMLInputElement).value  = interaction.Campaign.name;
+    (document.getElementById("CPC")as HTMLInputElement).value  = interaction.Campaign.CPC;
+    (document.getElementById("MediaBuyerFirst")as HTMLInputElement).value  = interaction.Campaign.MediaBuyer.firstName;
+    (document.getElementById("MediaBuyerLast")as HTMLInputElement).value  = interaction.Campaign.MediaBuyer.lastName;
+    (document.getElementById("TrafficSource")as HTMLInputElement).value  = interaction.TrafficSource.name;
+    (document.getElementById("LandingPage")as HTMLInputElement).value  = interaction.LandingPage.name;
+    (document.getElementById("Rotation")as HTMLInputElement).value  = interaction.Rotation.name; 
+    (document.getElementById("Offers")as HTMLInputElement).value  = interaction.Offers.name; 
+    (document.getElementById("Affiliate")as HTMLInputElement).value  = interaction.Offers.affiliate.name; 
+    (document.getElementById("Rule")as HTMLInputElement).value  = interaction.Rule.name; 
+    (document.getElementById("RuleShedule")as HTMLInputElement).value  = interaction.Rule.shedule_type; 
+    (document.getElementById("RuleFilter")as HTMLInputElement).value  = interaction.RuleFilter.name; 
+    (document.getElementById("TokenName")as HTMLInputElement).value  = interaction.Visitor.Tokens.name; 
+    (document.getElementById("TokenParameter")as HTMLInputElement).value  = interaction.Visitor.Tokens.parameter; 
+    (document.getElementById("TokenValue")as HTMLInputElement).value  = interaction.Visitor.Tokens.value; 
+    (document.getElementById("TokenId")as HTMLInputElement).value  = interaction.Visitor.Tokens.id; 
+    (document.getElementById("IpAddress")as HTMLInputElement).value  = interaction.Visitor.ip_address;
+    (document.getElementById("Country")as HTMLInputElement).value  = interaction.Visitor.geo_location.country_name;
+    (document.getElementById("RegionName")as HTMLInputElement).value  = interaction.Visitor.geo_location.region_name;
+    (document.getElementById("City")as HTMLInputElement).value  = interaction.Visitor.geo_location.city_name;
+    (document.getElementById("Coords")as HTMLInputElement).value  = interaction.Visitor.geo_location.coords.time_zone;
+    (document.getElementById("ISP")as HTMLInputElement).value  = interaction.Visitor.geo_location.isp;
+    (document.getElementById("Organization")as HTMLInputElement).value  = interaction.Visitor.geo_location.organization;
+    (document.getElementById("ConnectionType")as HTMLInputElement).value  = interaction.Visitor.geo_location.connection_type;
+    (document.getElementById("UserAgent")as HTMLInputElement).value  = interaction.Visitor.device.userAgent;
+    (document.getElementById("Browser")as HTMLInputElement).value  = interaction.Visitor.device.browser;
+    (document.getElementById("OS")as HTMLInputElement).value  = interaction.Visitor.device.OS.family;
+    (document.getElementById("OSVersion")as HTMLInputElement).value  = interaction.Visitor.device.OS.version;
+    (document.getElementById("DeviceVendor")as HTMLInputElement).value  = interaction.Visitor.device.OS.vendor;
+    (document.getElementById("DeviceType")as HTMLInputElement).value  = interaction.Visitor.device.type;
+    (document.getElementById("DeviceModel")as HTMLInputElement).value  = interaction.Visitor.device.hardware.model;
+    (document.getElementById("IncommingUrl")as HTMLInputElement).value  = interaction.Visitor.incomming_url;
+    (document.getElementById("TrafficSourceClickID")as HTMLInputElement).value  = interaction.TrafficSourceClickID;
+    (document.getElementById("ServerBy")as HTMLInputElement).value  = interaction.server_region;
+    (document.getElementById("Revenue")as HTMLInputElement).value  = interaction.Offers.conversion.amount;
 }
     
 
@@ -161,27 +162,31 @@ add.addEventListener("click",function add(){
 })
 
 
- edit.addEventListener("click",function update(){
-    
+ edit.addEventListener("click",function update(){    
     const data = upload();
     const options = {
-        method: 'POST',
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
     };
-    fetch('/interactions/', options).then(response => {
-        var data = JSON.parse(response.json());
+    fetch('/interactions/'+data._id, options)
+    .then(response => {
+        var data = response.json();
         console.log(data);
     }).catch(error =>
         console.error('Error', error))
     .then(response => console.log('Success:', response));
+
+    (document.getElementById('myForm') as HTMLFormElement).reset();
+    setTimeout("document.location=document.location", 2000);
 })   
 
-function upload(){
-    let newInteraction:Interaction;
+function upload(){    
+    let newInteraction;
     newInteraction = {
+        _id: (document.getElementById("update") as HTMLButtonElement).attributes.item,
         CreatedOn: (document.getElementById('CreatedOn') as HTMLInputElement).value,
         InteractionID: (document.getElementById('InteractionID') as HTMLInputElement).value,
         Campaign: {
