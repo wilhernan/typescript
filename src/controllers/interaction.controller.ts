@@ -112,18 +112,7 @@ class InteractionController {
                 res.status(500).send({
                     message: "Error updating Interaction with id=" + req.params.id 
                 });
-            });     
-            /*   try {
-             throw new Error("There was an error updating the Interactions");
-                
-            } catch (err) {
-                console.log(err);
-                res.status(500).send('An Internal server ocurred');
-            }    
-            res.status(200).jsonp(res);
-            console.log(interaction);           
-            if(err) return res.status(500).send(err.message);
-            res.status(200).jsonp(interaction); */
+            });   
     }          
        
 

@@ -21,8 +21,7 @@
     "typescript": "^3.9.7"
   },
   "scripts": {
-    "build-server": "tsc",
-    "compile": "tsc && node server.js",
+    "build-server": "tsc",    
     "dev": "concurrently --kill-others \"tsc -w\" \"nodemon dist/server.js\"",    
     "build-client": "tsc src/client/index.ts --outDir ./public"
   },

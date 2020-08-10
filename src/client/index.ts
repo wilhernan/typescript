@@ -1,4 +1,3 @@
-import {Interaction} from '../models/interaction'
 
 let add = document.getElementById('adicionar');
 let Revenue = (document.getElementById('Revenue') as HTMLInputElement).value;
@@ -14,52 +13,52 @@ fetch('/interactions')
         return response.json();
     })
     .then(interactions => {                
-        table(interactions);        
+        table(interactions);            
     });
+    
 
-function table(interactions){
-    tbody.innerHTML = ''
-    let i = 0;
-    for (i = 0; i < interactions.length; i++){
+function table(interactions){    
+    tbody.innerHTML = ''    
+    interactions.forEach(interaction => { 
         tbody.innerHTML += `
-        <tr ${interactions[i]._id} >                    
-            <td>${interactions[i].CreatedOn}</td>
-            <td>${interactions[i].InteractionID} </td>
-            <td>${interactions[i].Campaign.name} </td>
-            <td>${interactions[i].TrafficSource.name} </td>
-            <td>${interactions[i].LandingPage.name} </td>
-            <td>${interactions[i].Rotation.name} </td>
-            <td>${interactions[i].Offers.affiliate.name} </td>
-            <td>${interactions[i].Rule.name} </td>
-            <td>${interactions[i].RuleFilter.name} </td>
-            <td>${interactions[i].Rule.shedule_type} </td>
-            <td>${interactions[i].Visitor.Tokens.name} </td>
-            <td>${interactions[i].Visitor.Tokens.parameter} </td>
-            <td>${interactions[i].Visitor.Tokens.value} </td>
-            <td>${interactions[i].Visitor.Tokens.id} </td>
-            <td>${interactions[i].Offers.name} </td>
-            <td>${interactions[i].Offers.conversion.amount} </td>
-            <td>${interactions[i].hasConversion} </td>
-            <td>${interactions[i].TrafficSourceClickID} </td>
-            <td>${interactions[i].Campaign.CPC} </td>
-            <td>${interactions[i].Campaign.MediaBuyer.firstName} &nbsp ${interactions[i].Campaign.MediaBuyer.lastName} </td>
-            <td>${interactions[i].Visitor.ip_address} </td>
-            <td>${interactions[i].server_region} </td>
-            <td>${interactions[i].Visitor.geo_location.country_name} </td>
-            <td>${interactions[i].Visitor.geo_location.region_name} </td>
-            <td>${interactions[i].Visitor.geo_location.city_name} </td>
-            <td>${interactions[i].Visitor.geo_location.coords.time_zone} </td>
-            <td>${interactions[i].Visitor.geo_location.isp} </td>
-            <td>${interactions[i].Visitor.geo_location.connection_type} </td>
-            <td>${interactions[i].Visitor.geo_location.organization} </td>
-            <td>${interactions[i].Visitor.device.userAgent} </td>
-            <td>${interactions[i].Visitor.incomming_url} </td>
-            <td>${interactions[i].Visitor.device.browser} </td>
-            <td>${interactions[i].Visitor.device.OS.family} </td>
-            <td>${interactions[i].Visitor.device.OS.version} </td>
-            <td>${interactions[i].Visitor.device.OS.vendor} </td>
-            <td>${interactions[i].Visitor.device.type} </td>
-            <td>${interactions[i].Visitor.device.hardware.model} </td>
+        <tr ${interaction._id} >                    
+            <td>${interaction.CreatedOn}</td>
+            <td>${interaction.InteractionID} </td>
+            <td>${interaction.Campaign.name} </td>
+            <td>${interaction.TrafficSource.name} </td>
+            <td>${interaction.LandingPage.name} </td>
+            <td>${interaction.Rotation.name} </td>
+            <td>${interaction.Offers.affiliate.name} </td>
+            <td>${interaction.Rule.name} </td>
+            <td>${interaction.RuleFilter.name} </td>
+            <td>${interaction.Rule.shedule_type} </td>
+            <td>${interaction.Visitor.Tokens.name} </td>
+            <td>${interaction.Visitor.Tokens.parameter} </td>
+            <td>${interaction.Visitor.Tokens.value} </td>
+            <td>${interaction.Visitor.Tokens.id} </td>
+            <td>${interaction.Offers.name} </td>
+            <td>${interaction.Offers.conversion.amount} </td>
+            <td>${interaction.hasConversion} </td>
+            <td>${interaction.TrafficSourceClickID} </td>
+            <td>${interaction.Campaign.CPC} </td>
+            <td>${interaction.Campaign.MediaBuyer.firstName} &nbsp ${interaction.Campaign.MediaBuyer.lastName} </td>
+            <td>${interaction.Visitor.ip_address} </td>
+            <td>${interaction.server_region} </td>
+            <td>${interaction.Visitor.geo_location.country_name} </td>
+            <td>${interaction.Visitor.geo_location.region_name} </td>
+            <td>${interaction.Visitor.geo_location.city_name} </td>
+            <td>${interaction.Visitor.geo_location.coords.time_zone} </td>
+            <td>${interaction.Visitor.geo_location.isp} </td>
+            <td>${interaction.Visitor.geo_location.connection_type} </td>
+            <td>${interaction.Visitor.geo_location.organization} </td>
+            <td>${interaction.Visitor.device.userAgent} </td>
+            <td>${interaction.Visitor.incomming_url} </td>
+            <td>${interaction.Visitor.device.browser} </td>
+            <td>${interaction.Visitor.device.OS.family} </td>
+            <td>${interaction.Visitor.device.OS.version} </td>
+            <td>${interaction.Visitor.device.OS.vendor} </td>
+            <td>${interaction.Visitor.device.type} </td>
+            <td>${interaction.Visitor.device.hardware.model} </td>
             <td>                               
                 <button type="submit" class="editButton btn btn-primary btn-sm"> Update</button>                           
             </td>
@@ -67,8 +66,8 @@ function table(interactions){
                 <button type="submit" class="deleteButton btn btn-danger btn-sm"> Delete</button>                
             </td>
         </tr>        
-        `
-    }
+        `        
+     })  
 }
 
 document.addEventListener('click', function(e){    

@@ -34,10 +34,10 @@ class Aplication {
         this.app.use(methodOverride('_method'));
         this.app.use(express.urlencoded({extended: false}));
         this.app.use(express.json()); 
-        this.app.use(function errorHandler(err, req, res, next) {
+        /* this.app.use(function errorHandler(err, req, res, next) {
             console.log(err)
             res.status(500).send('Something Broke!!!');            
-        })       
+        })  */      
     }
 
     routes(){

@@ -18,10 +18,60 @@ fetch('/interactions')
 });
 function table(interactions) {
     tbody.innerHTML = '';
-    var i = 0;
-    for (i = 0; i < interactions.length; i++) {
-        tbody.innerHTML += "\n        <tr " + interactions[i]._id + " >                    \n            <td>" + interactions[i].CreatedOn + "</td>\n            <td>" + interactions[i].InteractionID + " </td>\n            <td>" + interactions[i].Campaign.name + " </td>\n            <td>" + interactions[i].TrafficSource.name + " </td>\n            <td>" + interactions[i].LandingPage.name + " </td>\n            <td>" + interactions[i].Rotation.name + " </td>\n            <td>" + interactions[i].Offers.affiliate.name + " </td>\n            <td>" + interactions[i].Rule.name + " </td>\n            <td>" + interactions[i].RuleFilter.name + " </td>\n            <td>" + interactions[i].Rule.shedule_type + " </td>\n            <td>" + interactions[i].Visitor.Tokens.name + " </td>\n            <td>" + interactions[i].Visitor.Tokens.parameter + " </td>\n            <td>" + interactions[i].Visitor.Tokens.value + " </td>\n            <td>" + interactions[i].Visitor.Tokens.id + " </td>\n            <td>" + interactions[i].Offers.name + " </td>\n            <td>" + interactions[i].Offers.conversion.amount + " </td>\n            <td>" + interactions[i].hasConversion + " </td>\n            <td>" + interactions[i].TrafficSourceClickID + " </td>\n            <td>" + interactions[i].Campaign.CPC + " </td>\n            <td>" + interactions[i].Campaign.MediaBuyer.firstName + " &nbsp " + interactions[i].Campaign.MediaBuyer.lastName + " </td>\n            <td>" + interactions[i].Visitor.ip_address + " </td>\n            <td>" + interactions[i].server_region + " </td>\n            <td>" + interactions[i].Visitor.geo_location.country_name + " </td>\n            <td>" + interactions[i].Visitor.geo_location.region_name + " </td>\n            <td>" + interactions[i].Visitor.geo_location.city_name + " </td>\n            <td>" + interactions[i].Visitor.geo_location.coords.time_zone + " </td>\n            <td>" + interactions[i].Visitor.geo_location.isp + " </td>\n            <td>" + interactions[i].Visitor.geo_location.connection_type + " </td>\n            <td>" + interactions[i].Visitor.geo_location.organization + " </td>\n            <td>" + interactions[i].Visitor.device.userAgent + " </td>\n            <td>" + interactions[i].Visitor.incomming_url + " </td>\n            <td>" + interactions[i].Visitor.device.browser + " </td>\n            <td>" + interactions[i].Visitor.device.OS.family + " </td>\n            <td>" + interactions[i].Visitor.device.OS.version + " </td>\n            <td>" + interactions[i].Visitor.device.OS.vendor + " </td>\n            <td>" + interactions[i].Visitor.device.type + " </td>\n            <td>" + interactions[i].Visitor.device.hardware.model + " </td>\n            <td>                               \n                <button type=\"submit\" class=\"editButton btn btn-primary btn-sm\"> Update</button>                           \n            </td>\n            <td>\n                <button type=\"submit\" class=\"deleteButton btn btn-danger btn-sm\"> Delete</button>                \n            </td>\n        </tr>        \n        ";
-    }
+    var index = 0;
+    interactions.array.forEach(function (interactions) {
+        tbody.innerHTML += "\n        <tr " + interactions[index]._id + " >                    \n            <td>" + interactions[index].CreatedOn + "</td>\n            <td>" + interactions[index].InteractionID + " </td>\n            <td>" + interactions[index].Campaign.name + " </td>\n            <td>" + interactions[index].TrafficSource.name + " </td>\n            <td>" + interactions[index].LandingPage.name + " </td>\n            <td>" + interactions[index].Rotation.name + " </td>\n            <td>" + interactions[index].Offers.affiliate.name + " </td>\n            <td>" + interactions[index].Rule.name + " </td>\n            <td>" + interactions[index].RuleFilter.name + " </td>\n            <td>" + interactions[index].Rule.shedule_type + " </td>\n            <td>" + interactions[index].Visitor.Tokens.name + " </td>\n            <td>" + interactions[index].Visitor.Tokens.parameter + " </td>\n            <td>" + interactions[index].Visitor.Tokens.value + " </td>\n            <td>" + interactions[index].Visitor.Tokens.id + " </td>\n            <td>" + interactions[index].Offers.name + " </td>\n            <td>" + interactions[index].Offers.conversion.amount + " </td>\n            <td>" + interactions[index].hasConversion + " </td>\n            <td>" + interactions[index].TrafficSourceClickID + " </td>\n            <td>" + interactions[index].Campaign.CPC + " </td>\n            <td>" + interactions[index].Campaign.MediaBuyer.firstName + " &nbsp " + interactions[index].Campaign.MediaBuyer.lastName + " </td>\n            <td>" + interactions[index].Visitor.ip_address + " </td>\n            <td>" + interactions[index].server_region + " </td>\n            <td>" + interactions[index].Visitor.geo_location.country_name + " </td>\n            <td>" + interactions[index].Visitor.geo_location.region_name + " </td>\n            <td>" + interactions[index].Visitor.geo_location.city_name + " </td>\n            <td>" + interactions[index].Visitor.geo_location.coords.time_zone + " </td>\n            <td>" + interactions[index].Visitor.geo_location.isp + " </td>\n            <td>" + interactions[index].Visitor.geo_location.connection_type + " </td>\n            <td>" + interactions[index].Visitor.geo_location.organization + " </td>\n            <td>" + interactions[index].Visitor.device.userAgent + " </td>\n            <td>" + interactions[index].Visitor.incomming_url + " </td>\n            <td>" + interactions[index].Visitor.device.browser + " </td>\n            <td>" + interactions[index].Visitor.device.OS.family + " </td>\n            <td>" + interactions[index].Visitor.device.OS.version + " </td>\n            <td>" + interactions[index].Visitor.device.OS.vendor + " </td>\n            <td>" + interactions[index].Visitor.device.type + " </td>\n            <td>" + interactions[index].Visitor.device.hardware.model + " </td>\n            <td>                               \n                <button type=\"submit\" class=\"editButton btn btn-primary btn-sm\"> Update</button>                           \n            </td>\n            <td>\n                <button type=\"submit\" class=\"deleteButton btn btn-danger btn-sm\"> Delete</button>                \n            </td>\n        </tr>        \n        ";
+        index++;
+    });
+    /*  for (i = 0; i < interactions.length; i++){
+         tbody.innerHTML += `
+         <tr ${interactions[i]._id} >
+             <td>${interactions[i].CreatedOn}</td>
+             <td>${interactions[i].InteractionID} </td>
+             <td>${interactions[i].Campaign.name} </td>
+             <td>${interactions[i].TrafficSource.name} </td>
+             <td>${interactions[i].LandingPage.name} </td>
+             <td>${interactions[i].Rotation.name} </td>
+             <td>${interactions[i].Offers.affiliate.name} </td>
+             <td>${interactions[i].Rule.name} </td>
+             <td>${interactions[i].RuleFilter.name} </td>
+             <td>${interactions[i].Rule.shedule_type} </td>
+             <td>${interactions[i].Visitor.Tokens.name} </td>
+             <td>${interactions[i].Visitor.Tokens.parameter} </td>
+             <td>${interactions[i].Visitor.Tokens.value} </td>
+             <td>${interactions[i].Visitor.Tokens.id} </td>
+             <td>${interactions[i].Offers.name} </td>
+             <td>${interactions[i].Offers.conversion.amount} </td>
+             <td>${interactions[i].hasConversion} </td>
+             <td>${interactions[i].TrafficSourceClickID} </td>
+             <td>${interactions[i].Campaign.CPC} </td>
+             <td>${interactions[i].Campaign.MediaBuyer.firstName} &nbsp ${interactions[i].Campaign.MediaBuyer.lastName} </td>
+             <td>${interactions[i].Visitor.ip_address} </td>
+             <td>${interactions[i].server_region} </td>
+             <td>${interactions[i].Visitor.geo_location.country_name} </td>
+             <td>${interactions[i].Visitor.geo_location.region_name} </td>
+             <td>${interactions[i].Visitor.geo_location.city_name} </td>
+             <td>${interactions[i].Visitor.geo_location.coords.time_zone} </td>
+             <td>${interactions[i].Visitor.geo_location.isp} </td>
+             <td>${interactions[i].Visitor.geo_location.connection_type} </td>
+             <td>${interactions[i].Visitor.geo_location.organization} </td>
+             <td>${interactions[i].Visitor.device.userAgent} </td>
+             <td>${interactions[i].Visitor.incomming_url} </td>
+             <td>${interactions[i].Visitor.device.browser} </td>
+             <td>${interactions[i].Visitor.device.OS.family} </td>
+             <td>${interactions[i].Visitor.device.OS.version} </td>
+             <td>${interactions[i].Visitor.device.OS.vendor} </td>
+             <td>${interactions[i].Visitor.device.type} </td>
+             <td>${interactions[i].Visitor.device.hardware.model} </td>
+             <td>
+                 <button type="submit" class="editButton btn btn-primary btn-sm"> Update</button>
+             </td>
+             <td>
+                 <button type="submit" class="deleteButton btn btn-danger btn-sm"> Delete</button>
+             </td>
+         </tr>
+         `
+     } */
 }
 document.addEventListener('click', function (e) {
     e.preventDefault();
