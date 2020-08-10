@@ -16,7 +16,6 @@ fetch('/interactions')
         table(interactions);            
     });
     
-
 function table(interactions){    
     tbody.innerHTML = ''    
     interactions.forEach(interaction => { 
@@ -70,8 +69,7 @@ function table(interactions){
      })  
 }
 
-document.addEventListener('click', function(e){    
-    e.preventDefault();
+document.addEventListener('click', function(e){        
     let target = e.target as HTMLButtonElement; 
     if(target && target.className === "editButton btn btn-primary btn-sm"){   
         let interactionID = target.closest('tr').attributes.item(0).name;                   
@@ -136,10 +134,8 @@ function update(interaction) {
     (document.getElementById("ServerBy")as HTMLInputElement).value  = interaction.server_region;
     (document.getElementById("Revenue")as HTMLInputElement).value  = interaction.Offers.conversion.amount;
 }
-    
 
-add.addEventListener("click",function add(){
-                
+add.addEventListener("click",function add(){                
     const data = upload();
     const options = {
             method: 'POST',
@@ -160,8 +156,7 @@ add.addEventListener("click",function add(){
         setTimeout("document.location=document.location", 2000);
 })
 
-
- edit.addEventListener("click",function update(){    
+edit.addEventListener("click",function update(){    
     const data = upload();
     const options = {
         method: 'PUT',

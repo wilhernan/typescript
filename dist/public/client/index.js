@@ -21,7 +21,6 @@ function table(interactions) {
     });
 }
 document.addEventListener('click', function (e) {
-    e.preventDefault();
     var target = e.target;
     if (target && target.className === "editButton btn btn-primary btn-sm") {
         var interactionID = target.closest('tr').attributes.item(0).name;

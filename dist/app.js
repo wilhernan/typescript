@@ -31,10 +31,6 @@ class Aplication {
         this.app.use(method_override_1.default('_method'));
         this.app.use(express_1.default.urlencoded({ extended: false }));
         this.app.use(express_1.default.json());
-        /* this.app.use(function errorHandler(err, req, res, next) {
-            console.log(err)
-            res.status(500).send('Something Broke!!!');
-        })  */
     }
     routes() {
         this.app.use('/', require('./routes/interactions'));

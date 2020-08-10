@@ -14,8 +14,7 @@ class InteractionController {
             }                      
     
 
-    public findById(req: Request, res:Response) {
-        
+    public findById(req: Request, res:Response) {        
             InteractionModel.findById(req.params.id, function(err, interaction) {
             if(err) return res.status(500).send(err.message);
                 console.log('GET /interactions/' + req.params.id);
@@ -58,13 +57,11 @@ class InteractionController {
                 MediaBuyerFirstName,
                 MediaBuyerLlastName,            
                 server_region, 
-            });      
-            
+            }); 
             interaction.save(function(err, interactions){
                 if (err) return res.status(500).send(err.message);
             res.status(200).jsonp(interactions)
-            });
-         
+            });         
     }
 
     public async updateInteraction(req: Request, res: Response){   
@@ -116,8 +113,7 @@ class InteractionController {
     }          
        
 
-    public deleteInteraction(req: Request, res: Response){  
-        
+    public deleteInteraction(req: Request, res: Response){          
         InteractionModel.findById(req.params.id, function(err, interaction:Interaction){
             interaction.remove(function(err){
                 if(err) return res.status(500).send(err.message);
