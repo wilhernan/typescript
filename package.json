@@ -6,9 +6,11 @@
   "dependencies": {
     "express": "^4.17.1",
     "express-handlebars": "^5.1.0",
+    "jest": "^26.3.0",
     "method-override": "^3.0.0",
     "mongoose": "^5.9.26",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "supertest": "^4.0.2"
   },
   "devDependencies": {
     "@types/express": "^4.17.7",
@@ -17,12 +19,12 @@
     "@types/mongoose": "^5.7.32",
     "@types/morgan": "^1.9.1",
     "concurrently": "^5.2.0",
-    "nodemon": "^2.0.4",    
+    "nodemon": "^2.0.4",
     "typescript": "^3.9.7"
   },
   "scripts": {
-    "build-server": "tsc",    
-    "dev": "concurrently --kill-others \"tsc -w\" \"nodemon dist/server.js\"",    
+    "build-server": "tsc",
+    "dev": "concurrently --kill-others \"tsc -w\" \"nodemon dist/server.js\"",
     "build-client": "tsc src/client/index.ts --outDir ./public"
   },
   "repository": {

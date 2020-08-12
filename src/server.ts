@@ -1,8 +1,8 @@
-import App from './app';
+import app from './app';
 import './database';
 
 
-const app = new App();
-
-
-app.start();
+app.listen(app.get('port'), (error: Error) => {
+    if (error) return console.log(`Error: ${error}`);
+    console.log(`Server on port`, app.get('port'));
+});

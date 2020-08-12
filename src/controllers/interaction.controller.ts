@@ -1,6 +1,6 @@
 import { Request, Response, response} from 'express';
 import InteractionModel, { Interaction } from '../models/interaction';
-import interaction from '../models/interaction';
+
 
 
 class InteractionController {

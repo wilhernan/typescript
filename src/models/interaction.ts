@@ -1,8 +1,8 @@
 import mongoose, {Schema, model} from 'mongoose';
 
-export interface Interaction extends mongoose.Document {    
-    CreatedOn:string;
-    InteractionID:string;
+export interface Interaction extends mongoose.Document {   
+    CreatedOn:string,
+    InteractionID:string,
     Campaign: {
         name: string,
         CPC: number,
@@ -10,16 +10,16 @@ export interface Interaction extends mongoose.Document {
             firstName: string,
             lastName: string
         }
-    };
+    },
     TrafficSource: {
         name: string
-    };
+    },
     LandingPage: {
         name: string
-    };
+    },
     Rotation: {
         name: string
-    };
+    },
     Offers: {
         name: string,
         affiliate: {
@@ -28,14 +28,14 @@ export interface Interaction extends mongoose.Document {
         conversion: {
             amount: number
         }           
-    };  
+    }, 
     Rule: {
         name: string,
         shedule_type: string        
-    };
+    },
     RuleFilter: {
         name: string
-    };
+    },
     Visitor:  {
         Tokens: {
             name: string,
@@ -69,11 +69,13 @@ export interface Interaction extends mongoose.Document {
             }
         },
         incomming_url: string
-    };    
-    hasConversion: boolean;    
-    TrafficSourceClickID:string;  
+    },    
+    hasConversion: boolean,    
+    TrafficSourceClickID:string,  
     server_region:string
-} 
+}
+
+// interface Interactions extends Array<Interaction>{}
 
 const InteractionSchema = new Schema({    
     CreatedOn: String,
