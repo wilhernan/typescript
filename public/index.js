@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,7 +34,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-exports.__esModule = true;
+//interface Interactions extends Array<Interaction>{}
 var add = document.getElementById('adicionar');
 var Revenue = document.getElementById('Revenue').value;
 var edit = document.getElementById('update');
@@ -60,37 +59,44 @@ function updateInteractionsTable(interactions) {
 }
 document.addEventListener('click', function editAndDelete(e) {
     return __awaiter(this, void 0, void 0, function () {
-        var target, interactionID, interactionID;
+        var target, interactionID, interactionID, response, interactions, error_1;
         return __generator(this, function (_a) {
-            target = e.target;
-            if (target && target.className === "editButton btn btn-primary btn-sm") {
-                interactionID = target.closest('tr').getAttribute('id');
-                fetch('/interactions/' + interactionID)
-                    .then(function (response) {
-                    return response.json();
-                })["catch"](function (error) {
-                    return console.error('Error', error);
-                })
-                    .then(function (interaction) {
-                    console.log(interaction);
-                    updateFormInputs(interaction);
-                });
-            }
-            else {
-                if (target && target.className === "deleteButton btn btn-danger btn-sm") {
+            switch (_a.label) {
+                case 0:
+                    target = e.target;
+                    if (!(target && target.className === "editButton btn btn-primary btn-sm")) return [3 /*break*/, 1];
                     interactionID = target.closest('tr').getAttribute('id');
-                    fetch('/interactions/' + interactionID, { method: 'DELETE' })
+                    fetch('/interactions/' + interactionID)
                         .then(function (response) {
-                        response.json();
+                        return response.json();
                     })["catch"](function (error) {
                         return console.error('Error', error);
                     })
-                        .then(function (interaction) { return console.log(interaction); });
-                    updateInteractionsTable(interaction);
-                    /* setTimeout("document.location=document.location", 2000); */
-                }
+                        .then(function (interaction) {
+                        console.log(interaction);
+                        updateFormInputs(interaction);
+                    });
+                    return [3 /*break*/, 5];
+                case 1:
+                    if (!(target && target.className === "deleteButton btn btn-danger btn-sm")) return [3 /*break*/, 5];
+                    _a.label = 2;
+                case 2:
+                    _a.trys.push([2, 4, , 5]);
+                    interactionID = target.closest('tr').getAttribute('id');
+                    return [4 /*yield*/, fetch('/interactions/' + interactionID, { method: 'DELETE' })];
+                case 3:
+                    response = _a.sent();
+                    interactions = response.json();
+                    console.log(interactions);
+                    updateInteractionsTable(interactions);
+                    return [3 /*break*/, 5];
+                case 4:
+                    error_1 = _a.sent();
+                    alert(error_1.message);
+                    console.error('Error', error_1);
+                    return [3 /*break*/, 5];
+                case 5: return [2 /*return*/];
             }
-            return [2 /*return*/];
         });
     });
 });
@@ -162,7 +168,7 @@ add.addEventListener("click", function addInteraction() {
 });
 edit.addEventListener("click", function updateInteraction() {
     return __awaiter(this, void 0, void 0, function () {
-        var data, options, response, interactions, error_1;
+        var data, options, response, interactions, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -178,16 +184,15 @@ edit.addEventListener("click", function updateInteraction() {
                     return [4 /*yield*/, fetch('/interactions/' + data._id, options)];
                 case 1:
                     response = _a.sent();
-                    response.status == 200;
                     interactions = response.json();
-                    console.log('Success:', response);
+                    console.log('Success:', interactions);
                     updateInteractionsTable(interactions);
                     document.getElementById('myForm').reset();
                     return [3 /*break*/, 3];
                 case 2:
-                    error_1 = _a.sent();
-                    alert(error_1.message);
-                    console.error('Error', error_1);
+                    error_2 = _a.sent();
+                    alert(error_2.message);
+                    console.error('Error', error_2);
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }

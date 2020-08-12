@@ -16,19 +16,29 @@ exports.interactionController = void 0;
 const interaction_1 = __importDefault(require("../models/interaction"));
 class InteractionController {
     findAllInteractions(req, res) {
-        interaction_1.default.find(function (err, interactions) {
-            if (err)
-                res.status(500).send(err.message);
-            console.log('GET /interactions');
-            res.status(200).jsonp(interactions);
+        interaction_1.default.find(function (error, interactions) {
+            return __awaiter(this, void 0, void 0, function* () {
+                try {
+                    console.log('GET /interactions');
+                    res.status(200).jsonp(interactions);
+                }
+                catch (error) {
+                    res.status(500).send(error.message);
+                }
+            });
         }).lean();
     }
     findById(req, res) {
-        interaction_1.default.findById(req.params.id, function (err, interaction) {
-            if (err)
-                return res.status(500).send(err.message);
-            console.log('GET /interactions/' + req.params.id);
-            res.status(200).jsonp(interaction);
+        interaction_1.default.findById(req.params.id, function (error, interaction) {
+            return __awaiter(this, void 0, void 0, function* () {
+                try {
+                    console.log('GET /interactions/' + req.params.id);
+                    res.status(200).jsonp(interaction);
+                }
+                catch (error) {
+                    res.status(500).send(error.message);
+                }
+            });
         });
     }
     addInteraction(req, res) {
@@ -67,10 +77,15 @@ class InteractionController {
             MediaBuyerLlastName,
             server_region,
         });
-        interaction.save(function (err, interactions) {
-            if (err)
-                return res.status(500).send(err.message);
-            res.status(200).jsonp(interactions);
+        interaction.save(function (error, interactions) {
+            return __awaiter(this, void 0, void 0, function* () {
+                try {
+                    res.status(200).jsonp(interactions);
+                }
+                catch (error) {
+                    res.status(500).send(error.message);
+                }
+            });
         });
     }
     updateInteraction(req, res) {
@@ -107,29 +122,47 @@ class InteractionController {
                 MediaBuyerFirstName,
                 MediaBuyerLlastName,
                 server_region
-            }, { useFindAndModify: false })
-                .then(interaction => {
-                if (!interaction) {
-                    res.status(404).send({
-                        message: `Cannot update Interaction with id=${req.params.id}. Maybe Interaction was not found!`
-                    });
-                }
-                else
-                    res.status(202).send({ message: "Interaction was updated successfully." });
-            })
-                .catch(err => {
-                res.status(500).send({
-                    message: "Error updating Interaction with id=" + req.params.id
+            }, function (error, interaction) {
+                return __awaiter(this, void 0, void 0, function* () {
+                    try {
+                        let interactions = interaction;
+                        console.log(interactions);
+                        res.status(202).send(interactions);
+                    }
+                    catch (error) {
+                        if (!interaction) {
+                            res.status(404).send({
+                                message: `Cannot update Interaction with id=${req.params.id}. Maybe Interaction was not found!`
+                            });
+                        }
+                        else {
+                            res.status(500).send({
+                                message: "Error updating Interaction with id=" + req.params.id
+                            });
+                        }
+                    }
                 });
             });
         });
     }
     deleteInteraction(req, res) {
-        interaction_1.default.findById(req.params.id, function (err, interaction) {
-            interaction.remove(function (err) {
-                if (err)
-                    return res.status(500).send(err.message);
-                res.status(200).send();
+        interaction_1.default.findById(req.params.id, function (error, interaction) {
+            return __awaiter(this, void 0, void 0, function* () {
+                try {
+                    interaction.remove(function (error, interactions) {
+                        return __awaiter(this, void 0, void 0, function* () {
+                            try {
+                                res.status(200).send({ message: "Interaction was Deleted successfully.", interactions });
+                            }
+                            catch (error) {
+                                res.status(500).send(error.message);
+                            }
+                        });
+                    });
+                }
+                catch (error) {
+                    res.status(500).send(error.message);
+                }
             });
         });
     }

@@ -6,20 +6,26 @@ import InteractionModel, { Interaction } from '../models/interaction';
 class InteractionController {
     
     public  findAllInteractions(req: Request, res: Response){        
-            InteractionModel.find(function(err, interactions){
-                if(err) res.status(500).send(err.message);  
-            console.log('GET /interactions')
-                res.status(200).jsonp(interactions);                                
-            }).lean();
-            }                      
+        InteractionModel.find(async function(error, interactions){
+            try {
+                console.log('GET /interactions')
+                res.status(200).jsonp(interactions);
+            } catch (error) {
+                res.status(500).send(error.message); 
+            }                           
+        }).lean();
+    }                      
     
 
     public findById(req: Request, res:Response) {        
-            InteractionModel.findById(req.params.id, function(err, interaction) {
-            if(err) return res.status(500).send(err.message);
+        InteractionModel.findById(req.params.id, async function(error, interaction) {
+            try {
                 console.log('GET /interactions/' + req.params.id);
                 res.status(200).jsonp(interaction);
-            });
+            } catch (error) {
+                res.status(500).send(error.message);
+            }
+        });
     }
 
     public addInteraction(req: Request, res: Response) {  
@@ -58,9 +64,12 @@ class InteractionController {
                 MediaBuyerLlastName,            
                 server_region, 
             }); 
-            interaction.save(function(err, interactions){
-                if (err) return res.status(500).send(err.message);
-            res.status(200).jsonp(interactions)
+            interaction.save(async function(error, interactions){  
+                try {
+                    res.status(200).jsonp(interactions);
+                } catch (error) {
+                    res.status(500).send(error.message);
+                }    
             });         
     }
 
@@ -97,31 +106,42 @@ class InteractionController {
             MediaBuyerFirstName,
             MediaBuyerLlastName,         
             server_region 
-        }, { useFindAndModify: false})
-            .then(interaction => {
+        }, async function(error, interaction){
+            try {
+                let interactions: Interaction[] = interaction;
+                console.log(interactions);
+                res.status(202).send(interactions);
+            }catch (error) {
                 if (!interaction) {
                     res.status(404).send({
                         message: `Cannot update Interaction with id=${req.params.id}. Maybe Interaction was not found!`
                     });
-                } else res.status(202).send({ message: "Interaction was updated successfully." });
-            })
-            .catch(err => {
-                res.status(500).send({
+                }else{
+                    res.status(500).send({
                     message: "Error updating Interaction with id=" + req.params.id 
-                });
-            });   
+                    });
+                } 
+            }
+        })            
     }          
        
 
     public deleteInteraction(req: Request, res: Response){          
-        InteractionModel.findById(req.params.id, function(err, interaction:Interaction){
-            interaction.remove(function(err){
-                if(err) return res.status(500).send(err.message);
-            res.status(200).send();
-            });
-        });
+        InteractionModel.findById(req.params.id, async function(error, interaction:Interaction){ 
+            try {
+                interaction.remove(async function(error, interactions){
+                try {
+                    res.status(200).send({ message: "Interaction was Deleted successfully.", interactions});
+                }catch (error) {
+                    res.status(500).send(error.message);
+                }                     
+                })
+            } catch (error) {
+                res.status(500).send(error.message);
+            } 
+        })
     }
+
 };
 
 export const interactionController = new InteractionController(); 
-

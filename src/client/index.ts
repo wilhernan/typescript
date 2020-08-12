@@ -1,5 +1,4 @@
-import mongoose from 'mongoose';
-interface Interaction extends mongoose.Document {   
+interface Interaction {   
     CreatedOn:string,
     InteractionID:string,
     Campaign: {
@@ -73,8 +72,6 @@ interface Interaction extends mongoose.Document {
     TrafficSourceClickID:string,  
     server_region:string
 }
-
-//interface Interactions extends Array<Interaction>{}
 
 let add = document.getElementById('adicionar');
 let Revenue = (document.getElementById('Revenue') as HTMLInputElement).value;
@@ -161,15 +158,16 @@ document.addEventListener('click', async function editAndDelete(e){
         });
     }else{
         if(target && target.className === "deleteButton btn btn-danger btn-sm"){
-            let interactionID = target.closest('tr').getAttribute('id');
-            fetch('/interactions/'+interactionID, { method: 'DELETE'})
-            .then(response => {
-                response.json();
-            }).catch(error =>
-                console.error('Error', error))
-            .then(interaction => console.log(interaction));
-            updateInteractionsTable(interaction);
-            /* setTimeout("document.location=document.location", 2000); */
+            try {
+                let interactionID = target.closest('tr').getAttribute('id');
+                let response = await fetch('/interactions/'+interactionID, { method: 'DELETE'})
+                const interactions: Interaction[] = response.json();
+                console.log(interactions);
+                updateInteractionsTable(interactions);
+            }catch(error) {
+                alert(error.message);
+                console.error('Error', error);
+            }
         }
     }
 })   
@@ -246,11 +244,10 @@ edit.addEventListener("click", async function updateInteraction(){
         },
         body: JSON.stringify(data)
     };
-    let response = await fetch('/interactions/'+data._id, options)
-        response.status == 200
-        const interaction: Interaction[] = response.json();
-        console.log('Success:', response);
-        updateInteractionsTable(interaction);     
+    let response = await fetch('/interactions/'+data._id, options)        
+        const interactions: Interaction[] = response.json();
+        console.log('Success:', interactions);
+        updateInteractionsTable(interactions);     
         (document.getElementById('myForm') as HTMLFormElement).reset();     
     }catch(error) {
         alert(error.message);
