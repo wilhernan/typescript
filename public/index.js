@@ -34,7 +34,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var Interactions = [];
+var interactionsArray = [];
 var add = document.getElementById('adicionar');
 var Revenue = document.getElementById('Revenue').value;
 var edit = document.getElementById('update');
@@ -49,52 +49,51 @@ fetch('/interactions')
     return response.json();
 })
     .then(function (interactions) {
-    Interactions = interactions;
+    interactionsArray = interactions;
     updateInteractionsTable(interactions);
 });
-function updateInteractionsData(interactions) {
-    Interactions.map(function (interaction) {
-        if (interaction._id == interactions._id) {
-            interaction.CreatedOn = interactions.CreatedOn;
-            interaction.InteractionID = interactions.InteractionID;
-            interaction.Campaign.name = interactions.Campaign.name;
-            interaction.TrafficSource.name = interactions.TrafficSource.name;
-            interaction.LandingPage.name = interactions.LandingPage.name;
-            interaction.Rotation.name = interactions.Rotation.name;
-            interaction.Offers.affiliate.name = interactions.Offers.affiliate.name;
-            interaction.Rule.name = interactions.Rule.name;
-            interaction.RuleFilter.name = interactions.RuleFilter.name;
-            interaction.Rule.shedule_type = interactions.Rule.shedule_type;
-            interaction.Visitor.Tokens.name = interactions.Visitor.Tokens.name;
-            interaction.Visitor.Tokens.parameter = interactions.Visitor.Tokens.parameter;
-            interaction.Visitor.Tokens.value = interactions.Visitor.Tokens.value;
-            interaction.Visitor.Tokens.id = interactions.Visitor.Tokens.id;
-            interaction.Offers.name = interactions.Offers.name;
-            interaction.Offers.conversion.amount = interactions.Offers.conversion.amount;
-            interaction.hasConversion = interactions.hasConversion;
-            interaction.TrafficSourceClickID = interactions.TrafficSourceClickID;
-            interaction.Campaign.CPC = interactions.Campaign.CPC;
-            interaction.Campaign.MediaBuyer.firstName = interactions.Campaign.MediaBuyer.firstName;
-            interaction.Campaign.MediaBuyer.lastName = interactions.Campaign.MediaBuyer.lastName;
-            interaction.Visitor.ip_address = interactions.Visitor.ip_address;
-            interaction.server_region = interactions.server_region;
-            interaction.Visitor.geo_location.country_name = interactions.Visitor.geo_location.country_name;
-            interaction.Visitor.geo_location.region_name = interactions.Visitor.geo_location.region_name;
-            interaction.Visitor.geo_location.city_name = interactions.Visitor.geo_location.city_name;
-            interaction.Visitor.geo_location.coords.time_zone = interactions.Visitor.geo_location.coords.time_zone;
-            interaction.Visitor.geo_location.isp = interactions.Visitor.geo_location.isp;
-            interaction.Visitor.geo_location.connection_type = interactions.Visitor.geo_location.connection_type;
-            interaction.Visitor.geo_location.organization = interactions.Visitor.geo_location.organization;
-            interaction.Visitor.device.userAgent = interactions.Visitor.device.userAgent;
-            interaction.Visitor.incomming_url = interactions.Visitor.incomming_url;
-            interaction.Visitor.device.browser = interactions.Visitor.device.browser;
-            interaction.Visitor.device.OS.family = interactions.Visitor.device.OS.family;
-            interaction.Visitor.device.OS.version = interactions.Visitor.device.OS.version;
-            interaction.Visitor.device.OS.vendor = interactions.Visitor.device.OS.vendor;
-            interaction.Visitor.device.type = interactions.Visitor.device.type;
-            interaction.Visitor.device.hardware.model = interactions.Visitor.device.hardware.model;
-            updateInteractionsTable(Interactions);
-        }
+function updateInteractionsData(interaction) {
+    interactionsArray = interactionsArray.map(function (interactionArray) {
+        interactionArray = interactionsArray.find(function (data) { return data._id == interaction._id; });
+        interactionArray.CreatedOn = interaction.CreatedOn;
+        interactionArray.InteractionID = interaction.InteractionID;
+        interactionArray.Campaign.name = interaction.Campaign.name;
+        interactionArray.TrafficSource.name = interaction.TrafficSource.name;
+        interactionArray.LandingPage.name = interaction.LandingPage.name;
+        interactionArray.Rotation.name = interaction.Rotation.name;
+        interactionArray.Offers.affiliate.name = interaction.Offers.affiliate.name;
+        interactionArray.Rule.name = interaction.Rule.name;
+        interactionArray.RuleFilter.name = interaction.RuleFilter.name;
+        interactionArray.Rule.shedule_type = interaction.Rule.shedule_type;
+        interactionArray.Visitor.Tokens.name = interaction.Visitor.Tokens.name;
+        interactionArray.Visitor.Tokens.parameter = interaction.Visitor.Tokens.parameter;
+        interactionArray.Visitor.Tokens.value = interaction.Visitor.Tokens.value;
+        interactionArray.Visitor.Tokens.id = interaction.Visitor.Tokens.id;
+        interactionArray.Offers.name = interaction.Offers.name;
+        interactionArray.Offers.conversion.amount = interaction.Offers.conversion.amount;
+        interactionArray.hasConversion = interaction.hasConversion;
+        interactionArray.TrafficSourceClickID = interaction.TrafficSourceClickID;
+        interactionArray.Campaign.CPC = interaction.Campaign.CPC;
+        interactionArray.Campaign.MediaBuyer.firstName = interaction.Campaign.MediaBuyer.firstName;
+        interactionArray.Campaign.MediaBuyer.lastName = interaction.Campaign.MediaBuyer.lastName;
+        interactionArray.Visitor.ip_address = interaction.Visitor.ip_address;
+        interactionArray.server_region = interaction.server_region;
+        interactionArray.Visitor.geo_location.country_name = interaction.Visitor.geo_location.country_name;
+        interactionArray.Visitor.geo_location.region_name = interaction.Visitor.geo_location.region_name;
+        interactionArray.Visitor.geo_location.city_name = interaction.Visitor.geo_location.city_name;
+        interactionArray.Visitor.geo_location.coords.time_zone = interaction.Visitor.geo_location.coords.time_zone;
+        interactionArray.Visitor.geo_location.isp = interaction.Visitor.geo_location.isp;
+        interactionArray.Visitor.geo_location.connection_type = interaction.Visitor.geo_location.connection_type;
+        interactionArray.Visitor.geo_location.organization = interaction.Visitor.geo_location.organization;
+        interactionArray.Visitor.device.userAgent = interaction.Visitor.device.userAgent;
+        interactionArray.Visitor.incomming_url = interaction.Visitor.incomming_url;
+        interactionArray.Visitor.device.browser = interaction.Visitor.device.browser;
+        interactionArray.Visitor.device.OS.family = interaction.Visitor.device.OS.family;
+        interactionArray.Visitor.device.OS.version = interaction.Visitor.device.OS.version;
+        interactionArray.Visitor.device.OS.vendor = interaction.Visitor.device.OS.vendor;
+        interactionArray.Visitor.device.type = interaction.Visitor.device.type;
+        interactionArray.Visitor.device.hardware.model = interaction.Visitor.device.hardware.model;
+        updateInteractionsTable(interactionsArray);
     });
 }
 function updateInteractionsTable(interactions) {
@@ -104,64 +103,89 @@ function updateInteractionsTable(interactions) {
     });
 }
 function deleteInteractionData(interaction) {
-    Interactions.map(function (Interaction) {
-        if (Interaction._id == interaction.interaction._id) {
-            var Index = Interactions.indexOf(Interaction);
-            if (Index > -1) {
-                Interactions.splice(Index, 1);
-            }
-            updateInteractionsTable(Interactions);
+    interactionsArray = interactionsArray.map(function (interactionDelete) {
+        interactionDelete = interactionsArray.find(function (data) { return data._id == interaction.interaction._id; });
+        var Index = interactionsArray.indexOf(interactionDelete);
+        if (Index > -1) {
+            interactionsArray.splice(Index, 1);
         }
+        updateInteractionsTable(interactionsArray);
     });
 }
 document.addEventListener('click', function editAndDelete(e) {
     return __awaiter(this, void 0, void 0, function () {
-        var target, interactionID, interactionID, response, interaction, _a, _b, _c, error_1;
-        return __generator(this, function (_d) {
-            switch (_d.label) {
-                case 0:
-                    target = e.target;
-                    if (!(target && target.className === "editButton btn btn-primary btn-sm")) return [3 /*break*/, 1];
-                    interactionID = target.closest('tr').getAttribute('id');
-                    fetch('/interactions/' + interactionID)
-                        .then(function (response) {
-                        return response.json();
-                    })["catch"](function (error) {
-                        return console.error('Error', error);
-                    })
-                        .then(function (interaction) {
-                        updateFormInputs(interaction);
-                    });
-                    return [3 /*break*/, 7];
-                case 1:
-                    if (!(target && target.className === "deleteButton btn btn-danger btn-sm")) return [3 /*break*/, 7];
-                    _d.label = 2;
-                case 2:
-                    _d.trys.push([2, 6, , 7]);
-                    interactionID = target.closest('tr').getAttribute('id');
-                    return [4 /*yield*/, fetch('/interactions/' + interactionID, { method: 'DELETE' })];
-                case 3:
-                    response = _d.sent();
-                    interaction = response.json();
-                    _b = (_a = console).log;
-                    return [4 /*yield*/, interaction];
-                case 4:
-                    _b.apply(_a, [_d.sent()]);
-                    _c = deleteInteractionData;
-                    return [4 /*yield*/, interaction];
-                case 5:
-                    _c.apply(void 0, [_d.sent()]);
-                    return [3 /*break*/, 7];
-                case 6:
-                    error_1 = _d.sent();
-                    alert(error_1.message);
-                    console.error('Error', error_1);
-                    return [3 /*break*/, 7];
-                case 7: return [2 /*return*/];
+        var target, buttonTypes, buttontype, interactionID;
+        return __generator(this, function (_a) {
+            target = e.target;
+            buttonTypes = { 'deleteButton btn btn-danger btn-sm': 'delete', 'editButton btn btn-primary btn-sm': 'edit' };
+            buttontype = target && buttonTypes[target.className];
+            interactionID = target.closest('tr').getAttribute('id');
+            switch (buttontype) {
+                case 'delete':
+                    deleteInteraction(interactionID);
+                    break;
+                case 'edit':
+                    editInteraction(interactionID);
+                    break;
+                default:
+                    document.getElementById('myForm').reset();
             }
+            return [2 /*return*/];
         });
     });
 });
+function deleteInteraction(interactionID) {
+    return __awaiter(this, void 0, void 0, function () {
+        var response, interaction, error_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 3, , 4]);
+                    return [4 /*yield*/, fetch('/interactions/' + interactionID, { method: 'DELETE' })];
+                case 1:
+                    response = _a.sent();
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    interaction = _a.sent();
+                    console.log(interaction);
+                    deleteInteractionData(interaction);
+                    return [3 /*break*/, 4];
+                case 3:
+                    error_1 = _a.sent();
+                    alert(error_1.message);
+                    console.error('Error', error_1);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
+function editInteraction(interactionID) {
+    return __awaiter(this, void 0, void 0, function () {
+        var response, interaction, error_2;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 3, , 4]);
+                    return [4 /*yield*/, fetch('/interactions/' + interactionID)];
+                case 1:
+                    response = _a.sent();
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    interaction = _a.sent();
+                    console.log(interaction);
+                    updateFormInputs(interaction);
+                    return [3 /*break*/, 4];
+                case 3:
+                    error_2 = _a.sent();
+                    alert(error_2.message);
+                    console.error('Error', error_2);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
 function updateFormInputs(Interaction) {
     document.getElementById("update").attributes.item = Interaction._id;
     document.getElementById("CreatedOn").value = Interaction.CreatedOn;
@@ -204,11 +228,11 @@ function updateFormInputs(Interaction) {
 }
 add.addEventListener("click", function addInteraction() {
     return __awaiter(this, void 0, void 0, function () {
-        var data, options, response, interaction, _a, _b, _c, _d, _e, error_2;
-        return __generator(this, function (_f) {
-            switch (_f.label) {
+        var data, options, response, interaction, error_3;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
                 case 0:
-                    _f.trys.push([0, 4, , 5]);
+                    _a.trys.push([0, 3, , 4]);
                     data = initializeInteraction();
                     options = {
                         method: 'POST',
@@ -219,37 +243,32 @@ add.addEventListener("click", function addInteraction() {
                     };
                     return [4 /*yield*/, fetch('/interactions', options)];
                 case 1:
-                    response = _f.sent();
-                    interaction = response.json();
-                    _b = (_a = console).log;
-                    _c = ['Success:'];
-                    return [4 /*yield*/, interaction];
+                    response = _a.sent();
+                    return [4 /*yield*/, response.json()];
                 case 2:
-                    _b.apply(_a, _c.concat([_f.sent()]));
-                    _e = (_d = Interactions).push;
-                    return [4 /*yield*/, interaction];
-                case 3:
-                    _e.apply(_d, [_f.sent()]);
-                    updateInteractionsTable(Interactions);
+                    interaction = _a.sent();
+                    console.log('Success:', interaction);
+                    interactionsArray.push(interaction);
+                    updateInteractionsTable(interactionsArray);
                     document.getElementById('myForm').reset();
-                    return [3 /*break*/, 5];
-                case 4:
-                    error_2 = _f.sent();
-                    alert(error_2.message);
-                    console.error('Error', error_2);
-                    return [3 /*break*/, 5];
-                case 5: return [2 /*return*/];
+                    return [3 /*break*/, 4];
+                case 3:
+                    error_3 = _a.sent();
+                    alert(error_3.message);
+                    console.error('Error', error_3);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
             }
         });
     });
 });
 edit.addEventListener("click", function updateInteraction() {
     return __awaiter(this, void 0, void 0, function () {
-        var data, options, response, interactions, _a, _b, _c, _d, error_3;
-        return __generator(this, function (_e) {
-            switch (_e.label) {
+        var data, options, response, interaction, error_4;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
                 case 0:
-                    _e.trys.push([0, 4, , 5]);
+                    _a.trys.push([0, 3, , 4]);
                     data = initializeInteraction();
                     options = {
                         method: 'PUT',
@@ -260,25 +279,20 @@ edit.addEventListener("click", function updateInteraction() {
                     };
                     return [4 /*yield*/, fetch('/interactions/' + data._id, options)];
                 case 1:
-                    response = _e.sent();
-                    interactions = response.json();
-                    _b = (_a = console).log;
-                    _c = ['Success:'];
-                    return [4 /*yield*/, interactions];
+                    response = _a.sent();
+                    return [4 /*yield*/, response.json()];
                 case 2:
-                    _b.apply(_a, _c.concat([_e.sent()]));
-                    _d = updateInteractionsData;
-                    return [4 /*yield*/, interactions];
-                case 3:
-                    _d.apply(void 0, [_e.sent()]);
+                    interaction = _a.sent();
+                    console.log('Success:', interaction);
+                    updateInteractionsData(interaction);
                     document.getElementById('myForm').reset();
-                    return [3 /*break*/, 5];
-                case 4:
-                    error_3 = _e.sent();
-                    alert(error_3.message);
-                    console.error('Error', error_3);
-                    return [3 /*break*/, 5];
-                case 5: return [2 /*return*/];
+                    return [3 /*break*/, 4];
+                case 3:
+                    error_4 = _a.sent();
+                    alert(error_4.message);
+                    console.error('Error', error_4);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
             }
         });
     });

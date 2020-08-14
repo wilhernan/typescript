@@ -73,7 +73,7 @@ interface Interaction {
     server_region:string
 }
 
-let Interactions = [];
+let interactionsArray = [];
 let add = document.getElementById('adicionar');
 let Revenue = (document.getElementById('Revenue') as HTMLInputElement).value;
 let edit = document.getElementById('update');
@@ -88,55 +88,54 @@ fetch('/interactions')
         return response.json();
     })
     .then(interactions => { 
-        Interactions = interactions;                     
+        interactionsArray = interactions;                     
         updateInteractionsTable(interactions);                   
     });
 
-function updateInteractionsData(interactions){    
-    Interactions.map(function(interaction){
-        if(interaction._id == interactions._id){
-            interaction.CreatedOn = interactions.CreatedOn;
-            interaction.InteractionID = interactions.InteractionID; 
-            interaction.Campaign.name = interactions.Campaign.name; 
-            interaction.TrafficSource.name = interactions.TrafficSource.name;
-            interaction.LandingPage.name = interactions.LandingPage.name;
-            interaction.Rotation.name = interactions.Rotation.name;
-            interaction.Offers.affiliate.name = interactions.Offers.affiliate.name;
-            interaction.Rule.name = interactions.Rule.name;
-            interaction.RuleFilter.name = interactions.RuleFilter.name;
-            interaction.Rule.shedule_type = interactions.Rule.shedule_type;
-            interaction.Visitor.Tokens.name = interactions.Visitor.Tokens.name;
-            interaction.Visitor.Tokens.parameter = interactions.Visitor.Tokens.parameter;
-            interaction.Visitor.Tokens.value = interactions.Visitor.Tokens.value;
-            interaction.Visitor.Tokens.id = interactions.Visitor.Tokens.id;
-            interaction.Offers.name = interactions.Offers.name;
-            interaction.Offers.conversion.amount = interactions.Offers.conversion.amount;
-            interaction.hasConversion = interactions.hasConversion;
-            interaction.TrafficSourceClickID = interactions.TrafficSourceClickID;
-            interaction.Campaign.CPC = interactions.Campaign.CPC;
-            interaction.Campaign.MediaBuyer.firstName = interactions.Campaign.MediaBuyer.firstName;
-            interaction.Campaign.MediaBuyer.lastName = interactions.Campaign.MediaBuyer.lastName;
-            interaction.Visitor.ip_address = interactions.Visitor.ip_address;
-            interaction.server_region = interactions.server_region;
-            interaction.Visitor.geo_location.country_name = interactions.Visitor.geo_location.country_name;
-            interaction.Visitor.geo_location.region_name = interactions.Visitor.geo_location.region_name;
-            interaction.Visitor.geo_location.city_name = interactions.Visitor.geo_location.city_name;
-            interaction.Visitor.geo_location.coords.time_zone = interactions.Visitor.geo_location.coords.time_zone;
-            interaction.Visitor.geo_location.isp = interactions.Visitor.geo_location.isp;
-            interaction.Visitor.geo_location.connection_type = interactions.Visitor.geo_location.connection_type;
-            interaction.Visitor.geo_location.organization = interactions.Visitor.geo_location.organization;
-            interaction.Visitor.device.userAgent = interactions.Visitor.device.userAgent;
-            interaction.Visitor.incomming_url = interactions.Visitor.incomming_url;
-            interaction.Visitor.device.browser = interactions.Visitor.device.browser;
-            interaction.Visitor.device.OS.family = interactions.Visitor.device.OS.family;
-            interaction.Visitor.device.OS.version = interactions.Visitor.device.OS.version;
-            interaction.Visitor.device.OS.vendor = interactions.Visitor.device.OS.vendor;
-            interaction.Visitor.device.type = interactions.Visitor.device.type;
-            interaction.Visitor.device.hardware.model = interactions.Visitor.device.hardware.model;
-            updateInteractionsTable(Interactions);  
-        }        
-    })   
-      
+function updateInteractionsData(interaction){   
+    interactionsArray = interactionsArray.map(function(interactionArray){      
+        interactionArray = interactionsArray.find( data => data._id == interaction._id )        
+        interactionArray.CreatedOn = interaction.CreatedOn;
+        interactionArray.InteractionID = interaction.InteractionID; 
+        interactionArray.Campaign.name = interaction.Campaign.name; 
+        interactionArray.TrafficSource.name = interaction.TrafficSource.name;
+        interactionArray.LandingPage.name = interaction.LandingPage.name;
+        interactionArray.Rotation.name = interaction.Rotation.name;
+        interactionArray.Offers.affiliate.name = interaction.Offers.affiliate.name;
+        interactionArray.Rule.name = interaction.Rule.name;
+        interactionArray.RuleFilter.name = interaction.RuleFilter.name;
+        interactionArray.Rule.shedule_type = interaction.Rule.shedule_type;
+        interactionArray.Visitor.Tokens.name = interaction.Visitor.Tokens.name;
+        interactionArray.Visitor.Tokens.parameter = interaction.Visitor.Tokens.parameter;
+        interactionArray.Visitor.Tokens.value = interaction.Visitor.Tokens.value;
+        interactionArray.Visitor.Tokens.id = interaction.Visitor.Tokens.id;
+        interactionArray.Offers.name = interaction.Offers.name;
+        interactionArray.Offers.conversion.amount = interaction.Offers.conversion.amount;
+        interactionArray.hasConversion = interaction.hasConversion;
+        interactionArray.TrafficSourceClickID = interaction.TrafficSourceClickID;
+        interactionArray.Campaign.CPC = interaction.Campaign.CPC;
+        interactionArray.Campaign.MediaBuyer.firstName = interaction.Campaign.MediaBuyer.firstName;
+        interactionArray.Campaign.MediaBuyer.lastName = interaction.Campaign.MediaBuyer.lastName;
+        interactionArray.Visitor.ip_address = interaction.Visitor.ip_address;
+        interactionArray.server_region = interaction.server_region;
+        interactionArray.Visitor.geo_location.country_name = interaction.Visitor.geo_location.country_name;
+        interactionArray.Visitor.geo_location.region_name = interaction.Visitor.geo_location.region_name;
+        interactionArray.Visitor.geo_location.city_name = interaction.Visitor.geo_location.city_name;
+        interactionArray.Visitor.geo_location.coords.time_zone = interaction.Visitor.geo_location.coords.time_zone;
+        interactionArray.Visitor.geo_location.isp = interaction.Visitor.geo_location.isp;
+        interactionArray.Visitor.geo_location.connection_type = interaction.Visitor.geo_location.connection_type;
+        interactionArray.Visitor.geo_location.organization = interaction.Visitor.geo_location.organization;
+        interactionArray.Visitor.device.userAgent = interaction.Visitor.device.userAgent;
+        interactionArray.Visitor.incomming_url = interaction.Visitor.incomming_url;
+        interactionArray.Visitor.device.browser = interaction.Visitor.device.browser;
+        interactionArray.Visitor.device.OS.family = interaction.Visitor.device.OS.family;
+        interactionArray.Visitor.device.OS.version = interaction.Visitor.device.OS.version;
+        interactionArray.Visitor.device.OS.vendor = interaction.Visitor.device.OS.vendor;
+        interactionArray.Visitor.device.type = interaction.Visitor.device.type;
+        interactionArray.Visitor.device.hardware.model = interaction.Visitor.device.hardware.model;
+        updateInteractionsTable(interactionsArray); 
+    }) 
+    
 }
     
 function updateInteractionsTable(interactions: Interaction[]) {    
@@ -193,44 +192,57 @@ function updateInteractionsTable(interactions: Interaction[]) {
 }
 
 function deleteInteractionData(interaction){ 
-    Interactions.map(function(Interaction){        
-        if(Interaction._id == interaction.interaction._id){
-            const Index = Interactions.indexOf(Interaction);
+    interactionsArray = interactionsArray.map(function(interactionDelete){  
+        interactionDelete = interactionsArray.find( data => data._id == interaction.interaction._id )
+            const Index = interactionsArray.indexOf(interactionDelete);
             if (Index > -1) {
-                Interactions.splice(Index, 1);
+                interactionsArray.splice(Index, 1);
             }
-            updateInteractionsTable(Interactions);  
-        }
+        updateInteractionsTable(interactionsArray); 
     })    
 }
 
 document.addEventListener('click', async function editAndDelete(e){        
     let target = e.target as HTMLButtonElement; 
-    if(target && target.className === "editButton btn btn-primary btn-sm"){   
-        let interactionID = target.closest('tr').getAttribute('id');                   
-        fetch('/interactions/'+interactionID)
-        .then(function(response){            
-            return  response.json();
-        }).catch(error =>
-            console.error('Error', error))
-        .then(interaction => { 
-            updateFormInputs(interaction);        
-        });
-    }else{
-        if(target && target.className === "deleteButton btn btn-danger btn-sm"){
-            try {
-                let interactionID = target.closest('tr').getAttribute('id');
-                let response = await fetch('/interactions/'+interactionID, { method: 'DELETE'})
-                const interaction = response.json();
-                console.log(await interaction);
-                deleteInteractionData(await interaction);
-            }catch(error) {
-                alert(error.message);
-                console.error('Error', error);
-            }
-        }
+    const buttonTypes = {'deleteButton btn btn-danger btn-sm': 'delete', 'editButton btn btn-primary btn-sm': 'edit' }
+    const buttontype = target && buttonTypes[target.className]
+    let interactionID = target.closest('tr').getAttribute('id'); 
+    switch(buttontype) {
+        case 'delete':
+            deleteInteraction(interactionID)
+            break;
+        case 'edit':            
+            editInteraction(interactionID)
+            break;
+        default:
+            (document.getElementById('myForm') as HTMLFormElement).reset();
+      }
+}) 
+
+async function deleteInteraction(interactionID){
+    try {        
+        let response = await fetch('/interactions/'+interactionID, { method: 'DELETE'})
+        const interaction: Interaction = await response.json();
+        console.log(interaction);
+        deleteInteractionData(interaction);
+    }catch(error) {
+        alert(error.message);
+        console.error('Error', error);
     }
-})   
+}
+
+async function editInteraction(interactionID){
+    try {
+        let response = await fetch('/interactions/'+interactionID)
+        const interaction: Interaction = await response.json();
+        console.log(interaction);
+        updateFormInputs(interaction);
+    } catch (error) {
+        alert(error.message);
+        console.error('Error', error);        
+    }
+}
+
 
 function updateFormInputs(Interaction) {  
     (document.getElementById("update") as HTMLButtonElement).attributes.item = Interaction._id;  
@@ -284,10 +296,10 @@ add.addEventListener("click", async function addInteraction(){
             body: JSON.stringify(data)
         };
         let response = await fetch('/interactions', options)
-            const interaction = response.json();
-            console.log('Success:', await interaction);
-            Interactions.push(await interaction); 
-            updateInteractionsTable(Interactions);
+            const interaction: Interaction = await response.json();
+            console.log('Success:', interaction);
+            interactionsArray.push(interaction); 
+            updateInteractionsTable(interactionsArray);
             (document.getElementById('myForm') as HTMLFormElement).reset();
     }catch (error) {
         alert(error.message);
@@ -306,9 +318,9 @@ edit.addEventListener("click", async function updateInteraction(){
         body: JSON.stringify(data)
     };
     let response = await fetch('/interactions/'+data._id, options)        
-        const interactions = response.json();
-        console.log('Success:', await interactions);
-        updateInteractionsData(await interactions);  
+        const interaction: Interaction = await response.json();
+        console.log('Success:', interaction);
+        updateInteractionsData(interaction);  
         (document.getElementById('myForm') as HTMLFormElement).reset();     
     }catch(error) {
         alert(error.message);
