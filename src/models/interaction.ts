@@ -1,6 +1,6 @@
 import mongoose, {Schema, model} from 'mongoose';
 
-export interface Interaction extends mongoose.Document {   
+export interface Interaction extends mongoose.Document {[
     CreatedOn:string,
     InteractionID:string,
     Campaign: {
@@ -73,9 +73,7 @@ export interface Interaction extends mongoose.Document {
     hasConversion: boolean,    
     TrafficSourceClickID:string,  
     server_region:string
-}
-
-// interface Interactions extends Array<Interaction>{}
+]}
 
 const InteractionSchema = new Schema({    
     CreatedOn: String,

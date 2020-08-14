@@ -42,49 +42,51 @@ class InteractionController {
         });
     }
     addInteraction(req, res) {
-        console.log('POST');
-        console.log(req.body);
-        const { CreatedOn, InteractionID, Campaign, TrafficSource, LandingPage, Rotation, affiliate, Rule, RuleFilter, RuleShedule, Visitor: { Tokens: { name, parameter, value, id }, ip_address, geo_location: { country_name, region_name, city_name, coords, isp, organization, connection_type }, device: { userAgent, browser, OS: { family, version, vendor }, type, hardware: { model } }, incomming_url }, Offers, Revenue, hasConversion, TrafficSourceClickID, CPC, MediaBuyerFirstName, MediaBuyerLlastName, server_region, } = req.body;
-        const interaction = new interaction_1.default({
-            CreatedOn,
-            InteractionID,
-            Campaign,
-            TrafficSource,
-            LandingPage,
-            Rotation,
-            affiliate,
-            Rule,
-            RuleFilter,
-            RuleShedule,
-            Visitor: { Tokens: {
-                    name, parameter, value, id
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log('POST');
+            console.log(req.body);
+            const { CreatedOn, InteractionID, Campaign, TrafficSource, LandingPage, Rotation, affiliate, Rule, RuleFilter, RuleShedule, Visitor: { Tokens: { name, parameter, value, id }, ip_address, geo_location: { country_name, region_name, city_name, coords, isp, organization, connection_type }, device: { userAgent, browser, OS: { family, version, vendor }, type, hardware: { model } }, incomming_url }, Offers, Revenue, hasConversion, TrafficSourceClickID, CPC, MediaBuyerFirstName, MediaBuyerLlastName, server_region, } = req.body;
+            const interaction = new interaction_1.default({
+                CreatedOn,
+                InteractionID,
+                Campaign,
+                TrafficSource,
+                LandingPage,
+                Rotation,
+                affiliate,
+                Rule,
+                RuleFilter,
+                RuleShedule,
+                Visitor: { Tokens: {
+                        name, parameter, value, id
+                    },
+                    ip_address,
+                    geo_location: {
+                        country_name, region_name, city_name, coords, isp, organization, connection_type
+                    },
+                    device: {
+                        userAgent, browser, OS: { family, version, vendor }, type, hardware: { model }
+                    },
+                    incomming_url
                 },
-                ip_address,
-                geo_location: {
-                    country_name, region_name, city_name, coords, isp, organization, connection_type
-                },
-                device: {
-                    userAgent, browser, OS: { family, version, vendor }, type, hardware: { model }
-                },
-                incomming_url
-            },
-            Offers,
-            Revenue,
-            hasConversion,
-            TrafficSourceClickID,
-            CPC,
-            MediaBuyerFirstName,
-            MediaBuyerLlastName,
-            server_region,
-        });
-        interaction.save(function (error, interactions) {
-            return __awaiter(this, void 0, void 0, function* () {
-                try {
-                    res.status(200).jsonp(interactions);
-                }
-                catch (error) {
-                    res.status(500).send(error.message);
-                }
+                Offers,
+                Revenue,
+                hasConversion,
+                TrafficSourceClickID,
+                CPC,
+                MediaBuyerFirstName,
+                MediaBuyerLlastName,
+                server_region,
+            });
+            yield interaction.save(function (error, interactions) {
+                return __awaiter(this, void 0, void 0, function* () {
+                    try {
+                        res.status(200).jsonp(interactions);
+                    }
+                    catch (error) {
+                        res.status(500).send(error.message);
+                    }
+                });
             });
         });
     }
@@ -125,9 +127,17 @@ class InteractionController {
             }, function (error, interaction) {
                 return __awaiter(this, void 0, void 0, function* () {
                     try {
-                        let interactions = interaction;
-                        console.log(interactions);
-                        res.status(202).send(interactions);
+                        //res.status(202).send(interaction);
+                        interaction_1.default.findById(req.params.id, function (error, interaction) {
+                            return __awaiter(this, void 0, void 0, function* () {
+                                try {
+                                    res.status(200).jsonp(interaction);
+                                }
+                                catch (error) {
+                                    res.status(500).send(error.message);
+                                }
+                            });
+                        });
                     }
                     catch (error) {
                         if (!interaction) {
@@ -149,10 +159,11 @@ class InteractionController {
         interaction_1.default.findById(req.params.id, function (error, interaction) {
             return __awaiter(this, void 0, void 0, function* () {
                 try {
-                    interaction.remove(function (error, interactions) {
+                    interaction.remove(function (error, interaction) {
                         return __awaiter(this, void 0, void 0, function* () {
                             try {
-                                res.status(200).send({ message: "Interaction was Deleted successfully.", interactions });
+                                console.log(interaction);
+                                res.status(200).jsonp({ message: "Interaction was Deleted successfully.", interaction });
                             }
                             catch (error) {
                                 res.status(500).send(error.message);

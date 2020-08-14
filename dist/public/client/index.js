@@ -34,7 +34,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-//interface Interactions extends Array<Interaction>{}
+var Interactions = [];
 var add = document.getElementById('adicionar');
 var Revenue = document.getElementById('Revenue').value;
 var edit = document.getElementById('update');
@@ -49,19 +49,76 @@ fetch('/interactions')
     return response.json();
 })
     .then(function (interactions) {
+    Interactions = interactions;
     updateInteractionsTable(interactions);
 });
+function updateInteractionsData(interactions) {
+    Interactions.map(function (interaction) {
+        if (interaction._id == interactions._id) {
+            interaction.CreatedOn = interactions.CreatedOn;
+            interaction.InteractionID = interactions.InteractionID;
+            interaction.Campaign.name = interactions.Campaign.name;
+            interaction.TrafficSource.name = interactions.TrafficSource.name;
+            interaction.LandingPage.name = interactions.LandingPage.name;
+            interaction.Rotation.name = interactions.Rotation.name;
+            interaction.Offers.affiliate.name = interactions.Offers.affiliate.name;
+            interaction.Rule.name = interactions.Rule.name;
+            interaction.RuleFilter.name = interactions.RuleFilter.name;
+            interaction.Rule.shedule_type = interactions.Rule.shedule_type;
+            interaction.Visitor.Tokens.name = interactions.Visitor.Tokens.name;
+            interaction.Visitor.Tokens.parameter = interactions.Visitor.Tokens.parameter;
+            interaction.Visitor.Tokens.value = interactions.Visitor.Tokens.value;
+            interaction.Visitor.Tokens.id = interactions.Visitor.Tokens.id;
+            interaction.Offers.name = interactions.Offers.name;
+            interaction.Offers.conversion.amount = interactions.Offers.conversion.amount;
+            interaction.hasConversion = interactions.hasConversion;
+            interaction.TrafficSourceClickID = interactions.TrafficSourceClickID;
+            interaction.Campaign.CPC = interactions.Campaign.CPC;
+            interaction.Campaign.MediaBuyer.firstName = interactions.Campaign.MediaBuyer.firstName;
+            interaction.Campaign.MediaBuyer.lastName = interactions.Campaign.MediaBuyer.lastName;
+            interaction.Visitor.ip_address = interactions.Visitor.ip_address;
+            interaction.server_region = interactions.server_region;
+            interaction.Visitor.geo_location.country_name = interactions.Visitor.geo_location.country_name;
+            interaction.Visitor.geo_location.region_name = interactions.Visitor.geo_location.region_name;
+            interaction.Visitor.geo_location.city_name = interactions.Visitor.geo_location.city_name;
+            interaction.Visitor.geo_location.coords.time_zone = interactions.Visitor.geo_location.coords.time_zone;
+            interaction.Visitor.geo_location.isp = interactions.Visitor.geo_location.isp;
+            interaction.Visitor.geo_location.connection_type = interactions.Visitor.geo_location.connection_type;
+            interaction.Visitor.geo_location.organization = interactions.Visitor.geo_location.organization;
+            interaction.Visitor.device.userAgent = interactions.Visitor.device.userAgent;
+            interaction.Visitor.incomming_url = interactions.Visitor.incomming_url;
+            interaction.Visitor.device.browser = interactions.Visitor.device.browser;
+            interaction.Visitor.device.OS.family = interactions.Visitor.device.OS.family;
+            interaction.Visitor.device.OS.version = interactions.Visitor.device.OS.version;
+            interaction.Visitor.device.OS.vendor = interactions.Visitor.device.OS.vendor;
+            interaction.Visitor.device.type = interactions.Visitor.device.type;
+            interaction.Visitor.device.hardware.model = interactions.Visitor.device.hardware.model;
+            updateInteractionsTable(Interactions);
+        }
+    });
+}
 function updateInteractionsTable(interactions) {
     tbody.innerHTML = '';
     interactions.forEach(function (interaction) {
         tbody.innerHTML += "\n        <tr id=" + interaction._id + " >                    \n            <td>" + interaction.CreatedOn + "</td>\n            <td>" + interaction.InteractionID + " </td>\n            <td>" + interaction.Campaign.name + " </td>\n            <td>" + interaction.TrafficSource.name + " </td>\n            <td>" + interaction.LandingPage.name + " </td>\n            <td>" + interaction.Rotation.name + " </td>\n            <td>" + interaction.Offers.affiliate.name + " </td>\n            <td>" + interaction.Rule.name + " </td>\n            <td>" + interaction.RuleFilter.name + " </td>\n            <td>" + interaction.Rule.shedule_type + " </td>\n            <td>" + interaction.Visitor.Tokens.name + " </td>\n            <td>" + interaction.Visitor.Tokens.parameter + " </td>\n            <td>" + interaction.Visitor.Tokens.value + " </td>\n            <td>" + interaction.Visitor.Tokens.id + " </td>\n            <td>" + interaction.Offers.name + " </td>\n            <td>" + interaction.Offers.conversion.amount + " </td>\n            <td>" + interaction.hasConversion + " </td>\n            <td>" + interaction.TrafficSourceClickID + " </td>\n            <td>" + interaction.Campaign.CPC + " </td>\n            <td>" + interaction.Campaign.MediaBuyer.firstName + " &nbsp " + interaction.Campaign.MediaBuyer.lastName + " </td>\n            <td>" + interaction.Visitor.ip_address + " </td>\n            <td>" + interaction.server_region + " </td>\n            <td>" + interaction.Visitor.geo_location.country_name + " </td>\n            <td>" + interaction.Visitor.geo_location.region_name + " </td>\n            <td>" + interaction.Visitor.geo_location.city_name + " </td>\n            <td>" + interaction.Visitor.geo_location.coords.time_zone + " </td>\n            <td>" + interaction.Visitor.geo_location.isp + " </td>\n            <td>" + interaction.Visitor.geo_location.connection_type + " </td>\n            <td>" + interaction.Visitor.geo_location.organization + " </td>\n            <td>" + interaction.Visitor.device.userAgent + " </td>\n            <td>" + interaction.Visitor.incomming_url + " </td>\n            <td>" + interaction.Visitor.device.browser + " </td>\n            <td>" + interaction.Visitor.device.OS.family + " </td>\n            <td>" + interaction.Visitor.device.OS.version + " </td>\n            <td>" + interaction.Visitor.device.OS.vendor + " </td>\n            <td>" + interaction.Visitor.device.type + " </td>\n            <td>" + interaction.Visitor.device.hardware.model + " </td>\n            <td>                               \n                <button type=\"submit\" class=\"editButton btn btn-primary btn-sm\"> Update</button>                           \n            </td>\n            <td>\n                <button type=\"submit\" class=\"deleteButton btn btn-danger btn-sm\"> Delete</button>                \n            </td>\n        </tr>        \n        ";
     });
 }
+function deleteInteractionData(interaction) {
+    Interactions.map(function (Interaction) {
+        if (Interaction._id == interaction.interaction._id) {
+            var Index = Interactions.indexOf(Interaction);
+            if (Index > -1) {
+                Interactions.splice(Index, 1);
+            }
+            updateInteractionsTable(Interactions);
+        }
+    });
+}
 document.addEventListener('click', function editAndDelete(e) {
     return __awaiter(this, void 0, void 0, function () {
-        var target, interactionID, interactionID, response, interactions, error_1;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var target, interactionID, interactionID, response, interaction, _a, _b, _c, error_1;
+        return __generator(this, function (_d) {
+            switch (_d.label) {
                 case 0:
                     target = e.target;
                     if (!(target && target.className === "editButton btn btn-primary btn-sm")) return [3 /*break*/, 1];
@@ -73,29 +130,34 @@ document.addEventListener('click', function editAndDelete(e) {
                         return console.error('Error', error);
                     })
                         .then(function (interaction) {
-                        console.log(interaction);
                         updateFormInputs(interaction);
                     });
-                    return [3 /*break*/, 5];
+                    return [3 /*break*/, 7];
                 case 1:
-                    if (!(target && target.className === "deleteButton btn btn-danger btn-sm")) return [3 /*break*/, 5];
-                    _a.label = 2;
+                    if (!(target && target.className === "deleteButton btn btn-danger btn-sm")) return [3 /*break*/, 7];
+                    _d.label = 2;
                 case 2:
-                    _a.trys.push([2, 4, , 5]);
+                    _d.trys.push([2, 6, , 7]);
                     interactionID = target.closest('tr').getAttribute('id');
                     return [4 /*yield*/, fetch('/interactions/' + interactionID, { method: 'DELETE' })];
                 case 3:
-                    response = _a.sent();
-                    interactions = response.json();
-                    console.log(interactions);
-                    updateInteractionsTable(interactions);
-                    return [3 /*break*/, 5];
+                    response = _d.sent();
+                    interaction = response.json();
+                    _b = (_a = console).log;
+                    return [4 /*yield*/, interaction];
                 case 4:
-                    error_1 = _a.sent();
+                    _b.apply(_a, [_d.sent()]);
+                    _c = deleteInteractionData;
+                    return [4 /*yield*/, interaction];
+                case 5:
+                    _c.apply(void 0, [_d.sent()]);
+                    return [3 /*break*/, 7];
+                case 6:
+                    error_1 = _d.sent();
                     alert(error_1.message);
                     console.error('Error', error_1);
-                    return [3 /*break*/, 5];
-                case 5: return [2 /*return*/];
+                    return [3 /*break*/, 7];
+                case 7: return [2 /*return*/];
             }
         });
     });
@@ -142,37 +204,52 @@ function updateFormInputs(Interaction) {
 }
 add.addEventListener("click", function addInteraction() {
     return __awaiter(this, void 0, void 0, function () {
-        var data, options;
-        return __generator(this, function (_a) {
-            data = initializeInteraction();
-            options = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            };
-            fetch('/interactions', options)
-                .then(function (response) {
-                var data = response.json();
-                console.log(data);
-            })["catch"](function (error) {
-                return console.error('Error', error);
-            })
-                .then(function (response) { return console.log('Success:', response); });
-            updateInteractionsTable(data);
-            document.getElementById('myForm').reset();
-            return [2 /*return*/];
+        var data, options, response, interaction, _a, _b, _c, _d, _e, error_2;
+        return __generator(this, function (_f) {
+            switch (_f.label) {
+                case 0:
+                    _f.trys.push([0, 4, , 5]);
+                    data = initializeInteraction();
+                    options = {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    };
+                    return [4 /*yield*/, fetch('/interactions', options)];
+                case 1:
+                    response = _f.sent();
+                    interaction = response.json();
+                    _b = (_a = console).log;
+                    _c = ['Success:'];
+                    return [4 /*yield*/, interaction];
+                case 2:
+                    _b.apply(_a, _c.concat([_f.sent()]));
+                    _e = (_d = Interactions).push;
+                    return [4 /*yield*/, interaction];
+                case 3:
+                    _e.apply(_d, [_f.sent()]);
+                    updateInteractionsTable(Interactions);
+                    document.getElementById('myForm').reset();
+                    return [3 /*break*/, 5];
+                case 4:
+                    error_2 = _f.sent();
+                    alert(error_2.message);
+                    console.error('Error', error_2);
+                    return [3 /*break*/, 5];
+                case 5: return [2 /*return*/];
+            }
         });
     });
 });
 edit.addEventListener("click", function updateInteraction() {
     return __awaiter(this, void 0, void 0, function () {
-        var data, options, response, interactions, error_2;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var data, options, response, interactions, _a, _b, _c, _d, error_3;
+        return __generator(this, function (_e) {
+            switch (_e.label) {
                 case 0:
-                    _a.trys.push([0, 2, , 3]);
+                    _e.trys.push([0, 4, , 5]);
                     data = initializeInteraction();
                     options = {
                         method: 'PUT',
@@ -183,18 +260,25 @@ edit.addEventListener("click", function updateInteraction() {
                     };
                     return [4 /*yield*/, fetch('/interactions/' + data._id, options)];
                 case 1:
-                    response = _a.sent();
+                    response = _e.sent();
                     interactions = response.json();
-                    console.log('Success:', interactions);
-                    updateInteractionsTable(interactions);
-                    document.getElementById('myForm').reset();
-                    return [3 /*break*/, 3];
+                    _b = (_a = console).log;
+                    _c = ['Success:'];
+                    return [4 /*yield*/, interactions];
                 case 2:
-                    error_2 = _a.sent();
-                    alert(error_2.message);
-                    console.error('Error', error_2);
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
+                    _b.apply(_a, _c.concat([_e.sent()]));
+                    _d = updateInteractionsData;
+                    return [4 /*yield*/, interactions];
+                case 3:
+                    _d.apply(void 0, [_e.sent()]);
+                    document.getElementById('myForm').reset();
+                    return [3 /*break*/, 5];
+                case 4:
+                    error_3 = _e.sent();
+                    alert(error_3.message);
+                    console.error('Error', error_3);
+                    return [3 /*break*/, 5];
+                case 5: return [2 /*return*/];
             }
         });
     });

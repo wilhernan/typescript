@@ -73,6 +73,7 @@ interface Interaction {
     server_region:string
 }
 
+let Interactions = [];
 let add = document.getElementById('adicionar');
 let Revenue = (document.getElementById('Revenue') as HTMLInputElement).value;
 let edit = document.getElementById('update');
@@ -86,9 +87,57 @@ fetch('/interactions')
     .then(function(response){
         return response.json();
     })
-    .then(interactions => {                
-        updateInteractionsTable(interactions);            
+    .then(interactions => { 
+        Interactions = interactions;                     
+        updateInteractionsTable(interactions);                   
     });
+
+function updateInteractionsData(interactions){    
+    Interactions.map(function(interaction){
+        if(interaction._id == interactions._id){
+            interaction.CreatedOn = interactions.CreatedOn;
+            interaction.InteractionID = interactions.InteractionID; 
+            interaction.Campaign.name = interactions.Campaign.name; 
+            interaction.TrafficSource.name = interactions.TrafficSource.name;
+            interaction.LandingPage.name = interactions.LandingPage.name;
+            interaction.Rotation.name = interactions.Rotation.name;
+            interaction.Offers.affiliate.name = interactions.Offers.affiliate.name;
+            interaction.Rule.name = interactions.Rule.name;
+            interaction.RuleFilter.name = interactions.RuleFilter.name;
+            interaction.Rule.shedule_type = interactions.Rule.shedule_type;
+            interaction.Visitor.Tokens.name = interactions.Visitor.Tokens.name;
+            interaction.Visitor.Tokens.parameter = interactions.Visitor.Tokens.parameter;
+            interaction.Visitor.Tokens.value = interactions.Visitor.Tokens.value;
+            interaction.Visitor.Tokens.id = interactions.Visitor.Tokens.id;
+            interaction.Offers.name = interactions.Offers.name;
+            interaction.Offers.conversion.amount = interactions.Offers.conversion.amount;
+            interaction.hasConversion = interactions.hasConversion;
+            interaction.TrafficSourceClickID = interactions.TrafficSourceClickID;
+            interaction.Campaign.CPC = interactions.Campaign.CPC;
+            interaction.Campaign.MediaBuyer.firstName = interactions.Campaign.MediaBuyer.firstName;
+            interaction.Campaign.MediaBuyer.lastName = interactions.Campaign.MediaBuyer.lastName;
+            interaction.Visitor.ip_address = interactions.Visitor.ip_address;
+            interaction.server_region = interactions.server_region;
+            interaction.Visitor.geo_location.country_name = interactions.Visitor.geo_location.country_name;
+            interaction.Visitor.geo_location.region_name = interactions.Visitor.geo_location.region_name;
+            interaction.Visitor.geo_location.city_name = interactions.Visitor.geo_location.city_name;
+            interaction.Visitor.geo_location.coords.time_zone = interactions.Visitor.geo_location.coords.time_zone;
+            interaction.Visitor.geo_location.isp = interactions.Visitor.geo_location.isp;
+            interaction.Visitor.geo_location.connection_type = interactions.Visitor.geo_location.connection_type;
+            interaction.Visitor.geo_location.organization = interactions.Visitor.geo_location.organization;
+            interaction.Visitor.device.userAgent = interactions.Visitor.device.userAgent;
+            interaction.Visitor.incomming_url = interactions.Visitor.incomming_url;
+            interaction.Visitor.device.browser = interactions.Visitor.device.browser;
+            interaction.Visitor.device.OS.family = interactions.Visitor.device.OS.family;
+            interaction.Visitor.device.OS.version = interactions.Visitor.device.OS.version;
+            interaction.Visitor.device.OS.vendor = interactions.Visitor.device.OS.vendor;
+            interaction.Visitor.device.type = interactions.Visitor.device.type;
+            interaction.Visitor.device.hardware.model = interactions.Visitor.device.hardware.model;
+            updateInteractionsTable(Interactions);  
+        }        
+    })   
+      
+}
     
 function updateInteractionsTable(interactions: Interaction[]) {    
     tbody.innerHTML = ''    
@@ -140,7 +189,19 @@ function updateInteractionsTable(interactions: Interaction[]) {
             </td>
         </tr>        
         `        
-     })  
+     })          
+}
+
+function deleteInteractionData(interaction){ 
+    Interactions.map(function(Interaction){        
+        if(Interaction._id == interaction.interaction._id){
+            const Index = Interactions.indexOf(Interaction);
+            if (Index > -1) {
+                Interactions.splice(Index, 1);
+            }
+            updateInteractionsTable(Interactions);  
+        }
+    })    
 }
 
 document.addEventListener('click', async function editAndDelete(e){        
@@ -152,8 +213,7 @@ document.addEventListener('click', async function editAndDelete(e){
             return  response.json();
         }).catch(error =>
             console.error('Error', error))
-        .then(interaction => {  
-            console.log(interaction);              
+        .then(interaction => { 
             updateFormInputs(interaction);        
         });
     }else{
@@ -161,9 +221,9 @@ document.addEventListener('click', async function editAndDelete(e){
             try {
                 let interactionID = target.closest('tr').getAttribute('id');
                 let response = await fetch('/interactions/'+interactionID, { method: 'DELETE'})
-                const interactions: Interaction[] = response.json();
-                console.log(interactions);
-                updateInteractionsTable(interactions);
+                const interaction = response.json();
+                console.log(await interaction);
+                deleteInteractionData(await interaction);
             }catch(error) {
                 alert(error.message);
                 console.error('Error', error);
@@ -213,25 +273,26 @@ function updateFormInputs(Interaction) {
     (document.getElementById("Revenue")as HTMLInputElement).value  = Interaction.Offers.conversion.amount;
 }
 
-add.addEventListener("click", async function addInteraction(){                
-    const data = initializeInteraction();
-    const options = {
+add.addEventListener("click", async function addInteraction(){   
+    try {
+        const data = initializeInteraction();
+        const options = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
         };
-        fetch('/interactions', options)
-            .then(response => {
-            var data = response.json();
-            console.log(data);
-        }).catch(error =>
-            console.error('Error', error))
-        .then(response => console.log('Success:', response));
-        updateInteractionsTable(data); 
-        (document.getElementById('myForm') as HTMLFormElement).reset();
-        
+        let response = await fetch('/interactions', options)
+            const interaction = response.json();
+            console.log('Success:', await interaction);
+            Interactions.push(await interaction); 
+            updateInteractionsTable(Interactions);
+            (document.getElementById('myForm') as HTMLFormElement).reset();
+    }catch (error) {
+        alert(error.message);
+        console.error('Error', error)
+    } 
 })
 
 edit.addEventListener("click", async function updateInteraction(){    
@@ -245,9 +306,9 @@ edit.addEventListener("click", async function updateInteraction(){
         body: JSON.stringify(data)
     };
     let response = await fetch('/interactions/'+data._id, options)        
-        const interactions: Interaction[] = response.json();
-        console.log('Success:', interactions);
-        updateInteractionsTable(interactions);     
+        const interactions = response.json();
+        console.log('Success:', await interactions);
+        updateInteractionsData(await interactions);  
         (document.getElementById('myForm') as HTMLFormElement).reset();     
     }catch(error) {
         alert(error.message);
