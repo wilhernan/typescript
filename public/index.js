@@ -53,48 +53,12 @@ fetch('/interactions')
     updateInteractionsTable(interactions);
 });
 function updateInteractionsData(interaction) {
-    interactionsArray = interactionsArray.map(function (interactionArray) {
-        interactionArray = interactionsArray.find(function (data) { return data._id == interaction._id; });
-        interactionArray.CreatedOn = interaction.CreatedOn;
-        interactionArray.InteractionID = interaction.InteractionID;
-        interactionArray.Campaign.name = interaction.Campaign.name;
-        interactionArray.TrafficSource.name = interaction.TrafficSource.name;
-        interactionArray.LandingPage.name = interaction.LandingPage.name;
-        interactionArray.Rotation.name = interaction.Rotation.name;
-        interactionArray.Offers.affiliate.name = interaction.Offers.affiliate.name;
-        interactionArray.Rule.name = interaction.Rule.name;
-        interactionArray.RuleFilter.name = interaction.RuleFilter.name;
-        interactionArray.Rule.shedule_type = interaction.Rule.shedule_type;
-        interactionArray.Visitor.Tokens.name = interaction.Visitor.Tokens.name;
-        interactionArray.Visitor.Tokens.parameter = interaction.Visitor.Tokens.parameter;
-        interactionArray.Visitor.Tokens.value = interaction.Visitor.Tokens.value;
-        interactionArray.Visitor.Tokens.id = interaction.Visitor.Tokens.id;
-        interactionArray.Offers.name = interaction.Offers.name;
-        interactionArray.Offers.conversion.amount = interaction.Offers.conversion.amount;
-        interactionArray.hasConversion = interaction.hasConversion;
-        interactionArray.TrafficSourceClickID = interaction.TrafficSourceClickID;
-        interactionArray.Campaign.CPC = interaction.Campaign.CPC;
-        interactionArray.Campaign.MediaBuyer.firstName = interaction.Campaign.MediaBuyer.firstName;
-        interactionArray.Campaign.MediaBuyer.lastName = interaction.Campaign.MediaBuyer.lastName;
-        interactionArray.Visitor.ip_address = interaction.Visitor.ip_address;
-        interactionArray.server_region = interaction.server_region;
-        interactionArray.Visitor.geo_location.country_name = interaction.Visitor.geo_location.country_name;
-        interactionArray.Visitor.geo_location.region_name = interaction.Visitor.geo_location.region_name;
-        interactionArray.Visitor.geo_location.city_name = interaction.Visitor.geo_location.city_name;
-        interactionArray.Visitor.geo_location.coords.time_zone = interaction.Visitor.geo_location.coords.time_zone;
-        interactionArray.Visitor.geo_location.isp = interaction.Visitor.geo_location.isp;
-        interactionArray.Visitor.geo_location.connection_type = interaction.Visitor.geo_location.connection_type;
-        interactionArray.Visitor.geo_location.organization = interaction.Visitor.geo_location.organization;
-        interactionArray.Visitor.device.userAgent = interaction.Visitor.device.userAgent;
-        interactionArray.Visitor.incomming_url = interaction.Visitor.incomming_url;
-        interactionArray.Visitor.device.browser = interaction.Visitor.device.browser;
-        interactionArray.Visitor.device.OS.family = interaction.Visitor.device.OS.family;
-        interactionArray.Visitor.device.OS.version = interaction.Visitor.device.OS.version;
-        interactionArray.Visitor.device.OS.vendor = interaction.Visitor.device.OS.vendor;
-        interactionArray.Visitor.device.type = interaction.Visitor.device.type;
-        interactionArray.Visitor.device.hardware.model = interaction.Visitor.device.hardware.model;
-        updateInteractionsTable(interactionsArray);
+    interactionsArray.filter(function (interactionObject) { return interactionObject._id == interaction._id; })
+        .map(function (interactionObject, index) {
+        interactionObject = interaction;
+        interactionsArray[index] = interactionObject;
     });
+    updateInteractionsTable(interactionsArray);
 }
 function updateInteractionsTable(interactions) {
     tbody.innerHTML = '';
@@ -103,28 +67,28 @@ function updateInteractionsTable(interactions) {
     });
 }
 function deleteInteractionData(interaction) {
-    interactionsArray = interactionsArray.map(function (interactionDelete) {
-        interactionDelete = interactionsArray.find(function (data) { return data._id == interaction.interaction._id; });
-        var Index = interactionsArray.indexOf(interactionDelete);
-        if (Index > -1) {
-            interactionsArray.splice(Index, 1);
-        }
+    interactionsArray
+        .map(function (interactionDelete, index) { return (interactionDelete)
+        .filter(function (interactionDelete) {
+        interactionDelete._id == interaction.interaction._id;
+        interactionsArray.splice(index, 1);
         updateInteractionsTable(interactionsArray);
-    });
+    }); });
 }
 document.addEventListener('click', function editAndDelete(e) {
     return __awaiter(this, void 0, void 0, function () {
-        var target, buttonTypes, buttontype, interactionID;
+        var target, buttonTypes, buttontype, interactionID, interactionID;
         return __generator(this, function (_a) {
             target = e.target;
             buttonTypes = { 'deleteButton btn btn-danger btn-sm': 'delete', 'editButton btn btn-primary btn-sm': 'edit' };
             buttontype = target && buttonTypes[target.className];
-            interactionID = target.closest('tr').getAttribute('id');
             switch (buttontype) {
                 case 'delete':
+                    interactionID = target.closest('tr').getAttribute('id');
                     deleteInteraction(interactionID);
                     break;
                 case 'edit':
+                    interactionID = target.closest('tr').getAttribute('id');
                     editInteraction(interactionID);
                     break;
                 default:

@@ -93,49 +93,11 @@ fetch('/interactions')
     });
 
 function updateInteractionsData(interaction){   
-    interactionsArray = interactionsArray.map(function(interactionArray){      
-        interactionArray = interactionsArray.find( data => data._id == interaction._id )        
-        interactionArray.CreatedOn = interaction.CreatedOn;
-        interactionArray.InteractionID = interaction.InteractionID; 
-        interactionArray.Campaign.name = interaction.Campaign.name; 
-        interactionArray.TrafficSource.name = interaction.TrafficSource.name;
-        interactionArray.LandingPage.name = interaction.LandingPage.name;
-        interactionArray.Rotation.name = interaction.Rotation.name;
-        interactionArray.Offers.affiliate.name = interaction.Offers.affiliate.name;
-        interactionArray.Rule.name = interaction.Rule.name;
-        interactionArray.RuleFilter.name = interaction.RuleFilter.name;
-        interactionArray.Rule.shedule_type = interaction.Rule.shedule_type;
-        interactionArray.Visitor.Tokens.name = interaction.Visitor.Tokens.name;
-        interactionArray.Visitor.Tokens.parameter = interaction.Visitor.Tokens.parameter;
-        interactionArray.Visitor.Tokens.value = interaction.Visitor.Tokens.value;
-        interactionArray.Visitor.Tokens.id = interaction.Visitor.Tokens.id;
-        interactionArray.Offers.name = interaction.Offers.name;
-        interactionArray.Offers.conversion.amount = interaction.Offers.conversion.amount;
-        interactionArray.hasConversion = interaction.hasConversion;
-        interactionArray.TrafficSourceClickID = interaction.TrafficSourceClickID;
-        interactionArray.Campaign.CPC = interaction.Campaign.CPC;
-        interactionArray.Campaign.MediaBuyer.firstName = interaction.Campaign.MediaBuyer.firstName;
-        interactionArray.Campaign.MediaBuyer.lastName = interaction.Campaign.MediaBuyer.lastName;
-        interactionArray.Visitor.ip_address = interaction.Visitor.ip_address;
-        interactionArray.server_region = interaction.server_region;
-        interactionArray.Visitor.geo_location.country_name = interaction.Visitor.geo_location.country_name;
-        interactionArray.Visitor.geo_location.region_name = interaction.Visitor.geo_location.region_name;
-        interactionArray.Visitor.geo_location.city_name = interaction.Visitor.geo_location.city_name;
-        interactionArray.Visitor.geo_location.coords.time_zone = interaction.Visitor.geo_location.coords.time_zone;
-        interactionArray.Visitor.geo_location.isp = interaction.Visitor.geo_location.isp;
-        interactionArray.Visitor.geo_location.connection_type = interaction.Visitor.geo_location.connection_type;
-        interactionArray.Visitor.geo_location.organization = interaction.Visitor.geo_location.organization;
-        interactionArray.Visitor.device.userAgent = interaction.Visitor.device.userAgent;
-        interactionArray.Visitor.incomming_url = interaction.Visitor.incomming_url;
-        interactionArray.Visitor.device.browser = interaction.Visitor.device.browser;
-        interactionArray.Visitor.device.OS.family = interaction.Visitor.device.OS.family;
-        interactionArray.Visitor.device.OS.version = interaction.Visitor.device.OS.version;
-        interactionArray.Visitor.device.OS.vendor = interaction.Visitor.device.OS.vendor;
-        interactionArray.Visitor.device.type = interaction.Visitor.device.type;
-        interactionArray.Visitor.device.hardware.model = interaction.Visitor.device.hardware.model;
-        updateInteractionsTable(interactionsArray); 
-    }) 
-    
+    interactionsArray.filter((interactionObject) => interactionObject._id == interaction._id)        
+        .map((interactionObject, index) => {interactionObject = interaction;
+            interactionsArray[index] = interactionObject
+        })    
+    updateInteractionsTable(interactionsArray); 
 }
     
 function updateInteractionsTable(interactions: Interaction[]) {    
@@ -192,26 +154,25 @@ function updateInteractionsTable(interactions: Interaction[]) {
 }
 
 function deleteInteractionData(interaction){ 
-    interactionsArray = interactionsArray.map(function(interactionDelete){  
-        interactionDelete = interactionsArray.find( data => data._id == interaction.interaction._id )
-            const Index = interactionsArray.indexOf(interactionDelete);
-            if (Index > -1) {
-                interactionsArray.splice(Index, 1);
-            }
-        updateInteractionsTable(interactionsArray); 
-    })    
+    interactionsArray
+        .map((interactionDelete, index) =>(interactionDelete) 
+        .filter(interactionDelete => { interactionDelete._id == interaction.interaction._id 
+            interactionsArray.splice(index, 1);
+            updateInteractionsTable(interactionsArray)   
+        })  
+    );  
 }
 
-document.addEventListener('click', async function editAndDelete(e){        
+document.addEventListener('click', async function editAndDelete(e){          
     let target = e.target as HTMLButtonElement; 
     const buttonTypes = {'deleteButton btn btn-danger btn-sm': 'delete', 'editButton btn btn-primary btn-sm': 'edit' }
     const buttontype = target && buttonTypes[target.className]
     let interactionID = target.closest('tr').getAttribute('id'); 
     switch(buttontype) {
-        case 'delete':
+        case 'delete':            
             deleteInteraction(interactionID)
             break;
-        case 'edit':            
+        case 'edit': 
             editInteraction(interactionID)
             break;
         default:
