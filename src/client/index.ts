@@ -158,7 +158,6 @@ function updateInteractionsTable(interactions: Interaction[]) {
 
 function deleteInteractionData(interaction){ 
     interactionsArray = interactionsArray.filter(interactionObject => interactionObject._id != interaction.interaction._id);
-    console.log(interactionsArray);
     updateInteractionsTable(interactionsArray) 
 }
 
@@ -168,10 +167,16 @@ document.addEventListener('click', async function editAndDelete(e){
     const buttontype = target && buttonTypes[target.className]
     let interactionID = target.closest('tr').getAttribute('id'); 
     switch(buttontype) {
-        case 'delete':            
-            deleteInteraction(interactionID)
+        case 'delete': 
+            if(!confirm('Are you sure you want to delete it?')){
+                return false
+            } else {
+                deleteInteraction(interactionID)
+            }   
             break;
         case 'edit': 
+            (document.getElementById('update')as HTMLButtonElement).removeAttribute('disabled');
+            (document.getElementById('adicionar')as HTMLButtonElement).disabled = true;
             editInteraction(interactionID)
             break;
         default:
@@ -285,7 +290,9 @@ edit.addEventListener("click", async function updateInteraction(){
     }catch(error) {
         alert(error.message);
         console.error('Error', error);
-    }     
+    } 
+    (document.getElementById('update')as HTMLButtonElement).disabled = true;
+    (document.getElementById('adicionar')as HTMLButtonElement).removeAttribute('disabled');    
 })   
 
 function initializeInteraction(){    

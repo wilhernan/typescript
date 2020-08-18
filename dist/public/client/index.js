@@ -71,7 +71,6 @@ function updateInteractionsTable(interactions) {
 }
 function deleteInteractionData(interaction) {
     interactionsArray = interactionsArray.filter(function (interactionObject) { return interactionObject._id != interaction.interaction._id; });
-    console.log(interactionsArray);
     updateInteractionsTable(interactionsArray);
 }
 document.addEventListener('click', function editAndDelete(e) {
@@ -84,9 +83,16 @@ document.addEventListener('click', function editAndDelete(e) {
             interactionID = target.closest('tr').getAttribute('id');
             switch (buttontype) {
                 case 'delete':
-                    deleteInteraction(interactionID);
+                    if (!confirm('Are you sure you want to delete it?')) {
+                        return [2 /*return*/, false];
+                    }
+                    else {
+                        deleteInteraction(interactionID);
+                    }
                     break;
                 case 'edit':
+                    document.getElementById('update').removeAttribute('disabled');
+                    document.getElementById('adicionar').disabled = true;
                     editInteraction(interactionID);
                     break;
                 default:
@@ -254,7 +260,10 @@ edit.addEventListener("click", function updateInteraction() {
                     alert(error_4.message);
                     console.error('Error', error_4);
                     return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
+                case 4:
+                    document.getElementById('update').disabled = true;
+                    document.getElementById('adicionar').removeAttribute('disabled');
+                    return [2 /*return*/];
             }
         });
     });
