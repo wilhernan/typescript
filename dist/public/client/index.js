@@ -53,16 +53,14 @@ fetch('/interactions')
     updateInteractionsTable(interactions);
 });
 function updateInteractionsData(interaction) {
-    var interactionUppdate = interactionsArray.find(function (interactionObject) { return interactionObject._id === interaction._id; });
-    var newInteractionsArray = interactionsArray.map(function (interactionObject) {
-        if (interactionObject._id === interactionUppdate._id) {
-            return interactionObject = interaction;
+    interactionsArray = interactionsArray.map(function (interactionObject) {
+        if (interactionObject._id === interaction._id) {
+            return interaction;
         }
         else {
             return interactionObject;
         }
     });
-    interactionsArray = newInteractionsArray;
     updateInteractionsTable(interactionsArray);
 }
 function updateInteractionsTable(interactions) {
@@ -72,13 +70,9 @@ function updateInteractionsTable(interactions) {
     });
 }
 function deleteInteractionData(interaction) {
-    interactionsArray
-        .map(function (interactionDelete, index) { return (interactionDelete)
-        .filter(function (interactionDelete) {
-        interactionDelete._id == interaction.interaction._id;
-        interactionsArray.splice(index, 1);
-        updateInteractionsTable(interactionsArray);
-    }); });
+    interactionsArray = interactionsArray.filter(function (interactionObject) { return interactionObject._id != interaction.interaction._id; });
+    console.log(interactionsArray);
+    updateInteractionsTable(interactionsArray);
 }
 document.addEventListener('click', function editAndDelete(e) {
     return __awaiter(this, void 0, void 0, function () {
