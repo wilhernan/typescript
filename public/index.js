@@ -53,11 +53,16 @@ fetch('/interactions')
     updateInteractionsTable(interactions);
 });
 function updateInteractionsData(interaction) {
-    interactionsArray.filter(function (interactionObject) { return interactionObject._id == interaction._id; })
-        .map(function (interactionObject, index) {
-        interactionObject = interaction;
-        interactionsArray[index] = interactionObject;
+    var interactionUppdate = interactionsArray.find(function (interactionObject) { return interactionObject._id === interaction._id; });
+    var newInteractionsArray = interactionsArray.map(function (interactionObject) {
+        if (interactionObject._id === interactionUppdate._id) {
+            return interactionObject = interaction;
+        }
+        else {
+            return interactionObject;
+        }
     });
+    interactionsArray = newInteractionsArray;
     updateInteractionsTable(interactionsArray);
 }
 function updateInteractionsTable(interactions) {
@@ -77,18 +82,17 @@ function deleteInteractionData(interaction) {
 }
 document.addEventListener('click', function editAndDelete(e) {
     return __awaiter(this, void 0, void 0, function () {
-        var target, buttonTypes, buttontype, interactionID, interactionID;
+        var target, buttonTypes, buttontype, interactionID;
         return __generator(this, function (_a) {
             target = e.target;
             buttonTypes = { 'deleteButton btn btn-danger btn-sm': 'delete', 'editButton btn btn-primary btn-sm': 'edit' };
             buttontype = target && buttonTypes[target.className];
+            interactionID = target.closest('tr').getAttribute('id');
             switch (buttontype) {
                 case 'delete':
-                    interactionID = target.closest('tr').getAttribute('id');
                     deleteInteraction(interactionID);
                     break;
                 case 'edit':
-                    interactionID = target.closest('tr').getAttribute('id');
                     editInteraction(interactionID);
                     break;
                 default:

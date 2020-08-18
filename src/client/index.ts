@@ -92,14 +92,19 @@ fetch('/interactions')
         updateInteractionsTable(interactions);                   
     });
 
-function updateInteractionsData(interaction){   
-    interactionsArray.filter((interactionObject) => interactionObject._id == interaction._id)        
-        .map((interactionObject, index) => {interactionObject = interaction;
-            interactionsArray[index] = interactionObject
-        })    
+function updateInteractionsData(interaction){         
+    const interactionUppdate = interactionsArray.find((interactionObject) => interactionObject._id === interaction._id );
+    const newInteractionsArray = interactionsArray.map((interactionObject) => { 
+        if (interactionObject._id === interactionUppdate._id){
+            return interactionObject = interaction
+        }else {
+            return interactionObject;
+        }
+    }) 
+    interactionsArray = newInteractionsArray;
     updateInteractionsTable(interactionsArray); 
 }
-    
+      
 function updateInteractionsTable(interactions: Interaction[]) {    
     tbody.innerHTML = ''    
     interactions.forEach(interaction => { 
