@@ -1,9 +1,33 @@
 import { Request, Response } from 'express';
 import InteractionModel, { Interaction } from '../models/interaction';
-
+import jwt from "jsonwebtoken";
+import app from '../app';
 
 
 class InteractionController {
+
+    public userAutentication(req: Request, res: Response){
+        let username = req.body.user; 
+        let password = req.body.password;
+
+        if (username === "wilhernan" && password === "777"){
+            let playload = {
+                check: true
+            };
+            let token = jwt.sign(playload, app.get('jwtSecret'), {
+                expiresIn: 1440
+            });            
+            res.json({
+                message: 'Correct Autentication!!',
+                token: token
+            });
+        }else {
+            res.status(401).send({
+                error: 'Username or Password invalid'
+            })
+        } 
+        
+    }
     
     public  findAllInteractions(req: Request, res: Response){        
         InteractionModel.find(async function(error, interactions){
@@ -74,7 +98,7 @@ class InteractionController {
     }
 
     public async updateInteraction(req: Request, res: Response){   
-        const { CreatedOn, InteractionID, Campaign, TrafficSource, LandingPage, Rotation, affiliate, Rule, RuleFilter, RuleShedule, Visitor: { Tokens: { name, parameter, value, id }, ip_address, geo_location: { country_name, region_name, city_name, coords, isp, organization, connection_type }, device: { userAgent, browser, OS: { family, version, vendor }, type, hardware: { model } }, incomming_url }, Offers, Revenue, hasConversion, TrafficSourceClickID, CPC, MediaBuyerFirstName, MediaBuyerLlastName, server_region, } = req.body;
+        const { CreatedOn, InteractionID, Campaign, TrafficSource, LandingPage, Rotation, affiliate, Rule, RuleFilter, RuleShedule, Visitor: { Tokens: { name, parameter, value, id }, ip_address, geo_location: { country_name, region_name, city_name, coords:{time_zone}, isp, organization, connection_type }, device: { userAgent, browser, OS: { family, version, vendor }, type, hardware: { model } }, incomming_url }, Offers, Revenue, hasConversion, TrafficSourceClickID, CPC, MediaBuyerFirstName, MediaBuyerLlastName, server_region, } = req.body;
         await InteractionModel.findByIdAndUpdate( req.params.id, {        
             CreatedOn,
             InteractionID,
@@ -91,7 +115,7 @@ class InteractionController {
                 },
                 ip_address, 
                 geo_location:{
-                    country_name, region_name, city_name, coords, isp, organization,  connection_type 
+                    country_name, region_name, city_name, coords:{time_zone}, isp, organization,  connection_type 
                 },
                 device:{
                     userAgent, browser, OS:{ family, version, vendor}, type, hardware:{ model }

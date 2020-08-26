@@ -68,7 +68,7 @@
     "resolveJsonModule": true
   },
   "include": [
-    "./src/**/*"
+    "./src/**/*", "tests/test.ts"
   ],
   "exclude": [
     "node_modules",

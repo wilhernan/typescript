@@ -55,7 +55,7 @@ fetch('/interactions')
 function updateInteractionsData(interaction) {
     interactionsArray = interactionsArray.map(function (interactionObject) {
         if (interactionObject._id === interaction._id) {
-            return interaction;
+            return interactionObject = interaction;
         }
         else {
             return interactionObject;

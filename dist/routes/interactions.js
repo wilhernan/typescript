@@ -11,4 +11,5 @@ router.post('/interactions', interaction_controller_1.interactionController.addI
 router.get('/interactions/:id', interaction_controller_1.interactionController.findById);
 router.put('/interactions/:id', interaction_controller_1.interactionController.updateInteraction);
 router.delete('/interactions/:id', interaction_controller_1.interactionController.deleteInteraction);
+router.post('/user', interaction_controller_1.interactionController.userAutentication);
 module.exports = router;

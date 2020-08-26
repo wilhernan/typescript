@@ -10,3 +10,4 @@ app_1.default.listen(app_1.default.get('port'), (error) => {
         return console.log(`Error: ${error}`);
     console.log(`Server on port`, app_1.default.get('port'));
 });
+exports.default = app_1.default;

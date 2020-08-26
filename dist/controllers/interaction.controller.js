@@ -14,7 +14,30 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.interactionController = void 0;
 const interaction_1 = __importDefault(require("../models/interaction"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const app_1 = __importDefault(require("../app"));
 class InteractionController {
+    userAutentication(req, res) {
+        let username = req.body.user;
+        let password = req.body.password;
+        if (username === "wilhernan" && password === "777") {
+            let playload = {
+                check: true
+            };
+            let token = jsonwebtoken_1.default.sign(playload, app_1.default.get('jwtSecret'), {
+                expiresIn: 1440
+            });
+            res.json({
+                message: 'Correct Autentication!!',
+                token: token
+            });
+        }
+        else {
+            res.status(401).send({
+                error: 'Username or Password invalid'
+            });
+        }
+    }
     findAllInteractions(req, res) {
         interaction_1.default.find(function (error, interactions) {
             return __awaiter(this, void 0, void 0, function* () {
@@ -92,7 +115,7 @@ class InteractionController {
     }
     updateInteraction(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { CreatedOn, InteractionID, Campaign, TrafficSource, LandingPage, Rotation, affiliate, Rule, RuleFilter, RuleShedule, Visitor: { Tokens: { name, parameter, value, id }, ip_address, geo_location: { country_name, region_name, city_name, coords, isp, organization, connection_type }, device: { userAgent, browser, OS: { family, version, vendor }, type, hardware: { model } }, incomming_url }, Offers, Revenue, hasConversion, TrafficSourceClickID, CPC, MediaBuyerFirstName, MediaBuyerLlastName, server_region, } = req.body;
+            const { CreatedOn, InteractionID, Campaign, TrafficSource, LandingPage, Rotation, affiliate, Rule, RuleFilter, RuleShedule, Visitor: { Tokens: { name, parameter, value, id }, ip_address, geo_location: { country_name, region_name, city_name, coords: { time_zone }, isp, organization, connection_type }, device: { userAgent, browser, OS: { family, version, vendor }, type, hardware: { model } }, incomming_url }, Offers, Revenue, hasConversion, TrafficSourceClickID, CPC, MediaBuyerFirstName, MediaBuyerLlastName, server_region, } = req.body;
             yield interaction_1.default.findByIdAndUpdate(req.params.id, {
                 CreatedOn,
                 InteractionID,
@@ -109,7 +132,7 @@ class InteractionController {
                     },
                     ip_address,
                     geo_location: {
-                        country_name, region_name, city_name, coords, isp, organization, connection_type
+                        country_name, region_name, city_name, coords: { time_zone }, isp, organization, connection_type
                     },
                     device: {
                         userAgent, browser, OS: { family, version, vendor }, type, hardware: { model }
