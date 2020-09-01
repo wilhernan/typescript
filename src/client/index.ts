@@ -90,7 +90,7 @@ fetch('/interactions')
     .then(interactions => { 
         interactionsArray = interactions;                     
         updateInteractionsTable(interactions);                   
-    });
+});
 
 function updateInteractionsData(interaction){         
     interactionsArray = interactionsArray.map((interactionObject) => { 

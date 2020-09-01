@@ -1,34 +1,9 @@
 import { Request, Response } from 'express';
 import InteractionModel, { Interaction } from '../models/interaction';
-import jwt from "jsonwebtoken";
-import app from '../app';
 
 
 class InteractionController {
 
-    public userAutentication(req: Request, res: Response){
-        let username = req.body.user; 
-        let password = req.body.password;
-
-        if (username === "wilhernan" && password === "777"){
-            let playload = {
-                check: true
-            };
-            let token = jwt.sign(playload, app.get('jwtSecret'), {
-                expiresIn: 1440
-            });            
-            res.json({
-                message: 'Correct Autentication!!',
-                token: token
-            });
-        }else {
-            res.status(401).send({
-                error: 'Username or Password invalid'
-            })
-        } 
-        
-    }
-    
     public  findAllInteractions(req: Request, res: Response){        
         InteractionModel.find(async function(error, interactions){
             try {

@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const interaction_controller_1 = require("../controllers/interaction.controller");
+const user_controller_1 = require("../controllers/user.controller");
 const router = express_1.Router();
 router.get('/', (req, res) => {
     res.render('index', { title: 'Reporte Interactions' });
@@ -11,5 +12,10 @@ router.post('/interactions', interaction_controller_1.interactionController.addI
 router.get('/interactions/:id', interaction_controller_1.interactionController.findById);
 router.put('/interactions/:id', interaction_controller_1.interactionController.updateInteraction);
 router.delete('/interactions/:id', interaction_controller_1.interactionController.deleteInteraction);
-router.post('/user', interaction_controller_1.interactionController.userAutentication);
+router.post('/authenticate', user_controller_1.userController.userAutentication);
+router.post('/register', user_controller_1.userController.userRegister);
+router.get('/user', user_controller_1.userController.getAll);
+router.get('/user/:id', user_controller_1.userController.getById);
+router.put('/user/:id', user_controller_1.userController.update);
+router.delete('/user/:id', user_controller_1.userController._delete);
 module.exports = router;

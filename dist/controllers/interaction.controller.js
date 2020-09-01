@@ -14,30 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.interactionController = void 0;
 const interaction_1 = __importDefault(require("../models/interaction"));
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const app_1 = __importDefault(require("../app"));
 class InteractionController {
-    userAutentication(req, res) {
-        let username = req.body.user;
-        let password = req.body.password;
-        if (username === "wilhernan" && password === "777") {
-            let playload = {
-                check: true
-            };
-            let token = jsonwebtoken_1.default.sign(playload, app_1.default.get('jwtSecret'), {
-                expiresIn: 1440
-            });
-            res.json({
-                message: 'Correct Autentication!!',
-                token: token
-            });
-        }
-        else {
-            res.status(401).send({
-                error: 'Username or Password invalid'
-            });
-        }
-    }
     findAllInteractions(req, res) {
         interaction_1.default.find(function (error, interactions) {
             return __awaiter(this, void 0, void 0, function* () {
