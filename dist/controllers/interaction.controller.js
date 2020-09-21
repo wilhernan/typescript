@@ -14,19 +14,31 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.interactionController = void 0;
 const interaction_1 = __importDefault(require("../models/interaction"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const config_1 = __importDefault(require("../config/config"));
 class InteractionController {
     findAllInteractions(req, res) {
-        interaction_1.default.find(function (error, interactions) {
-            return __awaiter(this, void 0, void 0, function* () {
-                try {
-                    console.log('GET /interactions');
-                    res.status(200).jsonp(interactions);
-                }
-                catch (error) {
-                    res.status(500).send(error.message);
-                }
-            });
-        }).lean();
+        console.log(req.token);
+        jsonwebtoken_1.default.verify(req.token, config_1.default.jwtSecret, (err, authorizateData) => {
+            if (err) {
+                console.log('ERROR: Could not connect to the protected route');
+                res.sendStatus(403);
+            }
+            else {
+                console.log('SUCCESS: Connected to protected route');
+                interaction_1.default.find(function (error, interactions) {
+                    return __awaiter(this, void 0, void 0, function* () {
+                        try {
+                            console.log('GET /interactions');
+                            res.status(200).jsonp(interactions);
+                        }
+                        catch (error) {
+                            res.status(500).send(error.message);
+                        }
+                    });
+                }).lean();
+            }
+        });
     }
     findById(req, res) {
         interaction_1.default.findById(req.params.id, function (error, interaction) {

@@ -1,18 +1,29 @@
 import { Request, Response } from 'express';
 import InteractionModel, { Interaction } from '../models/interaction';
+import jwt from 'jsonwebtoken'
+import config from '../config/config';
 
 
 class InteractionController {
 
-    public  findAllInteractions(req: Request, res: Response){        
-        InteractionModel.find(async function(error, interactions){
-            try {
-                console.log('GET /interactions')
-                res.status(200).jsonp(interactions);
-            } catch (error) {
-                res.status(500).send(error.message); 
-            }                           
-        }).lean();
+    public  findAllInteractions(req: Request, res: Response){      
+        console.log(req.token); 
+        jwt.verify(req.token, config.jwtSecret, (err, authorizateData) => {
+            if(err){
+                console.log('ERROR: Could not connect to the protected route');
+                res.sendStatus(403);
+            }else{
+                console.log('SUCCESS: Connected to protected route');
+                InteractionModel.find(async function(error, interactions){
+                try {
+                    console.log('GET /interactions')
+                    res.status(200).jsonp(interactions);
+                } catch (error) {
+                    res.status(500).send(error.message); 
+                }                           
+                }).lean();        
+            }
+        })
     }                      
     
 

@@ -12,29 +12,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const config_1 = __importDefault(require("./config/config"));
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const users_1 = __importDefault(require("./models/users"));
-function authenticate({ email, password }) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const user = yield users_1.default.findOne({ email });
-        if (user && bcryptjs_1.default.compareSync(password, user.password)) {
-            const token = jsonwebtoken_1.default.sign({ sub: user.id }, config_1.default.jwtSecret, { expiresIn: '7d' });
-            return Object.assign(Object.assign({}, user.toJSON()), { token });
-        }
-    });
-}
-function getAll() {
-    return __awaiter(this, void 0, void 0, function* () {
-        return yield users_1.default.find();
-    });
-}
-function getById(id) {
-    return __awaiter(this, void 0, void 0, function* () {
-        return yield users_1.default.findById(id);
-    });
-}
 function create(userParam) {
     return __awaiter(this, void 0, void 0, function* () {
         console.log(userParam);
@@ -65,16 +44,13 @@ function update(id, userParam) {
         return user.toJSON();
     });
 }
-function _delete(id) {
+function getById(id) {
     return __awaiter(this, void 0, void 0, function* () {
-        yield users_1.default.findByIdAndRemove(id);
+        return yield users_1.default.findById(id);
     });
 }
 exports.default = {
-    authenticate,
-    getAll,
-    getById,
     create,
     update,
-    delete: _delete
+    getById
 };

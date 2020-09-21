@@ -19,8 +19,10 @@ function jwt() {
     const secret = config_1.default.jwtSecret;
     return express_jwt_1.default({ secret, algorithms: ['HS256'], isRevoked }).unless({
         path: [
-            '/authenticate',
-            '/register'
+            '/user',
+            '/signin',
+            '/signup',
+            '/client/index.js'
         ]
     });
 }

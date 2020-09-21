@@ -1,3 +1,4 @@
+
 interface Interaction {   
     CreatedOn:string,
     InteractionID:string,
@@ -74,23 +75,79 @@ interface Interaction {
 }
 
 let interactionsArray = [];
-let add = document.getElementById('adicionar');
-let Revenue = (document.getElementById('Revenue') as HTMLInputElement).value;
+let login = document.getElementById('login');
+let add = document.getElementById('add');
 let edit = document.getElementById('update');
-let tbody = (document.querySelector('#tBody'));
-let Converted = false    
-    if ( Revenue > 0) {
-        Converted = true
-    };
+let tbody = document.querySelector('#tBody');
 
-fetch('/interactions')
-    .then(function(response){
-        return response.json();
+
+login.addEventListener('click', function loginUser(){
+    try {      
+        const data = loadUser();
+        const options = {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Cache-Control': 'no-cache'
+            },
+            body: JSON.stringify(data),
+            credentials: 'include'
+        };
+        fetch('/signin', options) 
+        .then (res  => {
+            res.json()
+        })
+        .then(json => {  
+            console.log(json)  
+        })   
+        .then(fetchInteractions)     
+        .catch(err => { console.log(err) });
+        
+    }catch (error) {
+        alert(error.message);
+        console.error('Error', error)
+    } 
+})
+
+function removeLogin() {
+    login.style.display = 'none'
+}
+
+function fetchInteractions() {
+
+    /* let key = 'token';
+    function getCookie(key) {
+    let keyValue = document.cookie.match(new RegExp(
+        "(?:^|; )" + key.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+        return keyValue ? decodeURIComponent(keyValue[1]) : undefined;
+    } */ 
+    let cookie = document.cookie.split(';').map(cookie => cookie.split('='));;       
+    let authToken = cookie[0][1]
+    console.log(authToken);
+    return fetch('/authenticate', {
+        method: 'GET',
+        headers: {
+        'Authorization': 'Bearer' + authToken
+        },
+        credentials: 'include'
     })
+    .then(res => res.json())
     .then(interactions => { 
-        interactionsArray = interactions;                     
-        updateInteractionsTable(interactions);                   
-});
+        interactionsArray = interactions; 
+        updateInteractionsTable(interactions); 
+    })
+    .catch(err => { console.log(err) })     
+}
+
+function loadUser() {
+    let user = {
+        email: (document.getElementById('email') as HTMLInputElement).value,
+        password: (document.getElementById('password') as HTMLInputElement).value
+    }
+    return user;
+}
 
 function updateInteractionsData(interaction){         
     interactionsArray = interactionsArray.map((interactionObject) => { 
@@ -161,29 +218,6 @@ function deleteInteractionData(interaction){
     updateInteractionsTable(interactionsArray) 
 }
 
-document.addEventListener('click', async function editAndDelete(e){          
-    let target = e.target as HTMLButtonElement; 
-    const buttonTypes = {'deleteButton btn btn-danger btn-sm': 'delete', 'editButton btn btn-primary btn-sm': 'edit' }
-    const buttontype = target && buttonTypes[target.className]
-    let interactionID = target.closest('tr').getAttribute('id'); 
-    switch(buttontype) {
-        case 'delete': 
-            if(!confirm('Are you sure you want to delete it?')){
-                return false
-            } else {
-                deleteInteraction(interactionID)
-            }   
-            break;
-        case 'edit': 
-            (document.getElementById('update')as HTMLButtonElement).removeAttribute('disabled');
-            (document.getElementById('adicionar')as HTMLButtonElement).disabled = true;
-            editInteraction(interactionID)
-            break;
-        default:
-            (document.getElementById('myForm') as HTMLFormElement).reset();
-      }
-}) 
-
 async function deleteInteraction(interactionID){
     try {        
         let response = await fetch('/interactions/'+interactionID, { method: 'DELETE'})
@@ -210,6 +244,11 @@ async function editInteraction(interactionID){
 
 
 function updateFormInputs(Interaction) {  
+    let Revenue: Number = (document.getElementById('Revenue') as HTMLInputElement).value;
+    let Converted = false    
+    if ( Revenue > 0) {
+        Converted = true
+    };
     (document.getElementById("update") as HTMLButtonElement).attributes.item = Interaction._id;  
     (document.getElementById("CreatedOn") as HTMLInputElement).value = Interaction.CreatedOn;
     (document.getElementById("InteractionID")as HTMLInputElement).value  = Interaction.InteractionID;
@@ -250,28 +289,55 @@ function updateFormInputs(Interaction) {
     (document.getElementById("Revenue")as HTMLInputElement).value  = Interaction.Offers.conversion.amount;
 }
 
-add.addEventListener("click", async function addInteraction(){   
-    try {
-        const data = initializeInteraction();
-        const options = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        };
-        let response = await fetch('/interactions', options)
-            const interaction: Interaction = await response.json();
-            console.log('Success:', interaction);
-            interactionsArray.push(interaction); 
-            updateInteractionsTable(interactionsArray);
-            (document.getElementById('myForm') as HTMLFormElement).reset();
-    }catch (error) {
-        alert(error.message);
-        console.error('Error', error)
-    } 
-})
+if(add !== null){
 
+    document.addEventListener('click', async function editAndDelete(e){          
+        let target = e.target as HTMLButtonElement; 
+        const buttonTypes = {'deleteButton btn btn-danger btn-sm': 'delete', 'editButton btn btn-primary btn-sm': 'edit' }
+        const buttontype = target && buttonTypes[target.className]
+        let interactionID = target.closest('tr').getAttribute('id'); 
+        switch(buttontype) {
+            case 'delete': 
+                if(!confirm('Are you sure you want to delete it?')){
+                    return false
+                } else {
+                    deleteInteraction(interactionID)
+                }   
+                break;
+            case 'edit': 
+                (document.getElementById('update')as HTMLButtonElement).removeAttribute('disabled');
+                (document.getElementById('adicionar')as HTMLButtonElement).disabled = true;
+                editInteraction(interactionID)
+                break;
+            default:
+                (document.getElementById('myForm') as HTMLFormElement).reset();
+          }
+    }) 
+
+    add.addEventListener("click", async function addInteraction(){   
+        try {
+            const data = initializeInteraction();
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            };
+            let response = await fetch('/interactions', options)
+                const interaction: Interaction = await response.json();
+                console.log('Success:', interaction);
+                interactionsArray.push(interaction); 
+                updateInteractionsTable(interactionsArray);
+                (document.getElementById('myForm') as HTMLFormElement).reset();
+        }catch (error) {
+            alert(error.message);
+            console.error('Error', error)
+        } 
+    })
+}
+
+if(edit !== null){
 edit.addEventListener("click", async function updateInteraction(){    
     try {
     const data = initializeInteraction();
@@ -294,6 +360,7 @@ edit.addEventListener("click", async function updateInteraction(){
     (document.getElementById('update')as HTMLButtonElement).disabled = true;
     (document.getElementById('adicionar')as HTMLButtonElement).removeAttribute('disabled');    
 })   
+}
 
 function initializeInteraction(){    
     let newInteraction;

@@ -6,7 +6,7 @@ import morgan from "morgan";
 import methodOverride from "method-override"; 
 import jwt from "./middleware/jwt"
 import errorHandler from "./middleware/errorHandler"
-import config from "./config/config";
+import cookieParser from "cookie-parser"
 
 const app = express();
 
@@ -26,6 +26,7 @@ app.use(morgan('dev'));
 app.use(methodOverride('_method'));
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());   
+app.use(cookieParser());
 app.use(jwt()); 
 
 app.use('/',  require('./routes/interactions'));            

@@ -35,27 +35,76 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 var interactionsArray = [];
-var add = document.getElementById('adicionar');
-var Revenue = document.getElementById('Revenue').value;
+var login = document.getElementById('login');
+var add = document.getElementById('add');
 var edit = document.getElementById('update');
-var tbody = (document.querySelector('#tBody'));
-var Converted = false;
-if (Revenue > 0) {
-    Converted = true;
-}
-;
-fetch('/interactions')
-    .then(function (response) {
-    return response.json();
-})
-    .then(function (interactions) {
-    interactionsArray = interactions;
-    updateInteractionsTable(interactions);
+var tbody = document.querySelector('#tBody');
+login.addEventListener('click', function loginUser() {
+    try {
+        var data = loadUser();
+        var options = {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Cache-Control': 'no-cache'
+            },
+            body: JSON.stringify(data),
+            credentials: 'include'
+        };
+        fetch('/signin', options)
+            .then(function (res) {
+            res.json();
+        })
+            .then(function (json) {
+            console.log(json);
+        })
+            .then(fetchInteractions)["catch"](function (err) { console.log(err); });
+    }
+    catch (error) {
+        alert(error.message);
+        console.error('Error', error);
+    }
 });
+function removeLogin() {
+    login.style.display = 'none';
+}
+function fetchInteractions() {
+    /* let key = 'token';
+    function getCookie(key) {
+    let keyValue = document.cookie.match(new RegExp(
+        "(?:^|; )" + key.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+        return keyValue ? decodeURIComponent(keyValue[1]) : undefined;
+    } */
+    var cookie = document.cookie.split(';').map(function (cookie) { return cookie.split('='); });
+    ;
+    var authToken = cookie[0][1];
+    console.log(authToken);
+    return fetch('/authenticate', {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer' + authToken
+        },
+        credentials: 'include'
+    })
+        .then(function (res) { return res.json(); })
+        .then(function (interactions) {
+        interactionsArray = interactions;
+        updateInteractionsTable(interactions);
+    })["catch"](function (err) { console.log(err); });
+}
+function loadUser() {
+    var user = {
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value
+    };
+    return user;
+}
 function updateInteractionsData(interaction) {
     interactionsArray = interactionsArray.map(function (interactionObject) {
         if (interactionObject._id === interaction._id) {
-            return interactionObject = interaction;
+            return interaction;
         }
         else {
             return interactionObject;
@@ -73,35 +122,6 @@ function deleteInteractionData(interaction) {
     interactionsArray = interactionsArray.filter(function (interactionObject) { return interactionObject._id != interaction.interaction._id; });
     updateInteractionsTable(interactionsArray);
 }
-document.addEventListener('click', function editAndDelete(e) {
-    return __awaiter(this, void 0, void 0, function () {
-        var target, buttonTypes, buttontype, interactionID;
-        return __generator(this, function (_a) {
-            target = e.target;
-            buttonTypes = { 'deleteButton btn btn-danger btn-sm': 'delete', 'editButton btn btn-primary btn-sm': 'edit' };
-            buttontype = target && buttonTypes[target.className];
-            interactionID = target.closest('tr').getAttribute('id');
-            switch (buttontype) {
-                case 'delete':
-                    if (!confirm('Are you sure you want to delete it?')) {
-                        return [2 /*return*/, false];
-                    }
-                    else {
-                        deleteInteraction(interactionID);
-                    }
-                    break;
-                case 'edit':
-                    document.getElementById('update').removeAttribute('disabled');
-                    document.getElementById('adicionar').disabled = true;
-                    editInteraction(interactionID);
-                    break;
-                default:
-                    document.getElementById('myForm').reset();
-            }
-            return [2 /*return*/];
-        });
-    });
-});
 function deleteInteraction(interactionID) {
     return __awaiter(this, void 0, void 0, function () {
         var response, interaction, error_1;
@@ -155,6 +175,12 @@ function editInteraction(interactionID) {
     });
 }
 function updateFormInputs(Interaction) {
+    var Revenue = document.getElementById('Revenue').value;
+    var Converted = false;
+    if (Revenue > 0) {
+        Converted = true;
+    }
+    ;
     document.getElementById("update").attributes.item = Interaction._id;
     document.getElementById("CreatedOn").value = Interaction.CreatedOn;
     document.getElementById("InteractionID").value = Interaction.InteractionID;
@@ -194,80 +220,113 @@ function updateFormInputs(Interaction) {
     document.getElementById("ServerBy").value = Interaction.server_region;
     document.getElementById("Revenue").value = Interaction.Offers.conversion.amount;
 }
-add.addEventListener("click", function addInteraction() {
-    return __awaiter(this, void 0, void 0, function () {
-        var data, options, response, interaction, error_3;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 3, , 4]);
-                    data = initializeInteraction();
-                    options = {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(data)
-                    };
-                    return [4 /*yield*/, fetch('/interactions', options)];
-                case 1:
-                    response = _a.sent();
-                    return [4 /*yield*/, response.json()];
-                case 2:
-                    interaction = _a.sent();
-                    console.log('Success:', interaction);
-                    interactionsArray.push(interaction);
-                    updateInteractionsTable(interactionsArray);
-                    document.getElementById('myForm').reset();
-                    return [3 /*break*/, 4];
-                case 3:
-                    error_3 = _a.sent();
-                    alert(error_3.message);
-                    console.error('Error', error_3);
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
-            }
+if (add !== null) {
+    document.addEventListener('click', function editAndDelete(e) {
+        return __awaiter(this, void 0, void 0, function () {
+            var target, buttonTypes, buttontype, interactionID;
+            return __generator(this, function (_a) {
+                target = e.target;
+                buttonTypes = { 'deleteButton btn btn-danger btn-sm': 'delete', 'editButton btn btn-primary btn-sm': 'edit' };
+                buttontype = target && buttonTypes[target.className];
+                interactionID = target.closest('tr').getAttribute('id');
+                switch (buttontype) {
+                    case 'delete':
+                        if (!confirm('Are you sure you want to delete it?')) {
+                            return [2 /*return*/, false];
+                        }
+                        else {
+                            deleteInteraction(interactionID);
+                        }
+                        break;
+                    case 'edit':
+                        document.getElementById('update').removeAttribute('disabled');
+                        document.getElementById('adicionar').disabled = true;
+                        editInteraction(interactionID);
+                        break;
+                    default:
+                        document.getElementById('myForm').reset();
+                }
+                return [2 /*return*/];
+            });
         });
     });
-});
-edit.addEventListener("click", function updateInteraction() {
-    return __awaiter(this, void 0, void 0, function () {
-        var data, options, response, interaction, error_4;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 3, , 4]);
-                    data = initializeInteraction();
-                    options = {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(data)
-                    };
-                    return [4 /*yield*/, fetch('/interactions/' + data._id, options)];
-                case 1:
-                    response = _a.sent();
-                    return [4 /*yield*/, response.json()];
-                case 2:
-                    interaction = _a.sent();
-                    console.log('Success:', interaction);
-                    updateInteractionsData(interaction);
-                    document.getElementById('myForm').reset();
-                    return [3 /*break*/, 4];
-                case 3:
-                    error_4 = _a.sent();
-                    alert(error_4.message);
-                    console.error('Error', error_4);
-                    return [3 /*break*/, 4];
-                case 4:
-                    document.getElementById('update').disabled = true;
-                    document.getElementById('adicionar').removeAttribute('disabled');
-                    return [2 /*return*/];
-            }
+    add.addEventListener("click", function addInteraction() {
+        return __awaiter(this, void 0, void 0, function () {
+            var data, options, response, interaction, error_3;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        data = initializeInteraction();
+                        options = {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(data)
+                        };
+                        return [4 /*yield*/, fetch('/interactions', options)];
+                    case 1:
+                        response = _a.sent();
+                        return [4 /*yield*/, response.json()];
+                    case 2:
+                        interaction = _a.sent();
+                        console.log('Success:', interaction);
+                        interactionsArray.push(interaction);
+                        updateInteractionsTable(interactionsArray);
+                        document.getElementById('myForm').reset();
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_3 = _a.sent();
+                        alert(error_3.message);
+                        console.error('Error', error_3);
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
+                }
+            });
         });
     });
-});
+}
+if (edit !== null) {
+    edit.addEventListener("click", function updateInteraction() {
+        return __awaiter(this, void 0, void 0, function () {
+            var data, options, response, interaction, error_4;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        data = initializeInteraction();
+                        options = {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(data)
+                        };
+                        return [4 /*yield*/, fetch('/interactions/' + data._id, options)];
+                    case 1:
+                        response = _a.sent();
+                        return [4 /*yield*/, response.json()];
+                    case 2:
+                        interaction = _a.sent();
+                        console.log('Success:', interaction);
+                        updateInteractionsData(interaction);
+                        document.getElementById('myForm').reset();
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_4 = _a.sent();
+                        alert(error_4.message);
+                        console.error('Error', error_4);
+                        return [3 /*break*/, 4];
+                    case 4:
+                        document.getElementById('update').disabled = true;
+                        document.getElementById('adicionar').removeAttribute('disabled');
+                        return [2 /*return*/];
+                }
+            });
+        });
+    });
+}
 function initializeInteraction() {
     var newInteraction;
     newInteraction = {

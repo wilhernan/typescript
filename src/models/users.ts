@@ -1,4 +1,5 @@
 import {Schema, model} from 'mongoose'
+import validator from 'validator'
 
 var uniqueValidator = require('mongoose-unique-Validator');
 
@@ -11,8 +12,9 @@ const userSchema = new Schema({
     email: {
         type: String,
         unique: true,
-        required: [true, 'The email is required']
-    },
+        required: [true, 'The email is required'],
+        validate: [validator.isEmail, 'Invalid Email address']
+    }, 
     password: {
         type: String,
         required: [true, 'The password is required']

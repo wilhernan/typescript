@@ -1,26 +1,6 @@
-import config from './config/config';
-import jwt from 'jsonwebtoken';
+
 import bcrypt from 'bcryptjs';
 import User from './models/users';
-
-async function authenticate({ email, password }) {
-    const user = await User.findOne({ email });
-    if (user && bcrypt.compareSync(password, user.password)) {
-        const token = jwt.sign({ sub: user.id }, config.jwtSecret, { expiresIn: '7d' });
-        return {
-            ...user.toJSON(),
-            token
-        };
-    }
-}
-
-async function getAll() {
-    return await User.find();
-}
-
-async function getById(id) {
-    return await User.findById(id);
-}
 
 async function create(userParam: any) {
     console.log(userParam);
@@ -56,15 +36,12 @@ async function update(id, userParam) {
     return user.toJSON();
 }
 
-async function _delete(id: any) {
-    await User.findByIdAndRemove(id);
+async function getById(id) {
+    return await User.findById(id);
 }
 
 export default { 
-        authenticate,
-        getAll,
-        getById,
         create,
         update,
-        delete: _delete
+        getById
  };
